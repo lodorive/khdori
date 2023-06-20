@@ -16,5 +16,16 @@ public class Test08 {
 		//int d = 10000000000;
 		long e = 10000000000000L; //long은 표시를 해야한다
 		System.out.println(e);
+		
+		//[4] 정수는 순환형 구조를 가진다
+		//int f = 1234567 * 1234567;
+		long f = 1234567L * 1234567L;
+		System.out.println(f);
+		
+		//[5] (중요) 정수끼리 계산하면 정수가 나온다
+		int v1 = 10;
+		int v2 = 3;
+		System.out.println(v1 / v2); //몫
+		System.out.println(v1 % v2); //나머지
 	}
 }
