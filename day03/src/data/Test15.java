@@ -15,7 +15,6 @@ public class Test15 {
 		int discount = price * rate / 100; //할인 금액
 		int result = price - discount; //총비용-할인금액
 		//int result = price * 75 / 100; 
-	
 		
 		//출력
 		System.out.println(result);
