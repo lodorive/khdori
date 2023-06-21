@@ -2,17 +2,19 @@ package data;
 
 public class Test12 {
 	public static void main(String[] args) {
+		//1+1 판매 문제
 		
 		//입력
-		int gimbapPrice = 1400;
-		int gimbapCount = 5;
+		int price = 1400;
+		int count = 5;
 		
-		int gimbapEvert = gimbapCount / 2;
+		//계산
+		int free = count / 2; //무료개수
+		int pay = count - free; //유료개수
+		int total = price * pay;
 		
-		int gimbapFree = gimbapCount - gimbapEvert;
-		int totalPrice = gimbapFree * gimbapPrice;
-
-		System.out.println(gimbapEvert);
-		System.out.println(totalPrice);
+		//출력
+		System.out.println(free);
+		System.out.println(total);
 	}
 }
