@@ -10,7 +10,7 @@ public class Test01 {
 		boolean b = false;
 		
 		//[Q]주머니에 2만원이 있다. 피라가 18000원 일 때 주문이 가능한가?
-		int money = 15000;
+		int money = 20000;
 		int pizza = 18000;
 		
 		boolean order = money >= pizza;
