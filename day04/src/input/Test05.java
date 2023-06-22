@@ -31,6 +31,7 @@ public class Test05 {
 		int disCount = total * rate / 100;		
 		int result = total - disCount;
 		
+		//출력
 		System.out.println();
 		System.out.println("<결제 정보>");
 		System.out.println("결제 금액은 " + total + " 원 입니다");
