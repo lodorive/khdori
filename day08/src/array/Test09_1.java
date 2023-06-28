@@ -18,5 +18,6 @@ public class Test09_1 {
 		for(int i = 0; i<countList.length; i++) {
 		System.out.println((i+1)+" 나온 횟수 : "+countList[i]);
 		}
+		
 	}
 }
