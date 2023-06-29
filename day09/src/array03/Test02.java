@@ -4,7 +4,7 @@ public class Test02 {
 	public static void main(String[] args) {
 		//2차원 배열의 생성과 사용
 		
-		int[][]score = new int[2][3];{
+		int[][]score = new int[2][3];
 		
 		//score ---> score[0] ---> [ 0 ][ 0 ][ 0 ]
 		//		   ---> score[1]  ---> [ 0 ][ 0 ][ 0 ]
@@ -22,6 +22,6 @@ public class Test02 {
 		System.out.println(score[1][0]);
 		System.out.println(score[1][1]);
 		System.out.println(score[1][2]);
-		}
+
 	}
 }
