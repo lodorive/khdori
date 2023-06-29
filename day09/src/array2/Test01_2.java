@@ -9,7 +9,7 @@ public class Test01_2 {
 		int[] data = new int[] {10,20,50,30,40};
 		
 		//선택 정렬 - 3회차(+2부터 +4지점에서 최소값을 찾아 +1지점과 교체)
-		int minIndex = 2; // 1번 위치의 값이 제일 작다고 생각(0~3)
+		int minIndex = 2; // 2번 위치의 값이 제일 작다고 생각(0~3)
 		
 		for(int i = 3; i<=4; i++) {//뒤에 있는 데이터와 비교하여
 			if(data[minIndex] > data[i]) {//더 작은 값이 있다면
