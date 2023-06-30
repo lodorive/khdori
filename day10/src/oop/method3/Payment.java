@@ -1,4 +1,4 @@
-package oop.method5;
+package oop.method3;
 
 public class Payment {
 	
