@@ -67,7 +67,6 @@ public class Robot {
 		for(int i = 0; i<data.length; i++) {
 		//[i]과 <---> [0~4] 
 		int index = r.nextInt(data.length);
-		System.out.println("index = "+index);
 
 		if(i == index) {
 			i--;
