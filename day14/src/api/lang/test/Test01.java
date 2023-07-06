@@ -1,4 +1,4 @@
-package api.lang.test1;
+package api.lang.test;
 
 public class Test01 {
 	public static void main(String[] args) {
