@@ -31,6 +31,5 @@ public class Test01 {
 		else {
 			laptop.typing();
 		}
-		
 	}	
 }
