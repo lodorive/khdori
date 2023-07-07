@@ -1,7 +1,5 @@
 package api.lang.string2;
 
-import java.util.regex.Pattern;
-
 public class Test03 {
 	public static void main(String[] args) {
 		//사용자에게 휴대전화번호를 입력받아 유효한지 아닌지 판정하여 출력
