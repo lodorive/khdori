@@ -13,7 +13,7 @@ public class Test02_2 {
 		for(int i=0; i<1000000; i++) {
 			buffer.append("*");
 		}
-		String star = buffer.toString();
+		String star = buffer.toString(); 
 		
 		long finish = System.currentTimeMillis(); //측정 완료
 		
