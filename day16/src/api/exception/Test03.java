@@ -27,11 +27,12 @@ public class Test03 {
 		
 		catch(StringIndexOutOfBoundsException e){ 
 			//입력 길이가 짧을 때
-			System.out.println("입력값이 너무 짧습니다");
+			System.err.println("입력값이 너무 짧습니다");
 		}
 		catch(NumberFormatException e) {
 			//숫자 변환이 안될 때
-			System.out.println("올바른 숫자가 입력되지 않았습니다");
+			System.err.println("올바른 숫자가 입력되지 않았습니다");
 		}
+		
 	}
 }
