@@ -24,6 +24,9 @@ public class Test06_1 {
 		else if(given.charAt(given.length()-1) != input.charAt(0)){
 			break;
 		}
+		else if(history.contains(input)) {
+			break;
+		}
 		else {
 			System.out.println("통과");
 			history.add(input);
