@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.Set;
 
 public class Test06 {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -24,6 +23,6 @@ public class Test06 {
 		
 		System.out.println("name = "+st.getName());
 		System.out.println("score = "+st.getScore());
-		
+	
 	}
 }
