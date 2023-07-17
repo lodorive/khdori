@@ -16,22 +16,20 @@ public class Test02 {
 		//Date date = new Date();
 		
 		Random r = new Random();
-		
 		Set<Integer> lotto = new TreeSet<>();
-		while(lotto.size()<6) {
-			lotto.add(r.nextInt(45)+1);
+		while(lotto.size() < 6) {
+			lotto.add(r.nextInt(45) + 1);
 		}
-		
-		//List<Integer> lotto = List.of(r.nextInt(45)+1);
-		
+
+		//출력
 		File target = new File("sample/lotto.kh");
-		
+
 		FileOutputStream stream = new FileOutputStream(target);
 		BufferedOutputStream buffer = new BufferedOutputStream(stream);
 		ObjectOutputStream obj = new ObjectOutputStream(buffer);
-		
+
 		obj.writeObject(lotto);
-		
+
 		obj.close();
 	}
 }
