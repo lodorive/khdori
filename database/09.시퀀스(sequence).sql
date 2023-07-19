@@ -9,6 +9,7 @@
 	drop sequence 이름;
 	select * from user_sequence;
 */
+
 drop table item;
 create table item(
 item_no number primary key,
