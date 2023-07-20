@@ -103,3 +103,28 @@ select * from product where to_char(made, 'yyyy') = '2020';
 select * from product where extract(year from made) = 2020;
 select * from product where made between to_date('2020-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') 
 and to_date('2020-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss');
+
+-- (Q) 여름(6,7,8)월에 생산한 상품 정보 조회
+select * from product where to_char(made, 'mm') in('06','07','08');
+select * from product where extract(month from made) in(6,7,8);
+select * from product where extract(month from made) between 6 and 8;
+
+-- (Q) 2019년 하반기에 생산한 상품 정보 조회
+select * from product where made  between to_date('2019-07-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') 
+and to_date('2019-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss');
+select * from product where to_char(made, 'yyyy-mm') in('2019-07','2019-08','2019-09','2019-10','2019-11','2019-12');
+select * from product where extract(year from made) = 2019 and extract(month from made) between 7 and 12;
+
+-- (Q) 2020년부터 현재까지 생상된 상품 조회
+select * from product where made between to_date('2020-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') 
+and sysdate;
+
+--(Q) 최근 1년간 생산한 상품 정보 조회
+-- 오라클 날짜는 기본 계산 단위가 (일) 이다
+-- 따라서 1년전은 sysdate - 365이다 
+-- select * from product where to_char(made,'yyyy-mm-dd') = add_months(sysdate,-12);
+select * from product where made between sysdate-365 and sysdate;
+
+-- (응용) 시간까지 고려(시작일 00시부터 종료일 23시 59분까지)
+select * from product where made between to_date(to_char(sysdate-365, 'yyyy-mm-dd') || ' ' || '00:00:00','yyyy-mm-dd hh24:mi:ss') 
+and to_date(to_char(sysdate,'yyyy-mm-dd')  || ' ' || '23:59:59','yyyy-mm-dd hh24:mi:ss');
