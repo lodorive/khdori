@@ -18,7 +18,7 @@ public class Test02 {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUsername("C##KH");
 		dataSource.setPassword("KH");
-		dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
+		dataSource.setDriverClassName("oracle.jdbc.OracleDriver"); //DB종류
 		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
 		
 		//[3] 구문 전송 도구 생성 및 전송
