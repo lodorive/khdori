@@ -39,5 +39,13 @@ public class BoardDao {
 			//return result > 0;
 			return jdbcTemplate.update(sql, data) >0;
 			}
-		}
+		
+		//삭제 기능
+		public boolean delete(int boardNo) {
+			String sql = "delete board where board_no=?";
+			Object[] data = {boardNo};
+			JdbcTemplate jdbcTemplate = JdbcUtils.getJdbcTemplate();
+			return jdbcTemplate.update(sql, data) >0;
+		}		
+	}
 
