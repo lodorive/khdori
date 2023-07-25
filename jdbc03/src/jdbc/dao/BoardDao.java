@@ -71,7 +71,7 @@ public class BoardDao {
 								+ "		select * from board order by board_no desc"
 								+ "	)TMP"
 								+ ") where rn between ? and ?";
-			Object[] data = {begin, end};			
+			Object[] data = {end, begin};			
 			JdbcTemplate jdbcTemplate = JdbcUtils.getJdbcTemplate();
 			return jdbcTemplate.query(sql, mapper, data);			
 		}
