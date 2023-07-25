@@ -58,4 +58,13 @@ public class BookDao {
 			return jdbcTemplate.query(sql, mapper);
 		}
 		
+		//조회(상세)
+		public BookDto selectOne(int bookId) {
+			String sql = "select * from book where book_id=?";
+			Object[] data = {bookId};
+			JdbcTemplate jdbcTemplate = JdbcUtils.getJdbcTemplate();
+			List<BookDto> list = jdbcTemplate.query(sql, mapper,data);
+			return list.isEmpty() ? null : list.get(0);
+		}
+		
 }
