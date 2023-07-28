@@ -24,5 +24,4 @@ public class MemberMapper implements RowMapper<MemberDto>{
 		dto.setMemberJoin(rs.getDate("member_join"));
 		return dto;
 	}
-
 }

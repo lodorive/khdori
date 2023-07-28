@@ -26,7 +26,6 @@ public class MemberController {
 		dao.insert(dto);
 		return "회원 등록 완료";
 	}
-	
 	//목록
 	@RequestMapping("/list")
 	public String list() {

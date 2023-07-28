@@ -63,7 +63,6 @@ public class MemberDao {
 		};
 		return jdbctemplate.update(sql, data) >0;
 	}
-	
 	//삭제
 	public boolean delete(String memberId) {
 		String sql = "delete member where member_id=?";
