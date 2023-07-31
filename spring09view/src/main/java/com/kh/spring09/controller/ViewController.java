@@ -14,8 +14,15 @@ public class ViewController {
 		return "/WEB-INF/views/hello.jsp";
 	}
 	
+	//헤드라인 태그
 	@RequestMapping("/heading")
 	public String heading() {
 		return "/WEB-INF/views/heading.jsp";
+	}
+	
+	//링크 배우기
+	@RequestMapping("/link")
+	public String link() {
+		return "/WEB-INF/views/link.jsp";
 	}
 }
