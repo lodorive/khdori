@@ -25,4 +25,10 @@ public class ViewController {
 	public String link() {
 		return "/WEB-INF/views/link.jsp";
 	}
+	
+	//이미지 다루기
+	@RequestMapping("/image")
+	public String image() {
+		return "/WEB-INF/views/image.jsp";
+	}
 }
