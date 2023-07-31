@@ -38,8 +38,14 @@ public class ViewController {
 		return "/WEB-INF/views/sns.jsp";
 	}
 	
+	//더미 이미지
 	@RequestMapping("/dummy")
 	public String dummy() {
 		return "/WEB-INF/views/dummy.jsp";
+	}
+	
+	@RequestMapping("/alt")
+	public String alt() {
+		return "/WEB-INF/views/alt.jsp";
 	}
 }
