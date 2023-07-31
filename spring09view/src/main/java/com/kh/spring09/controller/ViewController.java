@@ -14,4 +14,8 @@ public class ViewController {
 		return "/WEB-INF/views/hello.jsp";
 	}
 	
+	@RequestMapping("/heading")
+	public String heading() {
+		return "/WEB-INF/views/heading.jsp";
+	}
 }
