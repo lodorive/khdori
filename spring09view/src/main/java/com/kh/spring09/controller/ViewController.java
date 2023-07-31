@@ -31,4 +31,10 @@ public class ViewController {
 	public String image() {
 		return "/WEB-INF/views/image.jsp";
 	}
+	
+	//SNS로그인
+	@RequestMapping("/sns")
+	public String sns() {
+		return "/WEB-INF/views/sns.jsp";
+	}
 }
