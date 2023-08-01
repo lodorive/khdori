@@ -7,9 +7,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.kh.spring08.dto.MemberDto;
+
 @Component
 public class MemberMapper implements RowMapper<MemberDto>{
-
 	@Override
 	public MemberDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDto dto = new MemberDto();
@@ -17,8 +17,8 @@ public class MemberMapper implements RowMapper<MemberDto>{
 		dto.setMemberPw(rs.getString("member_pw"));
 		dto.setMemberNickname(rs.getString("member_nickname"));
 		dto.setMemberBirth(rs.getString("member_birth"));
-		dto.setMemberEmail(rs.getString("member_email"));
 		dto.setMemberContact(rs.getString("member_contact"));
+		dto.setMemberEmail(rs.getString("member_email"));
 		dto.setMemberLevel(rs.getString("member_level"));
 		dto.setMemberPoint(rs.getInt("member_point"));
 		dto.setMemberJoin(rs.getDate("member_join"));

@@ -6,17 +6,14 @@ public class MemberDto {
 	private String memberId;
 	private String memberPw;
 	private String memberNickname;
-	private String memberBirth;
 	private String memberEmail;
+	private String memberBirth;
 	private String memberContact;
 	private String memberLevel;
 	private int memberPoint;
 	private Date memberJoin;
-	@Override
-	public String toString() {
-		return "MemberDto [memberId=" + memberId + ", memberPw=" + memberPw + ", memberNickname=" + memberNickname
-				+ ", memberBirth=" + memberBirth + ", memberEmail=" + memberEmail + ", memberContact=" + memberContact
-				+ ", memberLevel=" + memberLevel + ", memberPoint=" + memberPoint + ", memberJoin=" + memberJoin + "]";
+	public MemberDto() {
+		super();
 	}
 	public String getMemberId() {
 		return memberId;
@@ -36,17 +33,17 @@ public class MemberDto {
 	public void setMemberNickname(String memberNickname) {
 		this.memberNickname = memberNickname;
 	}
-	public String getMemberBirth() {
-		return memberBirth;
-	}
-	public void setMemberBirth(String memberBirth) {
-		this.memberBirth = memberBirth;
-	}
 	public String getMemberEmail() {
 		return memberEmail;
 	}
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
+	}
+	public String getMemberBirth() {
+		return memberBirth;
+	}
+	public void setMemberBirth(String memberBirth) {
+		this.memberBirth = memberBirth;
 	}
 	public String getMemberContact() {
 		return memberContact;
@@ -69,10 +66,13 @@ public class MemberDto {
 	public Date getMemberJoin() {
 		return memberJoin;
 	}
-	public void setMemberJoin(Date date) {
-		this.memberJoin = date;
+	public void setMemberJoin(Date memberJoin) {
+		this.memberJoin = memberJoin;
 	}
-	public MemberDto() {
-		super();
+	@Override
+	public String toString() {
+		return "MemberDto [memberId=" + memberId + ", memberPw=" + memberPw + ", memberNickname=" + memberNickname
+				+ ", memberEmail=" + memberEmail + ", memberBirth=" + memberBirth + ", memberContact=" + memberContact
+				+ ", memberLevel=" + memberLevel + ", memberPoint=" + memberPoint + ", memberJoin=" + memberJoin + "]";
 	}
 }
