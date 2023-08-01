@@ -17,4 +17,13 @@ public class TableController {
 		return "/WEB-INF/views/table/test02.jsp";
 	}
 	
+	@RequestMapping("/test03")
+	public String test03() {
+		return "/WEB-INF/views/table/test03.jsp";
+	}
+	
+	@RequestMapping("/test04")
+	public String test04() {
+		return "/WEB-INF/views/table/test04.jsp";
+	}
 }
