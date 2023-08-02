@@ -1,5 +1,7 @@
 package com.kh.spring10.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,5 +27,13 @@ public class PocketmonController {
 		PocketmonDto dto = dao.selectOne(no);
 		model.addAttribute("dto", dto);
 		return "/WEB-INF/views/pocketmon/detail.jsp";
+	}
+	
+	//목록조회
+	@RequestMapping("/list")
+	public String list(Model model) {
+		List<PocketmonDto> list = dao.selectList();
+		model.addAttribute("list", list);
+		return "/WEB-INF/views/pocketmon/list.jsp";
 	}
 }
