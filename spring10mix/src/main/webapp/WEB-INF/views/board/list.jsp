@@ -11,6 +11,8 @@
 	<h1>자유 게시판</h1>
 	<h2>타인에 대한 비방은 경고 없이 삭제됩니다</h2>
 	
+	<h2><a href="write">글쓰기</a></h2>
+	
 	<table border="1" width="700">
 		<thead>
 			<tr>

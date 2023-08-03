@@ -22,12 +22,22 @@ public class BoardDao {
 	@Autowired
 	private BoardListMapper listMapper;
 	
+	//등록과 번호생성 기능
+	//select board_seq.nextval from dual
+	//insert into board(...) values(?,?,?,?,0)
+	
+	public int sequence() {
+		String sql = "select board_seq.nextval from dual";
+		return jdbctemplate.queryForObject(sql, int.class);
+		//return jdbctemplate.queryForObject(sql, integer.class);
+	}
+	
 	public void insert(BoardDto dto) {
 		String sql = "insert into board(board_no, board_title, board_content, "
-						+ "board_writer, board_readcount) "
-						+ "values(board_seq.nextval,?,?,?,0)";
-		Object[] data = {dto.getBoardTitle(), dto.getBoardContent(),
-							dto.getBoardWriter()};
+				+ "board_writer, board_readcount) values(?,?,?,?,0)";
+		Object[] data = {dto.getBoardNo(), dto.getBoardTitle(), 
+				dto.getBoardContent(), dto.getBoardWriter()
+				};
 		jdbctemplate.update(sql, data);
 	}
 	
