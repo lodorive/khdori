@@ -16,8 +16,12 @@
 	
 		<c:choose>
 			<c:when test="${dto != null}">
+				<h1>${dto.no}번 몬스터 정보</h1>
 				<h2>이름 : ${dto.name}</h2>
 				<h2>속성 : ${dto.type}</h2>
+				
+				<a href="edit?no=${dto.no}">정보 수정</a>
+				
 			</c:when>
 			<c:otherwise>
 				<h1>미안! 없나봐</h1>
