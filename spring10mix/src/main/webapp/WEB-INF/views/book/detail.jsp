@@ -55,9 +55,11 @@
 				<tr>
 				<th>페이지수</th> 
 				<td>${dto.bookPageCount}</td>	
-				<tr>	
+				</tr>	
+				<tr>
 				<th>장르</th>
 				<td>${dto.bookGenre}</td>
+				</tr>
 				</tbody>
 				</table>
 		</c:when>
@@ -65,6 +67,10 @@
 				<h1>찾으시는 도서가 없습니다</h1>
 		</c:otherwise>		
 		</c:choose>
-			<h2><a href="list">돌아오기</a></h2>
+		<c:if test="${dto != null}">
+		<a href="edit?bookId=${dto.bookId}">도서정보수정</a>
+		</c:if>
+		
+			<a href="list">돌아오기</a>
 	</body>
 </html>
