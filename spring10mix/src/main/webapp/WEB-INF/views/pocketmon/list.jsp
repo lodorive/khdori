@@ -9,6 +9,7 @@
 --%>
 
 <h1>포켓몬스터 목록</h1>
+<h2><a href="insert">신규등록</a></h2>
 
 <table border="1">
 	<thead>
@@ -26,7 +27,7 @@
 			<td>${dto.name}</td>
 			<td>${dto.type}</td>
 			<td>
-			<a href="detail?no=${dto.no}">Go</td>
+			<a href="detail?no=${dto.no}">Go</td>			
 			</a>	
 		</tr>
 		</c:forEach>
