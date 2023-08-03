@@ -65,5 +65,6 @@
 				<h1>찾으시는 도서가 없습니다</h1>
 		</c:otherwise>		
 		</c:choose>
+			<h2><a href="list">돌아오기</a></h2>
 	</body>
 </html>
