@@ -16,6 +16,6 @@
 		내용 <textarea name="boardContent"></textarea> <br><br>
 		<button>글쓰기</button>
 	</form>
-	
+	 		<h2><a href="list">목록으로</a></h2>
 </body>
 </html>
