@@ -17,7 +17,7 @@
 			<td>${dto.boardTitle}</td>
 			<tr>
 			<th>내용</th>
-			<td>${dto.boardContent}<td>
+			<td>${dto.boardContent}</td>
 			</tr>
 			<tr>
 			<th>작성자</th>
@@ -27,12 +27,13 @@
 			<th>조회수</th>
 			<td>${dto.boardReadcount}</td>
 			</tr>	
+			</table>
 		</c:when>
 		<c:otherwise>
 			<h2>게시글이 없습니다</h2>
 		</c:otherwise>
-	</c:choose>
-		</table>
+		</c:choose>	
+		<a href="list">돌아가기</a>
 	</body>
 
 </html>
