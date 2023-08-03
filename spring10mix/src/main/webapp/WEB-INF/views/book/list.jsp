@@ -9,7 +9,8 @@
 </head>
 <body>
 
-	<h1>도서 목록</h1>
+	<h1>도서 목록 조회</h1>
+	<h2><a href="insert">신규등록</a></h2>
 	
 	<table border="1" width="700">
 		<thead>
