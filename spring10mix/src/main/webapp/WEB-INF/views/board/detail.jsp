@@ -25,7 +25,7 @@
 			</tr>
 			<tr>
 			<th>조회수</th>
-			<td>${dto.boardReadcount}</td>
+			<td>${dto.boardReadcount}</td>			
 			</tr>	
 			</table>
 		</c:when>
@@ -33,6 +33,10 @@
 			<h2>게시글이 없습니다</h2>
 		</c:otherwise>
 		</c:choose>	
+		
+		<c:if test="${dto != null}">
+		<a href="edit?boardNo=${dto.boardNo}">게시글 수정</a>
+		</c:if>
 		<a href="list">돌아가기</a>
 	</body>
 

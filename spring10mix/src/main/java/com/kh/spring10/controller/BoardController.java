@@ -48,4 +48,22 @@ public class BoardController {
 		//방금 등록한 번호의 게시글 상세 페이지로 강제 이동(redirect)
 		return "redirect:detail?boardNo="+boardNo;
 	}
+	
+	@GetMapping("/edit")
+	public String edit(@RequestParam int boardNo, Model model) {
+		BoardDto dto = dao.selectOne(boardNo);
+		model.addAttribute("dto",dto);
+		return "/WEB-INF/views/board/edit.jsp";
+	}
+	
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute BoardDto dto) {
+		boolean result = dao.update(dto);
+		if(result) {
+			return "redirect:detail?boardNo="+dto.getBoardNo();
+		}
+		else {
+			return "redirect:에러페이지주소";
+		}
+	}
 }
