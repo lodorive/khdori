@@ -35,6 +35,8 @@
 				<td>${dto.boardReadcount}</td>
 			</tr>
 			</c:forEach>
+			<a href="detail?boardNo=${dto.boardNo}">이동</a> <br>
+			<a href="delete?boardNo=${dto.boardNo}">삭제</a> <br>
 		</tbody>
 	</table>
 	
