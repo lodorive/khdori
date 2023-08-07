@@ -20,6 +20,7 @@
 				<th>저자</th>
 				<th>출판사</th>
 				<th>가격</th>
+				<th>메뉴</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,6 +35,9 @@
 				<td>${dto.bookAuthor}</td>
 				<td>${dto.bookPublisher}</td>
 				<td>$${dto.bookPrice}</td>
+				<td>
+				<a href="delete?bookId=${dto.bookId}">삭제</a> <br>
+				</td>
 			</tr>	
 			</c:forEach>
 		</tbody>
