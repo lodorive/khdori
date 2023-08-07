@@ -36,6 +36,8 @@
 		
 		<c:if test="${dto != null}">
 		<a href="edit?boardNo=${dto.boardNo}">게시글 수정</a>
+		<a href="delete?boardNo=${dto.boardNo}">게시글 삭제</a>
+		<a href="delete/${dto.boardNo}">게시글 삭제2</a>
 		</c:if>
 		<a href="list">돌아가기</a>
 	</body>
