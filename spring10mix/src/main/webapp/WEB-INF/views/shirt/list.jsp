@@ -9,7 +9,7 @@
 </head>
 <body align="center"  bgcolor="#c7ecee">
 	<h1 style="color:#fd79a8;">상품 리스트</h1>
-	<a href="add" ><button>▷ 상품등록 ◁</button></a><br><br>
+	<a href="add2" ><button>▷ 상품등록 ◁</button></a><br><br>
 	
 		<table border="1" width="450"  align="center" > 
 		<thead >
@@ -17,7 +17,7 @@
 		<c:forEach var="dto" items="${list}">	
 		<tr>
 		<td align="center"  bgcolor="#fd79a8">
-		<a href="detail?shirtNo=${dto.shirtNo}">
+		<a href="detail2?shirtNo=${dto.shirtNo}">
 		${dto.shirtName}<br>
 		${dto.shirtColor}<br>
 		${dto.shirtPrice}원<br>
