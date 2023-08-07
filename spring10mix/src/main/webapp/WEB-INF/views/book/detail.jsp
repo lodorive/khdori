@@ -69,6 +69,7 @@
 		</c:choose>
 		<c:if test="${dto != null}">
 		<a href="edit?bookId=${dto.bookId}">도서정보수정</a>
+		<a href="delete?bookId=${dto.bookId}">도서정보삭제</a>
 		</c:if>
 		
 			<a href="list">돌아오기</a>
