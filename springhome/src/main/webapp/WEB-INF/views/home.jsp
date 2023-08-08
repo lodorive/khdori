@@ -7,7 +7,7 @@
 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 			
-<h2>환영합니다!</h2>		
+<h2>Hello!</h2>		
 <img src="https://img.gqkorea.co.kr/gq/2023/08/style_64cb1badf3c78-600x400.jpg">
 		
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
