@@ -8,6 +8,6 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 			
 <h2>Hello!</h2>		
-<img src="https://img.gqkorea.co.kr/gq/2023/08/style_64cb1badf3c78-600x400.jpg">
+<img src="https://img.vogue.co.kr/vogue/2022/07/style_62da53d70fb28-600x428.jpeg">
 		
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

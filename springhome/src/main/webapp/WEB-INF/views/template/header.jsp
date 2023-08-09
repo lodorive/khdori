@@ -15,6 +15,7 @@
 				JSP에서 세션에 저장된 값을 확인하려면 EL의 내장객체를 사용
 				sessionScope 내장객체를 사용하면 HttpSession의 값을 조회할 수 있다
 			 --%>
+			세션ID = ${pageContext.session.id},
 			세션값 = ${sessionScope.name}<br>
 			<%-- 
 				이 페이지는 조각일 뿐이므로 어디서 실행될지 모른다 
@@ -23,6 +24,7 @@
 			<c:choose>
 				<c:when test="${sessionScope.name != null}">
 					<a href="/" style="text-decoration-line: none;">홈</a>
+					<a href="/member/mypage" style="text-decoration-line: none;">마이페이지</a>
 					<a href="/member/logout" style="text-decoration-line: none;">로그아웃</a>
 					<a href="/board/list" style="text-decoration-line: none;">게시판</a>
 				</c:when>

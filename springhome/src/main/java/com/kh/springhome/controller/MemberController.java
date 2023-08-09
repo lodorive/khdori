@@ -4,10 +4,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.springhome.dao.MemberDao;
 import com.kh.springhome.dto.MemberDto;
@@ -63,9 +65,13 @@ public class MemberController {
 		//입력한 비밀번호와 DB번호가 같나?
 		boolean isCorrectPw = inputDto.getMemberPw().equals(findDto.getMemberPw());
 		
-		//[3] 비밀번호가 일치하면 메인페이지로 이동
+		//[3] 비밀번호가 일치하면 메인페이지로 이동(로그인에 성공했을 때)
 		if(isCorrectPw) {
+			//세션에 아이디 저장
 			session.setAttribute("name", inputDto.getMemberId());
+			//로그인시간 갱신
+			memberDao.updateMemberLogin(inputDto.getMemberId());
+			//메인페이지로 이동
 			return "redirect:/"; 
 		}
 		//[4] 비밀번호가 일치하지 않으면 로그인페이지로 이동
@@ -74,9 +80,51 @@ public class MemberController {
 		}
 	}
 	
+	//--------------회원 전용 메뉴--------------
 	@RequestMapping("/logout")
 	public String logout(HttpSession session){
 		session.removeAttribute("name");
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/mypage")
+	public String mypage(HttpSession session, Model model) {
+		//[1] 세션에서 사용자의 아이디를 꺼낸다
+		//- 세션은 값을 Object로 저장한다(아무거나 넣어야 하니까)
+		String memberId = (String) session.getAttribute("name");
+		//[2] 가져온 아이디로 회원정보를 조회한다
+		MemberDto memberDto = memberDao.selectOne(memberId);
+		//[3] 조회한 정보를 모델에 첨부한다
+		model.addAttribute("memberDto",memberDto);
+		return "/WEB-INF/views/member/mypage.jsp";
+	}
+	
+	//비밀번호 변경
+	@GetMapping("/password")
+	public String password() {
+		return "/WEB-INF/views/member/password.jsp";
+	}
+		
+	@PostMapping("/password")
+	public String password(HttpSession session, 
+								@RequestParam String originPw,
+								@RequestParam String changePw) {
+		String memberId = (String) session.getAttribute("name");
+		MemberDto memberDto = memberDao.selectOne(memberId);
+
+		//[1] 기존 비밀번호가 일치하는지 판정
+		if(memberDto.getMemberPw().equals(originPw)) {//비밀번호가 일치한다면
+			//[2] 1번이 성공일 때만 비밀번호를 변경하도록 처리(+개인정보 변경시각 수정)
+			memberDao.updateMemberPw(memberId, changePw);
+			return "redirect:passwordFinish";
+		}
+		else {
+			return "redirect:password?error";
+		}
+	}
+
+		@RequestMapping("/passwordFinish")
+	public String passwordFinish() {
+		return "/WEB-INF/views/member/passwordFinish.jsp";
 	}
 }
