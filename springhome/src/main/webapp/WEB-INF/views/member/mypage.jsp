@@ -71,5 +71,6 @@
 
 <h4><a href="password">비밀번호 변경</a></h4>
 <h4><a href="change">개인정보 변경</a></h4>
+<h4><a href="exit">회원 탈퇴</a></h4>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -76,4 +76,10 @@ public class MemberDaoImpl implements MemberDao{
 		return jdbcTemplate.update(sql, data) >0; 
 	}
 
+	@Override
+	public boolean deleteMember(String memberId) {
+		String sql ="delete member where member_id=?";
+		Object[] data = {memberId};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
 }

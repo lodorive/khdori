@@ -154,6 +154,33 @@ public class MemberController {
 		else{//비밀번호가 일치하지 않는다면 -> 다시 입력하도록 되돌려보냄
 			return  "redirect:change?error";
 		}
-
+	}
+	
+	@GetMapping("/exit")
+	public String exit() {
+		return "/WEB-INF/views/member/exit.jsp";
+	}
+	
+	@PostMapping("/exit")
+	public String exit(HttpSession session, @RequestParam String memberPw) {		
+		String memberId = (String) session.getAttribute("name");
+		MemberDto memberDto = memberDao.selectOne(memberId);
+		
+		if(memberDto.getMemberPw().equals(memberPw)) {//비밀번호 일치
+			//회원 탈퇴 처리
+			memberDao.deleteMember(memberId);
+			//로그아웃 처리
+			session.removeAttribute("name"); //세션에서 name의 값을 삭제
+			session.invalidate(); //세면 소멸(비추천)
+			return "redirect:exitFinish";
+		}
+		else {//비밀번호 불일치
+			return "redirect:exit?error";
+		}
+	}
+	
+	@RequestMapping("/exitFinish")
+	public String exitFinish() {
+		return "/WEB-INF/views/member/exitFinish.jsp";
 	}
 }
