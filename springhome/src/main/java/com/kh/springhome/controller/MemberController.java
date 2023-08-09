@@ -123,8 +123,37 @@ public class MemberController {
 		}
 	}
 
-		@RequestMapping("/passwordFinish")
+	@RequestMapping("/passwordFinish")
 	public String passwordFinish() {
 		return "/WEB-INF/views/member/passwordFinish.jsp";
+	}
+		
+	@GetMapping("/change")
+	public String change(HttpSession session, Model model) {
+		//세션에서 사용자 아이디를 꺼낸다
+		String memberId = (String) session.getAttribute("name");
+		//가져온 아이디로 회원 정보를 조회한다
+		MemberDto memberDto = memberDao.selectOne(memberId);
+		//조회한 정보를 모델에 첨부한다
+		model.addAttribute("memberDto",memberDto);
+		return "/WEB-INF/views/member/change.jsp";
+	}
+	
+	@PostMapping("/change")
+	public String change(@ModelAttribute MemberDto inputDto,
+						HttpSession session){
+		String memberId = (String) session.getAttribute("name");
+		//비밀번호 검사 후 변경 처리 요청
+		MemberDto findDto = memberDao.selectOne(memberId);
+		
+		if(inputDto.getMemberPw().equals(findDto.getMemberPw())) {
+			inputDto.setMemberId(memberId); //아이디를 설정하고
+			memberDao.updateMemberInfo(inputDto); //정보 변경 처리
+			return "redirect:mypage";			
+		}
+		else{//비밀번호가 일치하지 않는다면 -> 다시 입력하도록 되돌려보냄
+			return  "redirect:change?error";
+		}
+
 	}
 }
