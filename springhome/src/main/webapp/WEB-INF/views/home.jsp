@@ -7,7 +7,12 @@
 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 			
-<h2>Hello!</h2>		
-<img src="https://img.vogue.co.kr/vogue/2022/07/style_62da53d70fb28-600x428.jpeg">
+<h2>NewJeans!</h2>	<br>
+<img src="https://cdn-icons-png.flaticon.com/512/13/13950.png" width="14" height="14">Hype Boy - NewJeans<br><br>
+<img src="https://img.vogue.co.kr/vogue/2022/07/style_62da53d70fb28-600x428.jpeg" width="600" height="400"><br><br><br>
+<img src="https://cdn-icons-png.flaticon.com/512/13/13950.png" width="14" height="14">Super Shy - NewJeans<br><br>
+<img src="https://img.gqkorea.co.kr/gq/2023/08/style_64cb1badf3c78-1400x934.jpg" width="600" height="400"><br><br><br>
+<img src="https://cdn-icons-png.flaticon.com/512/13/13950.png" width="14" height="14">Attention - NewJeans<br><br>
+<img src="https://cdn.eyesmag.com/content/uploads/posts/2022/09/28/main-newjeans-reality-show-busan-a56fab74-64c6-40f7-a9c3-c4150dc25ada.jpg" width="600" height="400">
 		
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
