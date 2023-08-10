@@ -1,0 +1,28 @@
+2023-08-10 13:58:55.076  INFO 2148 --- [restartedMain] com.kh.springhome.SpringhomeApplication  : Starting SpringhomeApplication using Java 17.0.7 on DESKTOP-ACB3TH8 with PID 2148 (D:\study\stsworkspace\khdori\springhome\target\classes started by user1 in D:\study\stsworkspace\khdori\springhome)
+2023-08-10 13:58:55.076 DEBUG 2148 --- [restartedMain] com.kh.springhome.SpringhomeApplication  : Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-10 13:58:55.076  INFO 2148 --- [restartedMain] com.kh.springhome.SpringhomeApplication  : No active profile set, falling back to 1 default profile: "default"
+2023-08-10 13:58:55.457  INFO 2148 --- [restartedMain] com.kh.springhome.SpringhomeApplication  : Started SpringhomeApplication in 0.404 seconds (JVM running for 15556.747)
+[2023-08-10 14:00:45.824] [INFO ] Starting SpringhomeApplication using Java 17.0.7 on DESKTOP-ACB3TH8 with PID 2148 (D:\study\stsworkspace\khdori\springhome\target\classes started by user1 in D:\study\stsworkspace\khdori\springhome) - com.kh.springhome.SpringhomeApplication 
+[2023-08-10 14:00:45.825] [DEBUG] Running with Spring Boot v2.7.14, Spring v5.3.29 - com.kh.springhome.SpringhomeApplication 
+[2023-08-10 14:00:45.825] [INFO ] No active profile set, falling back to 1 default profile: "default" - com.kh.springhome.SpringhomeApplication 
+[2023-08-10 14:00:46.214] [INFO ] Started SpringhomeApplication in 0.402 seconds (JVM running for 15667.504) - com.kh.springhome.SpringhomeApplication 
+[2023-08-10 14:00:47.993] [INFO ] Starting LogginTest3 using Java 17.0.7 on DESKTOP-ACB3TH8 with PID 11548 (started by user1 in D:\study\stsworkspace\khdori\springhome) - com.kh.springhome.LogginTest3 
+[2023-08-10 14:00:47.994] [DEBUG] Running with Spring Boot v2.7.14, Spring v5.3.29 - com.kh.springhome.LogginTest3 
+[2023-08-10 14:00:47.995] [INFO ] No active profile set, falling back to 1 default profile: "default" - com.kh.springhome.LogginTest3 
+[2023-08-10 14:00:50.319] [INFO ] Started LogginTest3 in 2.604 seconds (JVM running for 3.4) - com.kh.springhome.LogginTest3 
+[2023-08-10 14:00:50.732] [INFO ] Hello! - com.kh.springhome.LogginTest3 
+[2023-08-10 14:00:50.732] [INFO ] a = 10 - com.kh.springhome.LogginTest3 
+[2023-08-10 14:00:50.732] [INFO ] a = 10 - com.kh.springhome.LogginTest3 
+[2023-08-10 14:00:50.733] [INFO ] 20 + 30 = 50 - com.kh.springhome.LogginTest3 
+[2023-08-10 14:01:30.737] [INFO ] Starting LogginTest3 using Java 17.0.7 on DESKTOP-ACB3TH8 with PID 5180 (started by user1 in D:\study\stsworkspace\khdori\springhome) - com.kh.springhome.LogginTest3 
+[2023-08-10 14:01:30.738] [DEBUG] Running with Spring Boot v2.7.14, Spring v5.3.29 - com.kh.springhome.LogginTest3 
+[2023-08-10 14:01:30.738] [INFO ] No active profile set, falling back to 1 default profile: "default" - com.kh.springhome.LogginTest3 
+[2023-08-10 14:01:33.149] [INFO ] Started LogginTest3 in 2.674 seconds (JVM running for 3.45) - com.kh.springhome.LogginTest3 
+[2023-08-10 14:01:33.589] [INFO ] Hello! - com.kh.springhome.LogginTest3 
+[2023-08-10 14:01:33.589] [INFO ] a = 10 - com.kh.springhome.LogginTest3 
+[2023-08-10 14:01:33.590] [INFO ] a = 10 - com.kh.springhome.LogginTest3 
+[2023-08-10 14:01:33.591] [INFO ] 20 + 30 = 50 - com.kh.springhome.LogginTest3 
+[2023-08-10 14:03:04.789] [INFO ] Starting SpringhomeApplication using Java 17.0.7 on DESKTOP-ACB3TH8 with PID 2148 (D:\study\stsworkspace\khdori\springhome\target\classes started by user1 in D:\study\stsworkspace\khdori\springhome) - com.kh.springhome.SpringhomeApplication 
+[2023-08-10 14:03:04.789] [DEBUG] Running with Spring Boot v2.7.14, Spring v5.3.29 - com.kh.springhome.SpringhomeApplication 
+[2023-08-10 14:03:04.789] [INFO ] No active profile set, falling back to 1 default profile: "default" - com.kh.springhome.SpringhomeApplication 
+[2023-08-10 14:03:05.178] [INFO ] Started SpringhomeApplication in 0.4 seconds (JVM running for 15806.468) - com.kh.springhome.SpringhomeApplication 
