@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.springhome.dao.BoardDao;
 import com.kh.springhome.dao.MemberDao;
 import com.kh.springhome.dto.BoardDto;
+import com.kh.springhome.dto.MemberDto;
 import com.kh.springhome.error.AuthorityException;
 import com.kh.springhome.error.NoTargetException;
 
@@ -81,8 +82,14 @@ public class BoardController {
 //		if(조회수를 올릴만한 상황이면) {
 		boardDao.updateBoardReadcount(boardNo); //조회수 증가
 //		}
-		BoardDto boardDto = boardDao.selectOne(boardNo); //조회수
+		BoardDto boardDto = boardDao.selectOne(boardNo); //조회
 		model.addAttribute("boardDto", boardDto);
+		//작성자의 회원정보 추가
+		String boardWriter = boardDto.getBoardWriter();
+		if(boardWriter != null) {
+			MemberDto memberDto = memberDao.selectOne(boardWriter);
+			model.addAttribute("writerDto", memberDto);
+		}
 		return "/WEB-INF/views/board/detail.jsp";				
 	}
 	
