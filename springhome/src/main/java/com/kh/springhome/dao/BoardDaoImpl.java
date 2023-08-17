@@ -101,8 +101,32 @@ public class BoardDaoImpl implements BoardDao{
 		Object[] data = {boardWriter};
 		return jdbcTemplate.queryForObject(sql, Integer.class, data);
 	}
-
-
 	
+	//검색
+//	@Override
+//	public List<BoardDto> selectList(String type, String keyword) {
+//		String sql;
+//		if(type.equals("board_title")) { //type이 제목인 경우
+//			sql = "select * from board "
+//					+ "where instr(board_title, ?) >0 "
+//					+ "order by board_no desc";				
+//		}
+//		else { //type이 작성자인 경우
+//			sql = "select * from board "
+//					+ "where instr(board_writer, ?) >0 "
+//					+ "order by board_no desc";	
+//		}
+//		Object[] data = {keyword};
+//		return jdbcTemplate.query(sql, boardListMapper, data);
+//	}
 	
+	//검색
+	@Override
+	public List<BoardDto> selectList(String type, String keyword) {
+		String sql = "select * from board "
+					+ "where instr("+type+", ?) >0 "
+					+ "order by board_no desc";				
+		Object[] data = {keyword};
+		return jdbcTemplate.query(sql, boardListMapper, data);
+	}	
 }

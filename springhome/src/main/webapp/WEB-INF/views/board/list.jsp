@@ -6,6 +6,10 @@
 <h3>자유 게시판</h3>
 	<h5 style="color:red">타인에 대한 비방은 경고 없이 삭제됩니다</h5>
 	
+<%-- 검색일 경우 검색어를 추가로 출력 --%>	
+<c:if test="${param.keyword != null}">
+<h5>&quot;${param.keyword}&quot;에 대한 검색 결과</h5>
+</c:if>	
 	<%--글쓰기는 로그인 상태인 경우에만 출력--%>
 	<c:if test="${sessionScope.name != null}">
 	<h4><a href="write">글쓰기</a></h4>
@@ -57,6 +61,29 @@
 			</c:forEach>
 		</tbody>
 
-	</table><br><br>	
-
+	</table><br>
+	
+	<!-- 검색창 -->
+	<form action="list" method="get">
+		<c:choose>
+			<c:when test="${param.type == 'board_writer'}">
+				<select name="type" required="required">
+				<option value="board_title">제목</option>
+				<option value="board_writer" selected>작성자</option>
+				</select>
+			</c:when>
+			<c:otherwise>
+				<select name="type" required="required">
+				<option value="board_title">제목</option>
+				<option value="board_writer">작성자</option>
+		</select>
+			</c:otherwise>
+		</c:choose>
+	
+		
+		<input type="search" name="keyword" placeholder="검색어"  value="${param.keyword}"
+				required="required" autocomplete="off">
+		<button>검색</button>
+	</form><br>
+	
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

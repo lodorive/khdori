@@ -86,11 +86,27 @@ public class BoardController {
 		return "/WEB-INF/views/board/detail.jsp";				
 	}
 	
-	//조회
+	//목록+검색
+	//- 검색일 경우에는 type과 keyword라는 파라미터가 존재
+	//- 목록일 경우에는 type과 keyword라는 파라미터가 없음
+	//- 만약 불완전한 상태(type이나 keyword만 있는 경우)라면 목록으로 처리
 	@RequestMapping("/list")
-	public String list(Model model) {
-		List<BoardDto> list = boardDao.selectList();
-		model.addAttribute("list", list);
+	public String list(Model model, 
+			@RequestParam(required=false) String type,
+			@RequestParam(required=false) String keyword) {
+		boolean isSearch = type != null && keyword != null;
+		
+		if(isSearch) {//검색일경우
+			List<BoardDto> list = boardDao.selectList(type, keyword);
+			model.addAttribute("list", list);
+			model.addAttribute("isSearch", true);
+		}
+		else {//목록일 경우
+			List<BoardDto> list = boardDao.selectList();
+			model.addAttribute("list", list);
+			model.addAttribute("isSearch", false);
+//			model.addAttribute("list", boardDao.selectList());			
+		}
 		return "/WEB-INF/views/board/list.jsp";	
 	}
 //	
@@ -166,7 +182,6 @@ public class BoardController {
 		}
 	}
 }
-
 		
 //	@RequestMapping("/delete")
 //	public String delete(@RequestParam int boardNo) {
@@ -178,4 +193,4 @@ public class BoardController {
 //			throw new NoTargetException("없는 게시글 번호");
 //		}
 //	}
-
+	
