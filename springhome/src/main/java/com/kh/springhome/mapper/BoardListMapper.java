@@ -7,22 +7,24 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.kh.springhome.dto.BoardDto;
+import com.kh.springhome.dto.BoardListDto;
 
 @Component
-public class BoardListMapper implements RowMapper<BoardDto>{
+public class BoardListMapper implements RowMapper<BoardListDto>{
 
 	@Override
-	public BoardDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-		BoardDto boardDto = new BoardDto();
-		boardDto.setBoardNo(rs.getInt("board_no"));
-		boardDto.setBoardWriter(rs.getString("board_writer"));
-		boardDto.setBoardTitle(rs.getString("board_title"));
-		boardDto.setBoardReadcount(rs.getInt("board_readcount"));
-		boardDto.setBoardLikecount(rs.getInt("board_likecount"));
-		boardDto.setBoardReplycount(rs.getInt("board_replycount"));
-		boardDto.setBoardCtime(rs.getDate("board_ctime"));
-		boardDto.setBoardUtime(rs.getDate("board_utime"));
-		return boardDto;
+	public BoardListDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+		BoardListDto boardListDto = new BoardListDto();
+		boardListDto.setBoardNo(rs.getInt("board_no"));
+		boardListDto.setBoardWriter(rs.getString("board_writer"));
+		boardListDto.setBoardTitle(rs.getString("board_title"));
+		boardListDto.setBoardReadcount(rs.getInt("board_readcount"));
+		boardListDto.setBoardLikecount(rs.getInt("board_likecount"));
+		boardListDto.setBoardReplycount(rs.getInt("board_replycount"));
+		boardListDto.setBoardCtime(rs.getDate("board_ctime"));
+		boardListDto.setBoardUtime(rs.getDate("board_utime"));
+		boardListDto.setMemberNickname(rs.getString("member_nickname"));
+		return boardListDto;
 	}
 
 }
