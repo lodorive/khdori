@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.springhome.dto.MemberDto;
-import com.kh.springhome.mepper.MemberMapper;
+import com.kh.springhome.mapper.MemberMapper;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{
@@ -81,5 +81,14 @@ public class MemberDaoImpl implements MemberDao{
 		String sql ="delete member where member_id=?";
 		Object[] data = {memberId};
 		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	//포인트 부여
+	@Override
+	public boolean increaseMemberPoint(String memberId, int point) {
+		String sql = "update member set member_point = member_point + ? "
+						+ "where member_id=?";
+		Object[] data = {point, memberId};
+		return jdbcTemplate.update(sql, data) >0;
 	}
 }

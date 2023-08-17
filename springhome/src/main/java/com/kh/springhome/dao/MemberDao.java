@@ -10,4 +10,7 @@ public interface MemberDao {
 	boolean updateMemberPw(String memberId, String changePw);
 	boolean updateMemberInfo(MemberDto memberDto);
 	boolean deleteMember(String memberId);
+	
+	boolean increaseMemberPoint(String memberId, int point);
+//	boolean decreaseMemberPoint(String memberId);
 }

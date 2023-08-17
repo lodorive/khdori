@@ -1,4 +1,4 @@
-package com.kh.springhome.mepper;
+package com.kh.springhome.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
