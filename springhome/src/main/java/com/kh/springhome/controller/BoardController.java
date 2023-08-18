@@ -154,25 +154,43 @@ public class BoardController {
 	//- 검색일 경우에는 type과 keyword라는 파라미터가 존재
 	//- 목록일 경우에는 type과 keyword라는 파라미터가 없음
 	//- 만약 불완전한 상태(type이나 keyword만 있는 경우)라면 목록으로 처리
+	//- (추가) 페이징 관련 처리
 	@RequestMapping("/list")
 	public String list(Model model, 
 			@RequestParam(required=false) String type,
-			@RequestParam(required=false) String keyword) {
+			@RequestParam(required=false) String keyword,
+			@RequestParam(required=false, defaultValue ="1") int page) {//기본이 1페이지
 		boolean isSearch = type != null && keyword != null;
 		
+		//페이징과 관련된 값들을 계산하여 JSP로 전달
+		int begin = (page-1) / 10 * 10 + 1;
+		int end = begin+9; //10이라는 전제 하에
+		
+		//int count = 목록 개수 or 검색 결과수;
+		int count = isSearch ? boardDao.countList(type, keyword) : boardDao.countList();
+		//총 페이지 수 
+		int pageCount = (count-1) / 10 + 1;
+		
+		model.addAttribute("page", page);
+		model.addAttribute("begin", begin);
+		model.addAttribute("end", Math.min(pageCount, end)); //둘 중에 작은값이 넘어감
+		model.addAttribute("pageCount", pageCount);
+		
 		if(isSearch) {//검색일경우
-			List<BoardListDto> list = boardDao.selectList(type, keyword);
+			List<BoardListDto> list = boardDao.selectListByPage(type, keyword, page);
 			model.addAttribute("list", list);
 			model.addAttribute("isSearch", true);
 		}
 		else {//목록일 경우
-			List<BoardListDto> list = boardDao.selectList();
+			List<BoardListDto> list = boardDao.selectListByPage(page);
 			model.addAttribute("list", list);
 			model.addAttribute("isSearch", false);
 //			model.addAttribute("list", boardDao.selectList());			
 		}
 		return "/WEB-INF/views/board/list.jsp";	
 	}
+	
+	
 //	
 //	//수정(접근 권한을 컨트롤러로)
 //	@GetMapping("/edit")

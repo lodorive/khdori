@@ -46,18 +46,18 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	//조회
-	@Override
-	public List<BoardListDto> selectList() {
-		//기존 조회 구문
-		//String sql = "select * from board_list order by board_no desc";
-		
-		//계층형 조회구문
-		String sql = "select * from board_list "
-				+ "connect by prior board_no = board_parent "
-				+ "start with board_parent is NULL "
-				+ "order siblings by board_group desc, board_no asc";
-		return jdbcTemplate.query(sql, boardListMapper);
-	}
+		@Override
+		public List<BoardListDto> selectList() {
+			//기존 조회 구문
+			//String sql = "select * from board_list order by board_no desc";
+			
+			//계층형 조회구문
+			String sql = "select * from board_list "
+					+ "connect by prior board_no = board_parent "
+					+ "start with board_parent is NULL "
+					+ "order siblings by board_group desc, board_no asc";
+			return jdbcTemplate.query(sql, boardListMapper);
+		}
 	
 	//상세
 	@Override
@@ -131,12 +131,71 @@ public class BoardDaoImpl implements BoardDao{
 //	}
 	
 	//검색
+		@Override
+		public List<BoardListDto> selectList(String type, String keyword) {
+			String sql = "select * from board_list "
+						+ "where instr("+type+", ?) >0 "
+						+ "order by board_no desc";				
+			Object[] data = {keyword};
+			return jdbcTemplate.query(sql, boardListMapper, data);
+		}	
+	
+
+	//페이징 추가된 목록
 	@Override
-	public List<BoardListDto> selectList(String type, String keyword) {
-		String sql = "select * from board_list "
-					+ "where instr("+type+", ?) >0 "
-					+ "order by board_no desc";				
-		Object[] data = {keyword};
+	public List<BoardListDto> selectListByPage(int page) {
+		
+		int begin = page * 10 - 9;
+		int end = page * 10 ;
+
+		String sql = "select * from ("
+							+ "select rownum rn, TMP.* from ( "
+								+ "select * from board_list "
+								+ "connect by prior board_no = board_parent "
+								+ "start with board_parent is NULL "
+								+ "order siblings by board_group desc, board_no asc "
+							+ ")TMP"
+						+ ") where rn between ? and ?";
+		
+		Object[] data = {begin, end};
 		return jdbcTemplate.query(sql, boardListMapper, data);
-	}	
+	}
+	
+	//페이징 추가된 검색+목록
+	@Override
+	public List<BoardListDto> selectListByPage(String type, String keyword, int page) {
+		
+		int begin = page * 10 - 9;
+		int end = page * 10 ;
+		
+		String sql = "select * from ("
+							+ "select rownum rn, TMP.* from ( "
+								+ "select * from board_list "
+								+ "where instr("+type+", ?) >0 "
+								+ "connect by prior board_no = board_parent "
+								+ "start with board_parent is NULL "
+								+ "order siblings by board_group desc, board_no asc "
+							+ ")TMP"
+						+ ") where rn between ? and ?";
+		Object[] data = {keyword, begin, end};
+		return jdbcTemplate.query(sql, boardListMapper, data);
+	}
+	
+	//목록 개수
+	@Override
+	public int countList() {
+		String sql = "select count(*) from board";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
+	
+	//검색 결과수
+	@Override
+	public int countList(String type, String keyword) {
+		String sql = "select count(*) from board where instr("+type+",?) >0";
+		Object[] data = {keyword};
+		return jdbcTemplate.queryForObject(sql, int.class, data);
+	}
 }
+
+
+
