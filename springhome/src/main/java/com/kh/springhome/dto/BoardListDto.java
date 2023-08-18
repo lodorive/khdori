@@ -21,12 +21,15 @@ public class BoardListDto {
 		private int boardReplycount;
 		private Date boardCtime;
 		private Date boardUtime;
+		private int boardGroup;
+		private Integer boardParent;
+		private int boardDepth;
 		
 		//작성자 출력용 메소드
 		public String getBoardWriterString() {
 			if(boardWriter == null) 
 				return "(탈퇴한사용자)";
-			else return boardWriter;
+			else return memberNickname;
 		}
 		
 		//날짜에 따라 다른 값을 반환하는 메소드

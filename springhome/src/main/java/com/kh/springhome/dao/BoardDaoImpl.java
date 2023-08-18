@@ -44,9 +44,14 @@ public class BoardDaoImpl implements BoardDao{
 	//조회
 	@Override
 	public List<BoardListDto> selectList() {
-		String sql = "select board_no, board_writer, board_title, board_readcount, "
-				+ "board_likecount, board_replycount, board_ctime, board_utime "
-				+ "from board order by board_no desc";
+		//기존 조회 구문
+		//String sql = "select * from board_list order by board_no desc";
+		
+		//계층형 조회구문
+		String sql = "select * from board_list "
+				+ "connect by prior board_no = board_parent "
+				+ "start with board_parent is NULL "
+				+ "order siblings by board_group desc, board_no asc";
 		return jdbcTemplate.query(sql, boardListMapper);
 	}
 	
@@ -108,12 +113,12 @@ public class BoardDaoImpl implements BoardDao{
 //	public List<BoardDto> selectList(String type, String keyword) {
 //		String sql;
 //		if(type.equals("board_title")) { //type이 제목인 경우
-//			sql = "select * from board "
+//			sql = "select * from board_list "
 //					+ "where instr(board_title, ?) >0 "
 //					+ "order by board_no desc";				
 //		}
 //		else { //type이 작성자인 경우
-//			sql = "select * from board "
+//			sql = "select * from board_list "
 //					+ "where instr(board_writer, ?) >0 "
 //					+ "order by board_no desc";	
 //		}
@@ -124,7 +129,7 @@ public class BoardDaoImpl implements BoardDao{
 	//검색
 	@Override
 	public List<BoardListDto> selectList(String type, String keyword) {
-		String sql = "select * from board "
+		String sql = "select * from board_list "
 					+ "where instr("+type+", ?) >0 "
 					+ "order by board_no desc";				
 		Object[] data = {keyword};

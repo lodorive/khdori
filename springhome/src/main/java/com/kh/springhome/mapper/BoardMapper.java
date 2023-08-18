@@ -23,6 +23,13 @@ public class BoardMapper implements RowMapper<BoardDto>{
 		boardDto.setBoardReplycount(rs.getInt("board_replycount"));
 		boardDto.setBoardCtime(rs.getDate("board_ctime"));
 		boardDto.setBoardUtime(rs.getDate("board_utime"));
+		
+		boardDto.setBoardGroup(rs.getInt("board_group"));
+		boardDto.setBoardDepth(rs.getInt("board_depth"));;
+		//[1] int로 그대로 꺼낸다(null이 0으로 바뀌어 조회됨)
+		//boardDto.setBoardParent(rs.getInt("board_parent"));
+		//[2] Integer 형태로 꺼낸다(null이 그대로 조회됨)
+		boardDto.setBoardParent(rs.getObject("board_parent",Integer.class));
 		return boardDto;
 	}
 
