@@ -66,7 +66,7 @@ public class BoardController {
 	     
 	     //글 등록 전에 새글/답글에 따른 그룹, 상위글, 차수를 계산
 	     if(boardDto.getBoardParent() == null) { //새글일 경우
-	    	 //그룹번호는 글번호로 설정
+	    	 //그룹번호는 새글일 때 글번호로 설정
 	    	 boardDto.setBoardGroup(boardNo);
 	    	 //상위글번호는 null로 설정
 //	    	 boardDto.setBoardParent(null); 설정을 안해도 null

@@ -20,13 +20,16 @@
 
 	<c:choose>
 	<c:when test="${isReply}">
-		제목 <textarea name="boardTitle"  rows="1" cols="60"  required="required">RE: ${originDto.boardTitle}</textarea> <br>
+		제목 <textarea name="boardTitle"  rows="1" cols="60"  
+		required="required">RE: ${originDto.boardTitle}</textarea> <br>
 	</c:when>
 	<c:otherwise>
-		제목 <textarea name="boardTitle"  rows="1" cols="60" required="required">${originDto.boardTitle}</textarea> <br>
+		제목 <textarea name="boardTitle"  rows="1" cols="60" 
+		required="required">${originDto.boardTitle}</textarea> <br>
 	</c:otherwise>
 </c:choose>	
-		내용 <textarea name="boardContent"  rows="10" cols="60" required="required"></textarea> <br><br>
+		내용 <textarea name="boardContent"  rows="10" cols="60" 
+		required="required"></textarea> <br><br>
 		<button>게시글 등록</button>
 	</form>
 	
