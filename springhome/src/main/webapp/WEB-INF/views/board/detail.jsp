@@ -45,22 +45,22 @@
 			<br><br><br><br><br><br><br><br>
 			</td>
 			
-			<tr>
-		<td colspan="2" align="right">
+		<tr>
+			<td colspan="2" align="right">
 			<%-- 회원일 때만 글쓰기, 수정, 삭제가 나와야 한다 --%>
 			<c:if test="${sessionScope.name != null}">
 			<a href="write">글쓰기</a>
-			<a href="#">답글</a>
+			<a href="write?boardParent=${boardDto.boardNo}">답글</a>
 			
 			<%-- 수정/삭제는 소유자일 경우만 나와야 한다 --%>
 			<c:if test="${sessionScope.name == boardDto.boardWriter}">
 			<a href="edit?boardNo=${boardDto.boardNo}">수정</a>
 			<a href="delete?boardNo=${boardDto.boardNo}">삭제</a>
-				</c:if>
+			</c:if>
 			</c:if>
 			<a href="list">목록</a>
-		</td>
-	</tr>
+			</td>
+		</tr>
 			</table>
 			
 	</body>
