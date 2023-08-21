@@ -8,7 +8,9 @@
 				sessionScope 내장객체를 사용하면 HttpSession의 값을 조회할 수 있다
 			 --%>
 			세션ID = ${pageContext.session.id},
-			세션값 = ${sessionScope.name}<br>
+			name = ${sessionScope.name}
+			level = ${sessionScope.level}
+			<br>
 			<%-- 
 				이 페이지는 조각일 뿐이므로 어디서 실행될지 모른다 
 				여기서 작성되는 경로는 무조건 절대경로여야 한다

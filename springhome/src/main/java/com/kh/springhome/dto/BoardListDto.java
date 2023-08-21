@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 import lombok.Data;
 
-//오로기 게시판 목록을 위한 DTO
+//오로지 게시판 목록을 위한 DTO
 @Data
 public class BoardListDto {
 		private String memberNickname;

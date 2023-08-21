@@ -17,6 +17,11 @@
 					<a href="/member/mypage" style="text-decoration-line: none;">MYPAGE</a>
 					<a href="/member/logout" style="text-decoration-line: none;">LOGOUT</a>
 					<a href="/board/list" style="text-decoration-line: none;">BOARD</a>
+					
+					<%-- 관리자인 경우 추가 메뉴 출력 --%>
+					<c:if test="${sessionScope.level == '관리자'}">
+					<a href="/admin/home">[관리자메뉴]</a>
+					</c:if>
 				</c:when>
 				<c:otherwise>
 					<a href="/" style="text-decoration-line: none;">HOME</a>
