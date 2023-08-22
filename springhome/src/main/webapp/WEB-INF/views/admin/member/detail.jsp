@@ -56,8 +56,27 @@
 								pattern="y년 M월 d일 E a h시 m분 s초"/></td>
      </tr>
     </table>
-    <br>
-    <a href="list">목록</a>
-	<a href="edit">수정</a>
+    
+    <h3>활동 내역</h3>
+	<table border="1" width="500">
+		<thead>
+			<tr>
+				<th width="75%">제목</th>
+				<th>작성일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="boardListDto" items="${boardList}">
+			<tr>
+				<td>
+				<a href="/board/detail?boardNo=${boardListDto.boardNo}">
+				${boardListDto.boardTitle}</a>
+				</td>
+				<td>${boardListDto.boardCtime}</td>
+			</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+
    </body> 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
