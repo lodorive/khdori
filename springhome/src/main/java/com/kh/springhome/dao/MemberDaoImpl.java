@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.springhome.dto.MemberBlockDto;
 import com.kh.springhome.dto.MemberDto;
 import com.kh.springhome.dto.MemberListDto;
+import com.kh.springhome.mapper.MemberBlockMapper;
 import com.kh.springhome.mapper.MemberListMapper;
 import com.kh.springhome.mapper.MemberMapper;
 import com.kh.springhome.vo.PaginationVO;
@@ -246,5 +248,22 @@ public class MemberDaoImpl implements MemberDao{
 			Object[] data = {vo.getStartRow(), vo.getFinishRow()};
 			return jdbcTemplate.query(sql, memberListMapper, data);
 		}
+	}
+	
+	@Autowired
+	private MemberBlockMapper memberBlockMapper;
+	
+	@Override
+	public List<MemberBlockDto> selectBlockList() {
+		String sql = "select * from member_block order by block_time asc";
+		return jdbcTemplate.query(sql, memberBlockMapper);
+	}
+	
+	@Override
+	public MemberBlockDto selectBlockOne(String memberId) {
+		String sql = "select * from member_block where member_id=?";
+		Object[] data = {memberId};
+		List<MemberBlockDto> list = jdbcTemplate.query(sql, memberBlockMapper, data);
+		return list.isEmpty() ? null : list.get(0);
 	}
 }
