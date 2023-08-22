@@ -45,9 +45,9 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		//[1] TestInterceptor를 모든 주소 처리과정에 간섭할 수 있도록 설정하겠다
-		registry.addInterceptor(testInterceptor)
-		.addPathPatterns("/**"); //몽땅. 전체 다 라는 뜻임
-		
+//		registry.addInterceptor(testInterceptor)
+//		.addPathPatterns("/**"); //몽땅. 전체 다 라는 뜻임
+//		
 		//[2] MemberInterceptor를 회원 전용 페이지 처리과정에 간섭할 수 있도록 설정
 		//- addPathPatterns를 사용하면 추가할 주소를 설정할 수 있다
 		//- excludePathPatterns를 사용하면 제외할 주소를 설정할 수 있다
@@ -73,9 +73,9 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 		registry.addInterceptor(boardDefenderInterceptor)
 		.addPathPatterns("/board/detail");
 		
-//		//[5] 관리자만 접근 가능한 인터셉터 등록
-//		registry.addInterceptor(adminInterceptor)
-//		.addPathPatterns("/admin/**");
+		//[5] 관리자용 인터셉터 등록
+		registry.addInterceptor(adminInterceptor)
+		.addPathPatterns("/admin/**");
 	}
 }		
 

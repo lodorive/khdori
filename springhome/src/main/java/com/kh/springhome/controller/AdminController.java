@@ -47,13 +47,16 @@ public class AdminController {
 		
 	}
 	
+	//상세
 	@RequestMapping("/member/detail")
 	public String memberDetail(@RequestParam String memberId, Model model) {
+		//파라미터로 전달된 아이디의 회원정보를 조회하여 모델에 첨부
 		MemberDto memberDto = memberDao.selectOne(memberId);
 		model.addAttribute("memberDto", memberDto);
 		return "/WEB-INF/views/admin/member/detail.jsp";
 	}
 	
+	//수정
 	@GetMapping("/member/edit")
 	public String memberEdit(HttpSession session, Model model) {
 		
