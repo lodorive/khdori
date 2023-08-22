@@ -154,6 +154,7 @@ public class MemberDaoImpl implements MemberDao{
 								+ "select rownum rn, TMP.* from ("
 									+ "select * from member "
 									+ "where instr("+vo.getType()+", ?) > 0 "
+									+ "and member_level != '관리자' "
 //									+ "order by member_id asc";
 									+ "order by "+vo.getType()+" asc"
 								+ ")TMP"
@@ -164,7 +165,9 @@ public class MemberDaoImpl implements MemberDao{
 		else {
 			String sql = "select * from ("
 								+ "select rownum rn, TMP.* from ("
-									+ "select * from member order by member_id asc"
+									+ "select * from member "
+									+ "where member_level != '관리자' "
+									+ "order by member_id asc"
 								+ ")TMP"
 							+ ") where rn between ? and ?";
 			Object[] data = {vo.getStartRow(), vo.getFinishRow()};
