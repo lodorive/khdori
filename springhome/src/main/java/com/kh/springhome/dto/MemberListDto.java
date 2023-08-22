@@ -13,4 +13,6 @@ public class MemberListDto {
 	private String memberLevel;
 	private int memberPoint;
 	private Date memberJoin, memberLogin, memberChange;
+	
+	private String block; //차단 여부
 }
