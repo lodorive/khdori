@@ -229,6 +229,8 @@ public class BoardDaoImpl implements BoardDao{
 		Object[] data = {boardWriter};
 		return jdbcTemplate.query(sql, boardListMapper, data);
 	}
+	
+	
 }
 
 

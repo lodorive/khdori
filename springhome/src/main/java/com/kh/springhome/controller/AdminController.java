@@ -17,6 +17,7 @@ import com.kh.springhome.dao.BoardDao;
 import com.kh.springhome.dao.MemberDao;
 import com.kh.springhome.dto.BoardListDto;
 import com.kh.springhome.dto.MemberDto;
+import com.kh.springhome.error.NoTargetException;
 import com.kh.springhome.vo.PaginationVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -68,20 +69,21 @@ public class AdminController {
 	
 	//수정
 	@GetMapping("/member/edit")
-	public String memberEdit(HttpSession session, Model model) {
-		
-		String memberId = (String) session.getAttribute("name");
+	public String memberEdit(Model model, @RequestParam String memberId) {	
 		MemberDto memberDto = memberDao.selectOne(memberId);
 		model.addAttribute("memberDto",memberDto);
 		return "/WEB-INF/views/admin/member/edit.jsp";
 	}
 	
 	@PostMapping("/member/edit")
-	public String memberEdit(@ModelAttribute MemberDto inputDto,
-			HttpSession session) {
-		
-		String memberId = (String) session.getAttribute("name");
-		MemberDto findDto = memberDao.selectOne(memberId);
-		return "redirect:detail";
+	public String memberEdit(@ModelAttribute MemberDto memberDto) {
+
+		boolean result = memberDao.updateMemberInfoByAdmin(memberDto);
+		if(result) {
+			return "redirect:list";
+		}
+		else {
+			throw new NoTargetException("존재하지 않는 회원ID");
+		}
 	}
 }

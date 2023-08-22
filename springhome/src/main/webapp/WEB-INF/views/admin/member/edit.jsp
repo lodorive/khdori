@@ -5,9 +5,8 @@
  
  <h2>회원정보 변경</h2>
 <form action="edit" method="post" autocomplete="off">
-
- 		아이디 ${memberDto.memberId}<br>
- 		닉네임 <input type="text" name="memberNickname" value="${memberDto.memberNickname}"><br>
+ 		<input type="hidden" name="memberId" value="${memberDto.memberId}"><br>
+ 		닉네임 <input type="text" name="memberNickname" value="${memberDto.memberNickname}" required><br>
 		이메일 <input type="email" name="memberEmail" value="${memberDto.memberEmail}" > <br>
 		전화번호 <input type="tel" name="memberContact" value="${memberDto.memberContact}" > <br>
 		생년월일 <input type="date" name="memberBirth" value="${memberDto.memberBirth}" > <br>
@@ -17,12 +16,32 @@
 		<input type="text" name="memberAddr1" size="30" 
 			placeholder="기본주소" value="${memberDto.memberAddr1}"><br>
 		<input type="text" name="memberAddr2" size="30" 
-			placeholder="상세주소" value="${memberDto.memberAddr2}"><br><br>
-		등급 <select>
-		<option value="member_level">일반</option>
-		<option value="member_level">VIP</option>
-		<option value="member_level">관리자</option>
-		</select>
+			placeholder="상세주소" value="${memberDto.memberAddr2}"><br>
+<!-- 		등급 <select> -->
+<!-- 		<option value="member_level">일반</option> -->
+<!-- 		<option value="member_level">VIP</option> -->
+<!-- 		</select><br> -->
+		<%-- radio button은 select box와 같은 역할을 한다 --%>
+		등급
+		<c:choose>
+			<c:when test="${memberDto.memberLevel == 'VIP'}">
+				<input type="radio" name="memberLevel" value="일반"> 일반
+				<input type="radio" name="memberLevel" value="VIP" checked> VIP
+				<input type="radio" name="memberLevel" value="관리자"> 관리자
+			</c:when>
+			<c:when test="${memberDto.memberLevel == '관리자'}">
+				<input type="radio" name="memberLevel" value="일반"> 일반
+				<input type="radio" name="memberLevel" value="VIP"> VIP
+				<input type="radio" name="memberLevel" value="관리자" checked> 관리자
+			</c:when>
+			<c:otherwise>
+				<input type="radio" name="memberLevel" value="일반" checked> 일반
+				<input type="radio" name="memberLevel" value="VIP"> VIP
+				<input type="radio" name="memberLevel" value="관리자"> 관리자
+			</c:otherwise>
+		</c:choose>
+		<br>
+		포인트 <input type=number name="memberPoint" value="${memberDto.memberPoint}"><br><br>
 
 	<button>정보변경</button>
  
