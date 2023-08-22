@@ -158,7 +158,7 @@ public class MemberDaoImpl implements MemberDao{
 									+ "order by "+vo.getType()+" asc"
 								+ ")TMP"
 							+ ") where rn between ? and ?";
-			Object[] data = {vo.getKeyword(), vo.getBegin(), vo.getEnd()};
+			Object[] data = {vo.getKeyword(), vo.getStartRow(), vo.getFinishRow()};
 			return jdbcTemplate.query(sql, memberMapper, data);
 		}
 		else {
@@ -167,7 +167,7 @@ public class MemberDaoImpl implements MemberDao{
 									+ "select * from member order by member_id asc"
 								+ ")TMP"
 							+ ") where rn between ? and ?";
-			Object[] data = {vo.getBegin(), vo.getEnd()};
+			Object[] data = {vo.getStartRow(), vo.getFinishRow()};
 			return jdbcTemplate.query(sql, memberMapper, data);
 		}
 	}

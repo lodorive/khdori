@@ -29,10 +29,10 @@ public class PaginationVO {
 
 	public String getPrevQueryString() {
 		if(isSearch()) {//검색
-			return "page="+(getBegin()-1)+"&type="+type+"&keyword="+keyword;
+			return "page="+(getBegin()-1)+"&size="+size+"&type="+type+"&keyword="+keyword;
 		}
 		else {//목록
-			return "page="+(getBegin()-1);
+			return "page="+(getBegin()-1)+"&size="+size;
 		}
 	}
 
@@ -55,10 +55,17 @@ public class PaginationVO {
 
 	public String getQueryString(int page) {
 		if(isSearch()) {//검색
-			return "page="+page+"&type="+type+"&keyword="+keyword;
+			return "page="+page+"&size="+size+"&type="+type+"&keyword="+keyword;
 		}
 		else {//목록
-			return "page="+page;
+			return "page="+page+"&size="+size;
 		}
+	}
+	
+	public int getStartRow() {
+		return getFinishRow() - (size-1);
+	}
+	public int getFinishRow() {
+		return page * size;
 	}
 }

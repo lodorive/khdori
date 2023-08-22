@@ -2,6 +2,8 @@ package com.kh.springhome.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,12 +55,20 @@ public class AdminController {
 	}
 	
 	@GetMapping("/member/edit")
-	public String memberEdit() {		
+	public String memberEdit(HttpSession session, Model model) {
+		
+		String memberId = (String) session.getAttribute("name");
+		MemberDto memberDto = memberDao.selectOne(memberId);
+		model.addAttribute("memberDto",memberDto);
 		return "/WEB-INF/views/admin/member/edit.jsp";
 	}
 	
-//	@PostMapping("/member/edit")
-//	public String edit() {
-//		
-//	}
+	@PostMapping("/member/edit")
+	public String memberEdit(@ModelAttribute MemberDto inputDto,
+			HttpSession session) {
+		
+		String memberId = (String) session.getAttribute("name");
+		MemberDto findDto = memberDao.selectOne(memberId);
+		return "redirect:detail";
+	}
 }
