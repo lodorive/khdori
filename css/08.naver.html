@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네이버 로그인</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        #logo{
+            display: block;
+            width: 130px;
+            margin: 30px 0px;
+        }
+        #id-input{
+            display: block;
+            width: 330px;
+            padding: 0.8em;
+            color: gainsboro;
+            border-color: gainsboro;
+            border-radius: 5px 5px 0px 0px;
+            border-width: 1px;
+            border-style: solid;
+            border-bottom-width: 0;
+        }
+        #pw-input{
+            display: block;
+            width: 330px;
+            padding: 0.8em;
+            color: gainsboro;
+            border-color: gainsboro;
+            border-radius: 0px 0px 5px 5px;
+            border-top: none;
+            border-width: 1px;
+            border-style: solid;
+        }
+        #btn{
+            display: block;
+            width: 330px;
+            padding: 0.8em;
+            margin: 30px 0px;
+            font-size: 15px;
+            color: white;
+            background-color: rgb(4, 198, 91);
+            border-color: rgb(4, 198, 91);
+            border-radius: 5px;
+            border-style: solid;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div align="center">
+    <form action="#" method="post" autocomplete="off">
+        <img id=logo src="./images/네이버.png" width="200">
+        <input id=id-input type="text" name="memberId" placeholder="아이디">
+        <input id=pw-input type="password" name="memberPw" placeholder="비밀번호">
+        <button id="btn">로그인</button>
+    </form>
+    </div>
+</body>
+</html>
