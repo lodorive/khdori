@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인스타그램</title>
+    <style>
+        /*
+            제일 먼저 해야할 것
+            - 글꼴 설정
+        */
+        *{
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        div{
+
+        }
+        img{
+            display: block;
+            width: 190px;
+            margin: 20px 0px;
+        }
+        input{
+            display: block;
+            width: 230px;
+            height: 30px;
+            font-size: 12px;
+            padding: 0.50em;
+            margin: 8px 0px;
+            background-color: rgb(250, 250, 250);
+            color:grey;
+            border-color: gainsboro;
+            border-radius: 3px;
+            border-width: 1px;
+            border-style: solid;
+        }
+        button{
+            display: block;
+            width: 230px;
+            height: 30px;
+            font-size: 13px;
+            padding: 0.50em;
+            margin: 15px 0px;
+            background-color: rgb(76, 181, 249);
+            color: white;
+            border : none;
+            border-radius: 5px;
+        }
+        a{
+            color: darkblue;
+            font-size: 12px;
+        }
+        hr{
+            width: 230px;
+            margin: 20px 0px;
+        }
+    </style>
+</head>
+<body>
+    <div align="center">
+    <form action="#" method="post" autocomplete="off">
+        <!-- <img src="https://velog.velcdn.com/images/jiandme/post/5d07639a-5cfc-4a7d-b641-9222e5c194a7/image.jpg" width="180"> -->
+        <img src="./images/image.jpg">
+        <input type="text" name="memberId" placeholder="전화번호, 사용자 이름 또는 이메일">
+        <input type="password" name="memberPw" placeholder="비밀번호">
+        <button>로그인</button>
+        <hr>
+    <a href="#">비밀번호를 잊으셨나요?</a>
+    </form>
+    </div>
+</body>
+</html>
