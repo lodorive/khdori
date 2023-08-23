@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네이버 로그인</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        .logo{
+            display: block;
+            width: 130px;
+            margin: 30px 0px;
+        }
+        .form-item{
+            display: block;
+            width: 330px;
+            font-size: 20px;
+            padding: 0.8em;
+            letter-spacing: -1px;
+            border: 1px solid #cccccc;
+        }
+        .form-input{
+            padding-left: 1em;
+        }
+        .form-btn{
+            margin: 30px 0px;
+            color: white;
+            font-weight: bold;
+            background-color: rgb(4, 198, 91);
+            border-color: rgb(4, 198, 91);
+            border-radius: 7px;
+        }
+        input[name=memberId]{
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            border-bottom: none;
+        }
+        input[name=memberPw]{
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+        }
+    </style>
+</head>
+<body>
+    <div align="center">
+    <form action="#" method="post" autocomplete="off">
+        <img class="logo" src="./images/네이버.png" width="200">
+        <input class="form-item form-input" type="text" name="memberId" placeholder="아이디">
+        <input class="form-item form-input" type="password" name="memberPw" placeholder="비밀번호">
+        <button class="form-item form-btn">로그인</button>
+    </form>
+    </div>
+</body>
+</html>
