@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+    .btn.btn-positive{
+            border-color: rgb(54, 106, 255);
+            background-color: rgb(54, 106, 255);
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- div를 이용하여 기본 구조를 구현-->
+    <form action="#" method="post" autocomplete="off">
+    <div class="container w-400">
+        <div class="row mb-30">
+            <h2>회원가입</h2>
+        </div>
+        <div class="row w-100">
+            아이디*
+            <input type="text" name="memberId" 
+            class="form-input" placeholder="아이디">
+        </div>
+        <div class="row w-100">
+            비밀번호*
+            <input type="password" name="memberPw" 
+            class="form-input" placeholder="비밀번호">
+        </div>
+        <div class="row w-100">
+            닉네임*
+            <input type="text" name="memberNickname" 
+            class="form-input" placeholder="닉네임">
+        </div>
+        <div class="row w-100">
+            이메일
+            <input type="email" name="memberEmail" 
+            class="form-input" placeholder="이메일">
+        </div>
+        <div class="row w-100">
+            연락처
+            <input type="number" name="memberContact" 
+            class="form-input" placeholder="연락처">
+        </div>
+        <div class="row w-100">
+            생년월일
+            <input type="date" name="memberBirth" 
+            class="form-input" placeholder="생년월일">
+        </div>
+        <div class="row w-100">
+            주소
+            <input type="text" name="memberPost" 
+            class="form-input" placeholder="우편번호">
+        </div>
+        <div class="row w-100">
+            <input type="text" name="memberAddr1" 
+            class="form-input" placeholder="기본주소">
+        </div>
+        <div class="row w-100">
+            <input type="text" name="memberAddr2" 
+            class="form-input" placeholder="상세주소">
+        </div>
+        <div class="row mt-30">
+            <button class="btn btn-positive w-100">가입하기</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
