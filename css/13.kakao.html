@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카카오 로그인 화면</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="test.css"> -->
+    <style>
+        /*
+            입력창의 변형(확장) 스타일
+            - 기본 스타일에 옵션을 추가하듯이 추가 클래스를 작성하여 적용
+        */
+        
+        /*
+            2개 클래스가 모두 적용된 경우만 디자인하도록 설정
+        */
+        .form-input.form-underline{
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-radius: 0px;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        /*
+            버튼은 역할에 따라 구분
+            - 긍정버튼 - 페이지의 목적을 달성할 수 있도록 하는 버튼
+            - 중립버튼 - 페이지의 목적과 아무 상관 없는 버튼(기본값)
+            - 부정버튼 - 페이지의 목적을 달성할 수 없도록 하는 버튼
+        */
+        .btn.btn-positive{
+            border-color: rgb(254, 229, 0);
+            background-color: rgb(254, 229, 0);
+            color: black;
+        }
+        .btn.btn-negative{
+            border-color: gainsboro;
+            background-color: gainsboro;
+            color: black;
+        }
+        /*
+            간격 스타일(spacing)
+            - margin, padding을 자주 사용하는 것들 위주로 클래스화
+            - 기본 간격은 10px이며 10px 단위로 설정 가능하도록 구현
+            - margin은 m, padding은 p로 설정
+        */
+        .m-10{margin: 10px;}
+        .m-20{margin: 20px;}
+        .m-30{margin: 30px;}
+        .m-40{margin: 40px;}
+        .m-50{margin: 50px;}
+
+        .mh-10{margin: 0px 10px};
+        .mh-20{margin: 0px 20px};
+        .mh-30{margin: 0px 30px};
+        .mh-40{margin: 0px 40px};
+        .mh-50{margin: 0px 50px};
+
+        .mv-10{margin: 10px 0px;}
+        .mv-20{margin: 20px 0px;}
+        .mv-30{margin: 30px 0px;}
+        .mv-40{margin: 40px 0px;}
+        .mv-50{margin: 50px 0px;}
+
+        .mt-10{margin-top: 10px;}
+        .mt-20{margin-top: 20px;}
+        .mt-30{margin-top: 30px;}
+        .mt-40{margin-top: 40px;}
+        .mt-50{margin-top: 50px;}
+
+        .mb-10{margin-bottom: 10px;}
+        .mb-20{margin-bottom: 20px;}
+        .mb-30{margin-bottom: 30px;}
+        .mb-40{margin-bottom: 40px;}
+        .mb-50{margin-bottom: 50px;}
+
+        .ms-10{margin-left: 10px;}
+        .ms-20{margin-left: 20px;}
+        .ms-30{margin-left: 30px;}
+        .ms-40{margin-left: 40px;}
+        .ms-50{margin-left: 50px;}
+
+        .me-10{margin-right: 10px;}
+        .me-20{margin-right: 20px;}
+        .me-30{margin-right: 30px;}
+        .me-40{margin-right: 40px;}
+        .me-50{margin-right: 50px;}
+
+        .form-input,
+        .btn{
+            border-width: 1px;
+            border-color: gainsboro;
+            font-size: 14px;
+        }
+        .form-input{
+            font-weight: bold;
+            border-width: 2px;
+        }
+        .btn{
+            height: 40px;
+            border-radius: 5px;
+            border: none;
+            font-size: 13px;
+        }
+
+    </style>
+</head>
+<body>
+    <form action="#" method="post" autocomplete="off">
+        <div class="container w-400">
+            <div class="row mt-30 mb-40">
+              <img src="./images/kakao_logo.png" width="100">
+          </div>
+          <div class="row">
+            <input type="text" name="memberId" 
+                class="form-input form-underline w-100"  
+                placeholder="카카오메일 아이디, 이메일, 전화번호">
+            </div>
+         <div class="row">
+            <input type="password" name="memberPw" 
+                class="form-input form-underline w-100"  
+                placeholder="비밀번호">
+          </div>
+          <div class="row mt-30 mb-20">
+              <button class="btn btn-positive w-100">로그인</button>
+            </div>
+            <div class="row mb-30">
+                <hr>
+            </div>
+            <div class="row">
+                <button class="btn btn-negative w-100">QR코드 로그인</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

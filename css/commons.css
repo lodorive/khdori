@@ -58,6 +58,48 @@
     text-align: right;
 }
 
+.m-10{margin: 10px;}
+.m-20{margin: 20px;}
+.m-30{margin: 30px;}
+.m-40{margin: 40px;}
+.m-50{margin: 50px;}
+
+.mh-10{margin: 0px 10px};
+.mh-20{margin: 0px 20px};
+.mh-30{margin: 0px 30px};
+.mh-40{margin: 0px 40px};
+.mh-50{margin: 0px 50px};
+
+.mv-10{margin: 10px 0px;}
+.mv-20{margin: 20px 0px;}
+.mv-30{margin: 30px 0px;}
+.mv-40{margin: 40px 0px;}
+.mv-50{margin: 50px 0px;}
+
+.mt-10{margin-top: 10px;}
+.mt-20{margin-top: 20px;}
+.mt-30{margin-top: 30px;}
+.mt-40{margin-top: 40px;}
+.mt-50{margin-top: 50px;}
+
+.mb-10{margin-bottom: 10px;}
+.mb-20{margin-bottom: 20px;}
+.mb-30{margin-bottom: 30px;}
+.mb-40{margin-bottom: 40px;}
+.mb-50{margin-bottom: 50px;}
+
+.ms-10{margin-left: 10px;}
+.ms-20{margin-left: 20px;}
+.ms-30{margin-left: 30px;}
+.ms-40{margin-left: 40px;}
+.ms-50{margin-left: 50px;}
+
+.me-10{margin-right: 10px;}
+.me-20{margin-right: 20px;}
+.me-30{margin-right: 30px;}
+.me-40{margin-right: 40px;}
+.me-50{margin-right: 50px;}
+
 .form-input, 
 .btn{
     font-size: 20px;
@@ -69,17 +111,35 @@
 .form-input:focus{/* 선택된 상태를 focus라 한다 */
     border-color: #2d3436;
 }
+.form-input.form-underline{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0px;
+    padding-left: 0;
+    padding-right: 0;
+}
 /*
     버튼은 입력창과 동일하게 구현
     글자를 두껍게 보여주도록 처리(bold)
 */
 .btn{
     font-weight: bold;
-    border-color: darkorange;
-    background-color: darkorange;
-    color: white;
+    border-color: #2d3436;
+    background-color: white;
+    color: #2d3436;
     cursor: pointer;
 }
 .btn:hover{ /* 마우스가 버튼에 올라가면 배경을 조금 더 어둡게 처리 */
-    filter: brightness(95%);
+    filter: brightness(96%);
+}
+.btn.btn-positive{
+    border-color: rgb(254, 229, 0);
+    background-color: rgb(254, 229, 0);
+    color: black;
+}
+.btn.btn-negative{
+    border-color: gainsboro;
+    background-color: gainsboro;
+    color: black;
 }
