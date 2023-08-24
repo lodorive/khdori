@@ -119,6 +119,16 @@
     padding-left: 0;
     padding-right: 0;
 }
+.form-input.form-image{
+    padding-left: 3em;
+
+    /* background-image: url("./images/email.png"); */
+    background-size: 2em;
+    background-repeat: no-repeat;
+    background-position-x: 0.25em;
+    /* background-position-y: 50%; */
+    background-position-y: center;
+}
 /*
     버튼은 입력창과 동일하게 구현
     글자를 두껍게 보여주도록 처리(bold)
