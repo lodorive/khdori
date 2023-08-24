@@ -7,3 +7,79 @@
 * {
     box-sizing: border-box;
 }
+/*
+    컨테이너(container)
+    - 화면의 단위
+    - 가운데 정렬되도록 구현
+    - 내부에 행(row)을 배치하여 원하는 화면을 구성
+*/
+.container{
+    margin-left: auto;
+    margin-right: auto;
+}
+/*
+    자주 사용할 것으로 예상되는 폭을 클래스로 지정
+    - 최소 300px, 최대 1200px까지 100px 단위로 설정
+    - 100부터는 비율(%)로 설정
+*/
+.w-100{width: 100%;}
+
+.w-300{width: 300px;}
+.w-400{width: 400px;}
+.w-500{width: 500px;}
+.w-600{width: 600px;}
+.w-700{width: 700px;}
+.w-800{width: 800px;}
+.w-900{width: 900px;}
+.w-1000{width: 1000px;}
+.w-1100{width: 1100px;}
+.w-1200{width: 1200px;}
+
+/*
+    컨테이너에 배치할 태그의 자리를 row라고 부른다
+*/
+.row{
+    margin: 10px 0px;
+}
+
+/*
+    정렬 스타일
+*/
+.row{
+    text-align: center;
+}
+.left{
+    text-align: left;
+}
+.center{
+    text-align: center;
+}
+.right{
+    text-align: right;
+}
+
+.form-input, 
+.btn{
+    font-size: 20px;
+    padding: 0.5em 1em;
+    outline: none; /* outline은 입력 창 선택 시 강조 효과 */
+    border: 1px solid #636e72;
+    border-radius: 0.1em; /* 글자 크기의 10%만큼 깎겠다 */
+}
+.form-input:focus{/* 선택된 상태를 focus라 한다 */
+    border-color: #2d3436;
+}
+/*
+    버튼은 입력창과 동일하게 구현
+    글자를 두껍게 보여주도록 처리(bold)
+*/
+.btn{
+    font-weight: bold;
+    border-color: darkorange;
+    background-color: darkorange;
+    color: white;
+    cursor: pointer;
+}
+.btn:hover{ /* 마우스가 버튼에 올라가면 배경을 조금 더 어둡게 처리 */
+    filter: brightness(95%);
+}

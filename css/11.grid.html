@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그리드 스타일</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+        /*
+            컨테이너(container)
+            - 화면의 단위
+            - 가운데 정렬되도록 구현
+            - 내부에 행(row)을 배치하여 원하는 화면을 구성
+        */
+        .container{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /*
+            자주 사용할 것으로 예상되는 폭을 클래스로 지정
+            - 최소 300px, 최대 1200px까지 100px 단위로 설정
+            - 100부터는 비율(%)로 설정
+        */
+        .w-100{width: 100%;}
+
+        .w-300{width: 300px;}
+        .w-400{width: 400px;}
+        .w-500{width: 500px;}
+        .w-600{width: 600px;}
+        .w-700{width: 700px;}
+        .w-800{width: 800px;}
+        .w-900{width: 900px;}
+        .w-1000{width: 1000px;}
+        .w-1100{width: 1100px;}
+        .w-1200{width: 1200px;}
+        
+        /*
+            컨테이너에 배치할 태그의 자리를 row라고 부른다
+        */
+        .row{
+            margin: 10px 0px;
+        }
+
+        /*
+            정렬 스타일
+        */
+        .row{
+            text-align: center;
+        }
+        .left{
+            text-align: left;
+        }
+        .center{
+            text-align: center;
+        }
+        .right{
+            text-align: right;
+        }
+        </style>
+</head>
+<body>
+    <div class="container w-300">
+        <div class="row">1</div>
+        <div class="row left">2</div>
+        <div class="row right">3</div>
+        <div class="row">4</div>
+        <div class="row left">5</div>
+        <div class="row right">6</div>
+    </div>
+</body>
+</html>
