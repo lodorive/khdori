@@ -8,7 +8,10 @@
 	<h3>답글 작성</h3>
 	</c:when>
 	<c:otherwise>
-	<h3>게시글 작성</h3>
+	  <div class="container w-600">
+        <div class="row">
+            <h2>게시글 작성</h2>
+        </div>
 	</c:otherwise>
 </c:choose>	
 
@@ -20,19 +23,25 @@
 
 	<c:choose>
 	<c:when test="${isReply}">
-		제목 <textarea name="boardTitle"  rows="1" cols="60"  
-		required="required">RE: ${originDto.boardTitle}</textarea> <br>
+		 <div class="row left">
+            <label>제목</label>
+            <input type="text" name="boardTitle" class="form-input w-100">
+        </div>
 	</c:when>
 	<c:otherwise>
-		제목 <textarea name="boardTitle"  rows="1" cols="60" 
-		required="required">${originDto.boardTitle}</textarea> <br>
+		 <div class="row left">
+            <label>제목</label>
+            <input type="text" name="boardTitle" class="form-input w-100">
+        </div>
 	</c:otherwise>
 </c:choose>	
-		내용 <textarea name="boardContent"  rows="10" cols="60" 
-		required="required"></textarea> <br><br>
-		<button>게시글 등록</button>
+		<div class="row left">
+            <label>내용</label>
+            <textarea name="boardContent" class="form-input fixed w-100"></textarea>
+        </div>
+		<div class="row right">
+            <button class="btn btn-positive">글쓰기</button>
+            <a href="list" class="btn">목록</a></div>      
 	</form>
-	
-	 		<h2><a href="list">목록으로</a></h2>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
