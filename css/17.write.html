@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 작성</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+    /*
+        textarea는 크기 조정을 resize라는 속성으로 제어한다
+    */
+    .form-input{
+        font-size: 14px;
+    }
+    textarea.form-input{
+        resize: vertical;
+        min-height: 17em;
+    }
+    textarea.form-input.fixed{
+        resize: none;
+    }
+
+    </style>
+</head>
+<body>
+    <form action="#" method="post" autocomplete="off">
+    <div class="container w-600">
+        <div class="row">
+            <h2>게시글 작성</h2>
+        </div>
+        <div class="row left">
+            <label>제목</label>
+            <input type="text" name="boardTitle" class="form-input w-100">
+        </div>
+        <div class="row left">
+            <label>내용</label>
+            <textarea name="boardContent" class="form-input fixed w-100"></textarea>
+        </div>
+        <div class="row right">
+            <button class="btn btn-positive">글쓰기</button>
+            <a href="#" class="btn btn-positive">목록</a></div>         
+    </div>
+    </form>
+</body>
+</html>

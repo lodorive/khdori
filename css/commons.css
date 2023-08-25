@@ -107,6 +107,7 @@
     outline: none; /* outline은 입력 창 선택 시 강조 효과 */
     border: 1px solid #636e72;
     border-radius: 0.1em; /* 글자 크기의 10%만큼 깎겠다 */
+    line-height: 1.2em;
 }
 .form-input:focus{/* 선택된 상태를 focus라 한다 */
     border-color: #2d3436;
@@ -144,9 +145,9 @@
     filter: brightness(96%);
 }
 .btn.btn-positive{
-    border-color: rgb(254, 229, 0);
-    background-color: rgb(254, 229, 0);
-    color: black;
+    border-color: black;
+    background-color: black;
+    color: white
 }
 .btn.btn-negative{
     border-color: gainsboro;
