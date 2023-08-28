@@ -214,3 +214,13 @@ table.table-stripe > tbody > tr:nth-child(2n){
 .table.table-slit > tbody > tr:not(tr:last-child){
     border-bottom: 1px dotted black;
 }
+/*
+    글자 색상과 관련된 클래스
+*/
+.red{color: #EA2027;}
+.blue{color:#0652DD;}
+.yellow{color: #FFC312;}
+.green{color: #009432}
+.gray{color: #a4b0be;}
+.black{color: #1e272e;}
+.white{color: #ffffff;}
