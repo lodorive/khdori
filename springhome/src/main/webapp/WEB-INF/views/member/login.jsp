@@ -2,13 +2,40 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
-<h2>로그인</h2>
+<style>
+   .form-input{
+        font-size: 14px;
+        padding: 0.5em 1em;
+        border: 1px solid gainsboro;
+    }
+   .btn.btn-positive{
+   		
+        border-color: black;
+        background-color: black;
+        color: white;
+    }
+</style>
+   <div class="container w-300">
+        <div class="row">
+            <h2>로그인</h2>
+        </div>
 
 <form actiom="login" method="post" autocomplete="off">
-	<input type="text" name="memberId" placeholder="아이디" required> <br>
-	<input type="password" name="memberPw" placeholder="비밀번호" required> <br><br>
-	<button>Login</button>
+	 <div class="row">
+            <input type="text" name="memberId" class="form-input w-100" placeholder="아이디">
+        </div>
+        <div class="row">
+            <input type="password" name="memberPw" class="form-input w-100" placeholder="비밀번호">
+        </div>
+        <div class="row">
+            <button class="btn btn-positive w-100">로그인</button>
+        </div>
+        <div class="row">
+            <hr>
+        </div>
+        <div class="row">
+            <a href="#">비밀번호를 잊으셨나요?</a>
+        </div>
 </form>
 
 <%-- 

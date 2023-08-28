@@ -46,7 +46,7 @@
 					<%-- 띄어쓰기 뒤에 화살표 표시 --%>
 					<c:if test="${boardListDto.boardDepth > 0}">
 <!-- 						<img src="https://littledeep.com/wp-content/uploads/2020/09/arrow-icon-style.png" width="20" height="20"> -->
-						<img src="/images/icon.png" width="20" height="20">
+						<i class="fa-solid fa-reply fa-rotate-180"></i>
 					</c:if>
 					
 					<a href="detail?boardNo=${boardListDto.boardNo}">

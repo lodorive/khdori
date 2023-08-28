@@ -1,9 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
+ <style>
+    .important{
+        font-weight: bold;
+         color: crimson;
+    }
+    .btn.btn-positive{
+        border-color: black;
+        background-color: black;
+        color: white;
+    }
+    .form-input{
+        font-size: 13px;
+    }
+    .form-input.form-post{
+        width: 100px;
+    }
+    .btn.btn-post{
+        font-size: 11.5px;
+        width: 100px;
+        height: 31px;
+    }
+    .text-size{
+        font-size: 14px;
+    }
+    </style>
 <form action="join" method="post" autocomplete="off">
-	 <div class="container w-500">
+	 <div class="container w-400">
         <div class="row mt-30 mb-20">
             <h2>회원가입</h2>
         </div>
