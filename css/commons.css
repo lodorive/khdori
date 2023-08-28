@@ -225,3 +225,68 @@ table.table-stripe > tbody > tr:nth-child(2n){
 .gray{color: #a4b0be;}
 .black{color: #1e272e;}
 .white{color: #ffffff;}
+
+/*
+    전체 화면 디자인
+*/
+.backdrop {
+    /*
+        opacity는 현재 태그 뿐 아니라 내부 태그의 투명도도 조절한다
+    */
+
+    background-color: rgba(0, 0, 0, 0.1);
+    /* background-color: black; */
+    /* opacity: 0.1; */
+
+    /* 전체 화면을 덮을 수 있도록 위치 설정 */
+    position: fixed;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+}
+/*
+    화면의 가운데 위치시키는 방법
+    [1] margin을 음수로 부여하는 방법(폭을 알 때)
+        - 모든 브라우저에서 작동하는 코드
+        - 폭을 모를 때는 사용할 수 없다
+
+        .backdrop > .modal {
+            background-color: white;
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            top:50%;
+            left:50%;
+            margin-top: -50px;
+            margin-left: -50px;
+        }
+    [2] 폭을 몰라도 가운데로 배치하는 방법
+    - transform 속성을 사용하여 translate 함수로 이동 처리
+    - translate 함수는 현재 대상을 기준으로 비율을 계산한다
+    .backdrop > .modal {
+        background-color: white;
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+    }
+
+    [3] flexible layout을 사용하는 방법
+    .backdrop {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .backdrop > .modal {
+        background-color: white;
+    }
+*/
+
+/* 영역 가운데 위치시키는 필살 클래스(2번 방법 사용) */
+.position-center {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
