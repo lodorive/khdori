@@ -9,6 +9,7 @@
 
 <!-- 스타일시트 로딩 코드 -->
 <link rel="stylesheet" type="text/css" href="/css/commons.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <!-- <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
 
 </head>
