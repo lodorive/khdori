@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>토글 디자인</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+        input[name=agree] + label{
+            color: red;
+            transition: color 0.3s linear;
+        }
+        input[name=agree]:checked + label{
+            color: blue;
+        }
+        #ckbox{
+            display: none;
+        }
+        /*
+            사이드바 디자인
+        */
+        .sidebar{
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 200px;
+            z-index: 99999;
+            background-color: lavender;
+            /* 
+                transition 속성으로 특정 항목의 변화를 원하는 형태로 구현할 수 있다
+                - 사용법
+                transition : 항목 시간 타이밍함수;
+            */
+            transition: left 0.2s linear;
+            }
+        #sidebar-toggle + .sidebar{
+            left: -200px;
+        }
+        #sidebar-toggle:checked + .sidebar{
+            left: 0px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container w-500">
+        <div class="row">
+            <h2>토글 디자인</h2>
+        </div>
+        <div class="row left">
+            토글(toggle) 디자인이란 두 가지 상태를 왔다갔다 하는 디자인을 말한다<br>
+            토글 디자인은 체크박스를 기반으로 진행한다
+        </div>
+        <div class="row left">
+            <input type="checkbox" name="agree">
+            <label>동의합니다</label>
+        </div>
+
+        <div class="row left">
+            <input type="checkbox" name="agree" id="ckbox">
+            <label for="ckbox">동의합니다</label>
+        </div>
+
+        <div class="row left">
+            <input type="checkbox" id="sidebar-toggle">
+            <div class="sidebar">
+                사이드바
+            </div>
+        </div>
+        <div class="row left">
+            <label for="sidebar-toggle" class="sidebar-menu">
+                <i class="fa-solid fa-bars fa-3x"></i>
+            </label>
+            <label for="sidebar-toggle" class="sidebar-menu"
+            style="position: fixed; top:20px; left: 20px; z-index: 100000;">
+                <i class="fa-solid fa-bars fa-3x"></i>
+            </label>
+        </div>
+    </div>
+</body>
+</html>
