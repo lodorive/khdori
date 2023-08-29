@@ -408,7 +408,7 @@ table.table-stripe > tbody > tr:nth-child(2n){
             - 방문한 링크는 :visited로 선택 가능
         */
         a.link,
-        a.limk:visited {
+        a.link:visited {
             text-decoration: none;
             color: #2d3436;
         }
