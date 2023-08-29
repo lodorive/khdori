@@ -421,3 +421,27 @@ table.table-stripe > tbody > tr:nth-child(2n){
         a.link:hover{
             color: #0652DD;
         }
+        /*
+            float 요소를 배치할 수 있는 전용 공간
+            - ::before 는 공간 시작 지점을 의미하는 가상 선택자
+            - ::after 는 공간 마지막 지점을 의미하는 가상 선택자
+        */
+        .float-container::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+        .float-container > .float-left{
+            float: left;
+        }
+        .float-container > .float-right{
+            float: right;
+        }
+        .float-container > .col-2,
+        .float-container > .col-3,
+        .float-container > .col-4,
+        .float-container > .col-5,
+        .float-container > .col-6
+        {
+            float:left;
+        }

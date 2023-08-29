@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요기요</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+
+           .float-container::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+        .float-container > .float-left{
+            float: left;
+        }
+        .float-container > .float-right{
+            float: right;
+        }
+        .float-container > .col-2,
+        .float-container > .col-3,
+        .float-container > .col-4,
+        .float-container > .col-5,
+        .float-container > .col-6
+        {
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container w-700">
+        <div class="row float-container">
+            <div class="float-left">
+                <img src="./images/와플대학.png">
+            </div>
+            <div class="col-2">
+                <div class="row" style="font-size: 24px;">와플대학</div>
+                <div class="row float-container">
+                    <div class="col-3"><span style="color: gold;">★4.8</span></div>
+                    <div class="col-3"><span>리뷰 152</span></div>
+                    <div class="col-3"><span>사장님 댓글 23</span></div>
+                </div>
+                <div class="row float-container">
+                <div class="col-2"><span style="color: deeppink;">요기서 결제</span></div>
+                <div class="col-2"><span style="color: darkgray;">17,000원 이상 배달</span></div>
+                </div>
+                <div class="row float-container">
+                    <div class="col-2"><span>3800원 할인</span></div>
+                    <div class="col-2"><span>로고</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
