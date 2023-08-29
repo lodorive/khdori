@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다단 배치</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+        /*
+            float 요소를 배치할 수 있는 전용 공간
+            - ::before 는 공간 시작 지점을 의미하는 가상 선택자
+            - ::after 는 공간 마지막 지점을 의미하는 가상 선택자
+        */
+        .float-container::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+        .float-container > .float-left{
+            float: left;
+        }
+        .float-container > .float-right{
+            float: right;
+        }
+        .float-container > .col-2,
+        .float-container > .col-3,
+        .float-container > .col-4,
+        .float-container > .col-5,
+        .float-container > .col-6
+        {
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container w-800">
+        <div class="row">
+            <h2>다단 배치</h2>
+        </div>
+        
+        <div class="row left">
+            float 속성을 사용하면 기존 배치에서 벗어나 좌/우로 붙일 수 있게 된다
+            <br>
+            float가 아닌 요소와 섞어쓰면 화면 배치가 이상해진다
+            <br>
+            해결하기 위해서는 clear라는 속성을 배치하여 구분해줘야 한다
+        </div>
+
+        <div class="row">
+            <div style="float:left">왼쪽</div>
+            <div style="float:left">왼쪽</div>
+            <div style="float:right">오른쪽<br>오른쪽</div>
+            <div style="float:right">오른쪽</div>
+        </div>
+
+        <!-- 영역 구분을 위한 도구 -->
+        <div style="clear:both"></div>
+
+        <div class="row left">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed tristique tellus. Morbi fringilla quis risus sed accumsan. Integer at dapibus purus, vel accumsan dui. Curabitur sed dui sit amet augue ultrices condimentum suscipit vel ligula. Maecenas rutrum ante at laoreet luctus. Cras lacinia urna sed euismod rhoncus. Aenean vel elementum velit, a vulputate felis. Maecenas vitae lectus augue. Nullam vestibulum fringilla magna, vel gravida metus viverra a. Etiam id neque molestie, dapibus magna ac, ultricies nisi. Ut non ipsum vel nunc pharetra laoreet id et risus. Sed egestas est vitae dictum ultricies. Aliquam lacus lacus, faucibus et massa et, cursus gravida erat.
+        </div>
+        
+        <div class="row left">
+            가장 효과적인 해결방법은 가상선택자(virtual selector)를 이용하는 것이다
+        </div>
+
+        <div class="row float-container">
+            <div class="float-left">왼쪽</div>
+            <div class="float-left">왼쪽</div>
+            <div class="float-right">오른쪽<br>오른쪽</div>
+            <div class="float-right">오른쪽</div>
+        </div>
+
+        <div class="row left">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed tristique tellus. Morbi fringilla quis risus sed accumsan. Integer at dapibus purus, vel accumsan dui. Curabitur sed dui sit amet augue ultrices condimentum suscipit vel ligula. Maecenas rutrum ante at laoreet luctus. Cras lacinia urna sed euismod rhoncus. Aenean vel elementum velit, a vulputate felis. Maecenas vitae lectus augue. Nullam vestibulum fringilla magna, vel gravida metus viverra a. Etiam id neque molestie, dapibus magna ac, ultricies nisi. Ut non ipsum vel nunc pharetra laoreet id et risus. Sed egestas est vitae dictum ultricies. Aliquam lacus lacus, faucibus et massa et, cursus gravida erat.
+        </div>
+
+        <div class="row float-container">
+            <div class="float-left" style="width: 50%;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed tristique tellus. Morbi fringilla quis risus sed accumsan. Integer at dapibus purus, vel accumsan dui. Curabitur sed dui sit amet augue ultrices condimentum suscipit vel ligula. Maecenas rutrum ante at laoreet luctus. Cras lacinia urna sed euismod rhoncus. Aenean vel elementum velit, a vulputate felis. Maecenas vitae lectus augue. Nullam vestibulum fringilla magna, vel gravida metus viverra a. Etiam id neque molestie, dapibus magna ac, ultricies nisi. Ut non ipsum vel nunc pharetra laoreet id et risus. Sed egestas est vitae dictum ultricies. Aliquam lacus lacus, faucibus et massa et, cursus gravida erat.</div>
+            <div class="float-left" style="width: 50%;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed tristique tellus. Morbi fringilla quis risus sed accumsan. Integer at dapibus purus, vel accumsan dui. Curabitur sed dui sit amet augue ultrices condimentum suscipit vel ligula. Maecenas rutrum ante at laoreet luctus. Cras lacinia urna sed euismod rhoncus. Aenean vel elementum velit, a vulputate felis. Maecenas vitae lectus augue. Nullam vestibulum fringilla magna, vel gravida metus viverra a. Etiam id neque molestie, dapibus magna ac, ultricies nisi. Ut non ipsum vel nunc pharetra laoreet id et risus. Sed egestas est vitae dictum ultricies. Aliquam lacus lacus, faucibus et massa et, cursus gravida erat.</div>
+        </div>
+
+        <div class="row">
+            <h2>2단</h2>
+        </div>
+
+        <div class="row float-container">
+            <div class="col-2">1단</div>
+            <div class="col-2">2단</div>
+        </div>
+
+        <div class="row">
+            <h2>3단</h2>
+        </div>
+
+        <div class="row float-container">
+            <div class="col-3">1단</div>
+            <div class="col-3">2단</div>
+            <div class="col-3">3단</div>
+        </div>
+
+        <div class="row">
+            <h2>4단</h2>
+        </div>
+
+        <div class="row float-container">
+            <div class="col-4">1단</div>
+            <div class="col-4">2단</div>
+            <div class="col-4">3단</div>
+            <div class="col-4">4단</div>
+        </div>
+
+    </div>
+</body>
+</html>
