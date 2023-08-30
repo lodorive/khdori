@@ -18,7 +18,38 @@
     <link rel="stylesheet" type="text/css" href="commons.css">
     <link rel="stylesheet" type="text/css" href="test.css">
     <style>
-
+        /*
+            flexible 레이아웃 스타일
+            - 영역은 display가 flex 이거나 inline-flex 여야 한다
+            - 영역에 flex-direction을 설정하면 내용의 정렬 방식을 정할 수 있다
+            - 영역에 flex-wrap을 설정하면 내용의 줄 바꿈 허용을 정할 수 있다
+            - 영역에 justify-content를 설정하면 내용의 좌우 정렬을 정할 수 있다
+            - 영역에 align-items를 설정하면 내용의 상하 정렬을 정할 수 있다
+            - 영역 내부에 flex-grow를 설정하면 비어있는 공간의 점유비율을 정할 수 있다
+        */
+        .flex-container {
+            display: flex;
+        }
+        .inline-flex-container {
+            display: inline-flex;
+        }
+        .flex-container.auto-width > *,
+        .inline-flex-container.auto-width > * {
+            flex-grow: 1;
+        }
+        .flex-container.vertical,
+        .inline-flex-container.vertical {
+            flex-direction: column;
+        }
+        .flex-container.align-center,
+        .inline-flex-container.align-center {
+            justify-content: center;
+            align-items: center;
+        }
+        .flex-container.allow-wrap,
+        .inline-flex-container.allow-wrap {
+            flex-wrap: wrap;
+        }
     </style>
 </head>
 <body>
@@ -91,6 +122,24 @@
         <div class="row" style="display: flex; height: 300px; 
         justify-content: center; align-items: start;">
             <div>컨텐츠 내용</div>
+        </div>
+
+        <hr>
+
+        <div class="row flex-container">
+            <div>첫번째</div>
+            <div>두번째</div>
+            <div>세번째</div>
+        </div>
+        <div class="row flex-container auto-width">
+            <div>첫번째</div>
+            <div>두번째</div>
+            <div>세번째</div>
+        </div>
+        <div class="row flex-container vertical">
+            <div>첫번째</div>
+            <div>두번째</div>
+            <div>세번째</div>
         </div>
     </div>
 </body>
