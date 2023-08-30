@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카드 ver.2</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+        .flex-container {
+            display: flex;
+        }
+        .inline-flex-container {
+            display: inline-flex;
+        }
+        .flex-container.auto-width > *,
+        .inline-flex-container.auto-width > * {
+            flex-grow: 1;
+        }
+        .flex-container.vertical,
+        .inline-flex-container.vertical {
+            flex-direction: column;
+        }
+        .flex-container.align-center,
+        .inline-flex-container.align-center {
+            justify-content: center;
+            align-items: center;
+        }
+        .flex-container.allow-wrap,
+        .inline-flex-container.allow-wrap {
+            flex-wrap: wrap;
+        }
+        .pink{color: deeppink;}
+        .row {
+            margin: 5px 0px;
+        }
+        .title{
+            font-size: 20px;
+        }
+        .card{
+            /* border: 1px solid black; */
+            box-shadow: 0 0 0 1px black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container w-400">
+        <div class="row">
+        <h2>카드 레이아웃 ver.2</h2>
+        </div>
+        
+        <div class="row">
+            <div class="flex-container card">
+                <div class="w-33 flex-container align-center">
+                    <img src="./images/와플대학.png">
+                </div>
+                <div class="w-66">
+                    <div class="row left title">와플대학 - 당산점</div>
+                <div class="row left">
+                    <i class="fa-solid fa-star yellow"></i>
+                    <span class="yellow">4.8</span>
+                    <span class="gray">|</span>
+                    <span class="black">리뷰 152</span>
+                    <span class="gray">|</span>
+                    <span class="black">사장님 댓글 23</span>
+                </div>
+                <div class="row left">
+                    <span class="pink">요기서결제</span>
+                    <span class="gray">|</span>
+                    <span class="gray">17,000원 이상 배달</span>
+                </div>
+                <div class="row flex-container auto-width">
+                        <div class="left flex-container">
+                            <span class="red me-10">3,800원 할인</span>
+                            <img src="./images/세스코.png" width="25px">
+                        </div>
+                         <div class="right">
+                            <span class="gray me-10">50~60분</span>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>

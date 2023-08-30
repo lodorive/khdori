@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 디자인</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+        /*
+            이미지 디자인
+        */
+    .image.image-circle { 
+        border-radius: 50%; /* 이미지가 반드시 크기랑 높이가 같아야 함 */
+    }
+    .image.image-round {
+        border-radius: 5px;
+    }
+    .image.image-border,
+    .image.image-hover:hover {
+        box-shadow: 0 0 0 1px #2d2d2d;
+    }
+    .image.image-blur {
+        opacity: 0.8;
+    }
+    .image.image-blur:hover {
+        opacity: 1;
+    }
+    .image.image-lift {
+        box-shadow: 0 0 3px 1px #2d2d2d;
+    }
+    .image.image-leaf {
+        border-top-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+    }
+    .image.image-invert {
+        filter: invert(100%);
+    }
+    .image.image-grayscale {
+        filter: grayscale(100%);
+    }
+    </style>
+</head>
+<body>
+    <div class="container w-600">
+        <div class="row">
+            <h2>이미지 디자인</h2>
+        </div>
+        <div class="row">
+            <img class="image image-circle" src="./images/bg.jpg" width="100" height="100">
+            <img class="image image-round" src="./images/bg.jpg" width="100" height="100">
+            <img class="image image-border" src="./images/bg.jpg" width="100" height="100">
+            <img class="image image-hover" src="./images/bg.jpg" width="100" height="100">
+        </div>
+
+        <div class="row">
+            <img class="image image-blur" src="./images/bg.jpg" width="100" height="100">
+            <img class="image image-lift" src="./images/bg.jpg" width="100" height="100">
+            <img class="image image-leaf" src="./images/bg.jpg" width="100" height="100">
+            <img class="image image-invert" src="./images/bg.jpg" width="100" height="100">
+            <img class="image image-grayscale" src="./images/bg.jpg" width="100" height="100">
+        </div>
+
+    </div>
+</body>
+</html>
