@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+
+        var userId = document.querySelector("#userId");
+        var userPw = document.querySelector("#userPw");
+        var passPw = document.querySelector("#passPw");
+
+        var idRegex = /^[A-Za-z0-9]{5,20}$/;
+        var pwRegex = /^[A-Za-z0-9~!@#$%^&*()_+|<>?]{8,20}$/;
+
+        function checkId(){
+            var idRegex = /^[A-Za-z0-9]{5,20}$/;
+
+            if(!idRegex.test(userId, value)){
+                var a = document.querySelector("#a")
+                console.log(a);
+            }
+            else{
+                var a = document.querySelector("#a")
+                a.textContent = "사용불가";
+            }
+        }
+
+        
+    </script>
+
+</head>
+<body>
+    <div class="container w-400">
+        <div class="row">
+            <h1>회원가입</h1>
+        </div>
+        <div class="row left">
+            <span>아이디</span>
+            <input type="text" class="form-input w-100" id="userId" autocomplete="off" oninput="checkId">
+            <div class="row" id="a"></div>
+        </div>
+        <div class="row left">
+            <span>비밀번호</span>
+            <input type="password" name="memberPw" class="form-input w-100" autocomplete="off" id="userPw">
+        </div>
+        <div class="row left">
+            <span>비밀번호 확인</span>
+            <input type="password" name="memberPw" class="form-input w-100" autocomplete="off">
+        </div>
+        <div class="row">
+            <button class="btn btn-positive w-100">가입하기</button>
+        </div>
+    </div> 
+</body>
+</html>

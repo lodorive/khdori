@@ -127,8 +127,8 @@
     border-left: none;
     border-right: none;
     border-radius: 0px;
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 .form-input.form-image{
     padding-left: 3em;
@@ -139,6 +139,16 @@
     background-position-x: 0.25em;
     /* background-position-y: 50%; */
     background-position-y: center;
+}
+/*
+    textarea는 크기 조정을 resize라는 속성으로 제어한다
+*/
+textarea.form-input {
+    resize: vertical;
+    min-height:6em;
+}
+textarea.form-input.fixed {
+    resize: none;
 }
 /*
     버튼은 입력창과 동일하게 구현
