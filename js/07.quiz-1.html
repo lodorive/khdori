@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글자 크기 변경</title>
+        <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    
+    <script>
+        // 함수에서 공용으로 사용할 데이터를 외부에 정의할 수 있다
+        //(주의) 태그 선택은 안된다(시점이 안맞음)
+        var size = 16;
+
+        function increase(){
+            if(size >= 40) return;
+            size ++;
+            changeFontSize(size);
+        }
+        function decrease(){
+            if(size <= 8) return;
+            size --;
+            changeFontSize(size);
+        }
+        function changeFontSize(size){
+            var tag = document.querySelector(".target");
+            tag.style.fontSize = size + "px";
+
+            var button = document.querySelector(".size");
+            button.textContent = size;
+        }
+    </script>
+</head>
+<body>
+    <div class="container w-600">
+        <div class="row">
+            <h1>글자 크기 조절 문제</h1>
+        </div>
+        <div class="row">
+        <button class="btn" onclick="changeFontSize(12);">작게</button>
+        <button class="btn" onclick="changeFontSize(16);">보통</button>
+        <button class="btn" onclick="changeFontSize(24);">크게</button>
+        </div>
+        <div class="row left target">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed tristique tellus. 
+                Morbi fringilla quis risus sed accumsan. Integer at dapibus purus, vel accumsan dui. 
+                Curabitur sed dui sit amet augue ultrices condimentum suscipit vel ligula. </p>
+                <p>Maecenas rutrum ante at laoreet luctus. Cras lacinia urna sed euismod rhoncus.
+                 Aenean vel elementum velit, a vulputate felis. Maecenas vitae lectus augue. 
+                 Nullam vestibulum fringilla magna, vel gravida metus viverra a. 
+                 Etiam id neque molestie, dapibus magna ac, ultricies nisi. 
+                 Ut non ipsum vel nunc pharetra laoreet id et risus. Sed egestas est vitae dictum ultricies. 
+                 Aliquam lacus lacus, faucibus et massa et, cursus gravida erat.</p>
+        </div>
+        <div class="row">
+        <button class="btn" onclick="decrease();">-</button>
+        <span class="btn size">16</span> 
+        <button class="btn" onclick="increase();">+</button>
+         </div>
+        </div>
+</body>
+</html>
