@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>색상 변경</title>
+    <script>
+        // (참고) style은 하위 속성을 선택하여 지정할 수 있다
+        function changeBlack(){
+            var tag = document.querySelector(".target")
+            // tag.style = "color:black"; // style 덮어쓰기(비추)
+            tag.style.color = "black"; // style 속성 덮어쓰기(추천
+            tag.style.borderColor = "black";
+        }
+
+        function changeBlue() {
+            var tag = document.querySelector(".target")
+            tag.style.color = "blue";
+            tag.style.borderColor = "blue";
+        }
+
+        function changeRed(){
+            var tag = document.querySelector(".target")
+            tag.style.color = "red";
+            tag.style.borderColor = "red";
+        }
+
+    </script>
+</head>
+<body>
+    <h1 class="target" style="border: 1px solid black;">Hello Javascript!</h1>
+    <hr>
+    <button onclick="changeBlack();">검정</button>
+    <button onclick="changeBlue();">파랑</button>
+    <button onclick="changeRed();">빨강</button>
+</body>
+</html>
