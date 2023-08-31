@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글자 크기 변경</title>
+        <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+
+    <script>
+        // (주의) 자바스크립트 기본 함수명과 충돌한 우려가 있으니 가급적 길게 이름을 지어라
+        // - 예) open, close, alert, confirm, ...
+
+        // (주의) 미리 태그를 선택하지 말 것
+        // var tag = document.querySelector(".target");
+        // console.log(tag);
+
+        function small(){
+            var tag = document.querySelector(".target")
+            tag.style.fontSize = "12px";
+        }
+
+        function medium(){
+            var tag = document.querySelector(".target")
+            tag.style.fontSize = "16px";
+        }
+
+        function big(){
+            var tag = document.querySelector(".target")
+            tag.style.fontSize = "24px";
+        }
+    </script>
+</head>
+<body>
+    <div class="container w-600">
+        <div class="row">
+
+    <button onclick="small();">작게</button>
+    <button onclick="medium();">보통</button>
+    <button onclick="big();">크게</button>
+    <h1 class="target">어쩌구 저쩌구</h1>
+
+    <button onclick="zoom(20)">-</button> 
+    <button onclick="zoom(-20)">+</button>
+    </div>
+    </div>
+</body>
+</html>
