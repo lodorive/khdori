@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트 기본 계산 문제</title>
+    <script>
+        // [1] age에 대한 지하철 요금 계산
+        var age = 20;
+
+        var price;
+        if(age >= 65 && age < 8) {
+            price = 0;
+        }
+        else if(age >= 20){
+            price = 1250;
+        }
+        else if(age >= 14){
+            price = 720;
+        }
+        else{
+            price = 450;
+        }
+        
+        console.log("나이 = "+age);
+        console.log("요금 = "+price);    
+
+        // [2]  1부터 100까지 합계를 구하여 출력
+
+        var total = 0;
+
+        for(var i = 1; i <= 100; i++){
+            total += i;
+        }
+
+        console.log("합계 = "+total);
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
