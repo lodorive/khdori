@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문자열</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        // 자바스크립트에서 글자를 제어하는 방법
+        //- 자바스크립트에서 문자열은 배열로 취급된다
+        var a = "hello";
+        console.log(a);
+        console.log(a[0]); //a.charAt(0)과 동일한 표현
+        console.log(a.length); //자바의 a.length()과 동일한 표현
+        console.log(a.indexOf("e")); // 자바와 동일
+        console.log(a.substring(1,4)); //자바와 동일
+    
+        // input 입력창에 값을 불러와서 확인
+        function checkA(){
+            var tag = document.querySelector("#a");
+            // console.log(tag.value);
+            console.log(tag.value.length);
+        }
+
+        //select 역시 입력창이므로 value 속성이 없지만 사용할 수 있다
+        function checkB() {
+            var tag = document.querySelector("#b");
+            console.log(tag.value);
+        }
+
+        //textarea는 value 속성이 없음에도 입력창이므로 value를 사용할 수 있다
+        function checkC() {
+            var tag = document.querySelector("#c");
+            console.log(tag.value);
+
+            // var tag2 = document.querySelector("#a")
+            // tag2.value = tag.value.length;
+
+            //#d, #e에 각각 글자 복사
+            //- textContent는 HTMl을 해석하지 않고 일반 글자로 처리
+            //- innerHTML은 HMTL을 해석하여 처리(매우 위험, 비추천)
+            var d = document.querySelector("#d");
+            d.textContent = tag.value;
+            var e = document.querySelector("#e");
+            e.innerHTML = tag.value;
+        }
+    </script>
+</head>
+<body>
+    <div class="container w-400">
+        <div class="row">
+            <h1>글자 불러오기</h1>
+        </div>
+        <div class="row">
+            <input type="text" class="form-input w-100" id="a" oninput="checkA();">
+        </div>
+        <div class="row">
+            <select class="form-input w-100" id="b" oninput="checkB();">
+                <option>사과</option>
+                <option>바나나</option>
+                <option>딸기</option>
+                <option>포도</option>
+            </select>
+        </div>
+        <div class="row">
+            <textarea class="form-input w-100" rows="5" id="c" oninput="checkC();">
+            </textarea>
+        </div>
+        
+        <div class="row" id="d"></div>
+        <div class="row" id="e"></div>
+
+    </div>
+</body>
+</html>
