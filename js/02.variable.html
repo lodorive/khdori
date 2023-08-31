@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>변수</title>
+    <script>
+        //int a = 10;
+        //System.out.println(a);
+
+        var a = 10;
+        console.log(a);
+
+        // 자바스크립트에서는 변수를 var 키워드로 생성한다
+        //- 자료형에 관계 없이 하나의 키워드로 사용
+        //- 계산 등은 프로그래밍 상식에 따라 처리
+        var b = "hello!"
+        console.log(b);
+
+        var c = 'hello' // 문자열이 외따옴표도 가능
+        console.log(c);
+        
+        // 세미콜론이 없어도 실행이 가능(비추천)
+        var d = 'goodbye'
+        console.log(d)
+        
+        var v1 = 10;
+        var v2 = 20;
+        console.log(v1+v2);
+        console.log(v1 / v2); // 정수 실수 구분이 없음
+        console.log(v1 * d); // 이상한 계산(NaN : Not A Number)
+
+        // 치명적인 것이 아니면 모두 실행된다 
+        console.log(10/0); // Infinity - 무한대
+        console.log(7/0); // Infinity - 무한대
+        console.log(-7/0); // Infinity - 무한대
+
+        var e;
+        console.log(e); // undefined - 값이 들어간 적 없음
+
+        var f = null;
+        console.log(f); // null - 값이 없음
+        
+        //결론
+        //- 자료형 구분 없다
+        //- 자바처럼 계산하면 된다
+        //- 단, 자바의 예외상황도 이상한 값으로 실행된다
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
