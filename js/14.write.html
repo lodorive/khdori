@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 작성</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+        .form-input {
+            font-size: 15px;
+        }
+    </style>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        
+        function checkBoardTitle() {
+            var input = document.querySelector("[name=boardTitle]");
+            // var regex = /^.{1,100}$/;
+
+            var isValid = input.value.length > 0 && input.value.length <= 100;
+            input.classList.remove("fail");
+
+            if(isValid == false) {
+                input.classList.add("fail");
+                return false;
+            }
+            return true;
+        }
+
+        function checkBoardContent() {
+         
+            var textarea = document.querySelector("[name=boardContent]");
+            var isValid = textarea.value.length > 0 && textarea.value.length <= 1000;
+
+            var len = document.querySelector(".len");
+            len.textContent = textarea.value.length;
+            textarea.classList.remove("fail");
+            len.classList.remove("red");
+
+            if(isValid == false) {
+                len.classList.add("red");
+                textarea.classList.add("fail");
+                return false;           
+                }
+               return true;
+            }
+
+        function checkForm() {
+            var result1 = checkBoardTitle();
+            var resutl2 = checkBoardContent();
+            return result1 && result2;
+        }
+
+    </script>
+</head>
+<body>
+    <div class="container w-500">
+        <div class="row">
+            <h2>게시글 작성</h2>
+        </div>
+
+        <form autocomplete="off" onsubmit="return checkForm();">
+        <div class="row left">
+            <label>
+                제목
+                <i class="fa-solid fa-asterisk red"></i>
+            </label>
+            <input type="text" name="boardTitle" class="form-input w-100" onblur="checkBoardTitle();">
+            <div class="fail-feedback">제목은 필수이며 100자 이내로 작성하세요</div>
+        </div>
+        <div class="row left">
+            <label>
+                내용
+                <i class="fa-solid fa-asterisk red"></i>
+            </label>
+            <textarea name="boardContent" rows="10" class="form-input w-100" 
+            oninput="checkBoardContent();"></textarea>
+            <div class="fail-feedback">내용은 반드시 작성해야 합니다</div>
+        </div>
+        <div class="row right">
+            <span class="len">0</span> / 1000
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-positive w-100">
+                <i class="fa-solid fa-plus"></i>
+                작성하기</button>
+        </div>
+
+    </form>
+    </div>
+</body>
+</html>
