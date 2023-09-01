@@ -488,46 +488,46 @@ align-items: center;
 .inline-flex-container.allow-wrap {
 flex-wrap: wrap;
 }
- /*
-            성공/실패에 대한 스타일 구현
-        */
-        .success-feedback {
-            color: rgb(22,216,56);
-            display: none;
-            font-size: 15px;
-        }
-        .fail-feedback,
-        .fail2-feedback {
-            color: rgb(233,10,10);
-            display: none;
-            font-size: 15px;
-        }
-        .success ~ .success-feedback {
-            display: block;
-        }
-        .fail ~ .fail-feedback {
-            display: block;
-        }
-        .fail2 ~ .fail2-feedback {
-            display: block;
-        }
-        /* important는 우선순위를 최상위로 올린다 */
-        .success {
-            border-color: rgb(22,216,56) !important;
-            background-image: url("./image/vaild.png");
-            background-repeat: no-repeat;
-            background-position-x: right;
-            background-position-y: center;
-            background-size: 1.2em;
-        }
-        .fail, 
-        .fail2{
-            border-color: rgb(233,10,10) !important;
-            background-image: url("./image/invaild.png");
-            background-repeat: no-repeat;
-            background-position-x: right;
-            background-position-y: center;
-            background-size: 1.2em;
-        }
+/*
+        성공/실패에 대한 스타일 구현
+    */
+    .success-feedback {
+        color: rgb(22,216,56);
+        display: none;
+        font-size: 15px;
+    }
+    .fail-feedback,
+    .fail2-feedback {
+        color: rgb(233,10,10);
+        display: none;
+        font-size: 15px;
+    }
+    .success ~ .success-feedback {
+        display: block;
+    }
+    .fail ~ .fail-feedback {
+        display: block;
+    }
+    .fail2 ~ .fail2-feedback {
+        display: block;
+    }
+    /* important는 우선순위를 최상위로 올린다 */
+    .success {
+        border-color: rgb(22,216,56) !important;
+        background-image: url("./image/vaild.png");
+        background-repeat: no-repeat;
+        background-position-x: right;
+        background-position-y: center;
+        background-size: 1.2em;
+    }
+    .fail, 
+    .fail2{
+        border-color: rgb(233,10,10) !important;
+        background-image: url("./image/invaild.png");
+        background-repeat: no-repeat;
+        background-position-x: right;
+        background-position-y: center;
+        background-size: 1.2em;
+    }
 
         
