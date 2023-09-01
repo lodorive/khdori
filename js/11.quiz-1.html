@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입-풀이</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        function checkId(){
+            var input = document.querySelector("[name=memberId]");
+            //var div = document.querySelector("[name=memberId] + div"); //css selector
+            var div = input.nextElementSibling; //javascript
+
+            var regex = /^[a-z0-9]{5,20}$/;
+            var isValid = regex.test(input.value);
+
+            if(isValid){
+                div.textContent = "멋진 아이디입니다!";
+                div.style.color = "rgb(22,216,56)";
+            }
+            else{
+                div.textContent = "아이디는 영문 소문자와 숫자 5~20자로 작성";
+                div.style.color = "red";
+            }
+        }
+
+        function checkPw(){
+            var input = document.querySelector("[name=memberPw]");
+            var div = input.nextElementSibling;
+
+            var regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$])[A-Za-z0-9!@#$]{8,16}$/;
+            var isValid = regex.test(input.value);
+
+            if(isValid){
+                div.textContent = "올바른 비밀번호 형식입니다";
+                div.style.color = "rgb(22,216,56)";
+            }
+            else{
+                div.textContent = "비밀번호는 영문, 숫자, 특수문자를 반드시 포함한 8~16자 입니다";
+                div.style.color = "red";
+            }
+        }
+
+        function checkPw2(){
+            var pw = document.querySelector("[name=memberPw]")
+            var pwCheck = document.querySelector("#password-check");
+            var div = pwCheck.nextElementSibling;
+
+            // 비밀번호가 1글자 이상 입력되어 있고 두 입력값이 같으면
+            var isValid = pw.value.length >= 1 && pw.value == pwCheck.value;
+
+            if(pw.value.length == 0){
+                div.style.color = "red";
+                div.textContent = "비밀번호를 먼저 입력하세요";
+            }
+            else if(isValid){
+                div.style.color = "rgb(22,216,56)";
+                div.textContent = "비밀번호가 일치합니다";
+            }
+            else{
+                div.style.color = "red";
+                div.textContent = "비밀번호가 일치하지 않습니다";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container w-500">
+        <div class="row">
+            <h1>회원가입</h1>
+        </div>
+        <div class="row left">
+            <label>아이디</label>
+            <input type="text" name="memberId" class="form-input w-100" oninput="checkId();">
+            <div></div>
+        </div>
+        <div class="row left">
+            <label>비밀번호</label>
+            <input type="password"name="memberPw" class="form-input w-100" oninput="checkPw();">
+            <div></div>
+        </div>
+        <div class="row left">
+            <label>비밀번호</label>
+            <input type="password" id="password-check" class="form-input w-100" oninput="checkPw2();">
+            <div></div>
+        </div>
+    </div>
+</body>
+</html>

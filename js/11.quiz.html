@@ -17,33 +17,62 @@
     <!-- 내가 만든 CSS 파일 -->
     <link rel="stylesheet" type="text/css" href="./css/reset.css">
     <link rel="stylesheet" type="text/css" href="./css/commons.css">
-    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/test.css"> -->
     <style>
 
     </style>
 
     <!-- javascript 작성 공간 -->
     <script>
+        
 
-        var userId = document.querySelector("#userId");
-        var userPw = document.querySelector("#userPw");
-        var passPw = document.querySelector("#passPw");
+        function join(){
+            
+         var id = document.querySelector("#id");
+         var pw = document.querySelector("#pw");
+         var cpw = document.querySelector("#cpw");
+            
+         var idRegex = /^(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9]{5,20}$/;
+         var pwRegex = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$])[A-Za-z0-9!@#$]{8,20}$/;
+    
 
-        var idRegex = /^[A-Za-z0-9]{5,20}$/;
-        var pwRegex = /^[A-Za-z0-9~!@#$%^&*()_+|<>?]{8,20}$/;
-
-        function checkId(){
-            var idRegex = /^[A-Za-z0-9]{5,20}$/;
-
-            if(!idRegex.test(userId, value)){
-                var a = document.querySelector("#a")
-                console.log(a);
-            }
-            else{
-                var a = document.querySelector("#a")
-                a.textContent = "사용불가";
-            }
+        if(!idRegex.test(id.value)){
+            var a = document.querySelector("#a")
+            a.textContent = "영문과 숫자 5~20자로 작성하세요";
+            a.style.color = "red";
+            return false;
+            
         }
+        else{
+        var a = document.querySelector("#a")
+        a.textContent = "멋진 아이디입니다!";
+        a.style.color = "rgb(22,216,56)";
+        };
+
+        if(!pwRegex.test(pw.value)){
+            var b = document.querySelector("#b")
+            b.textContent = "영문, 숫자, 특수문자 8~20자로 작성하세요";
+            b.style.color = "red";
+            return false;
+        }
+        else{
+            var b = document.querySelector("#b")
+            b.textContent = "올바른 비밀번호 형식입니다";
+            b.style.color = "rgb(22,216,56)";
+        };
+
+        if(pw.value !== cpw.value){
+            var c = document.querySelector("#c")
+            c.textContent = "비밀번호가 일치하지 않습니다";
+            c.style.color = "red";
+            return false;
+        }
+        else{
+        var c = document.querySelector("#c")
+        c.textContent = "비밀번호가 일치합니다";
+        c.style.color = "rgb(22,216,56)";
+        };
+    }
 
         
     </script>
@@ -51,24 +80,29 @@
 </head>
 <body>
     <div class="container w-400">
-        <div class="row">
+        <div class="row mt-30">
             <h1>회원가입</h1>
         </div>
         <div class="row left">
             <span>아이디</span>
-            <input type="text" class="form-input w-100" id="userId" autocomplete="off" oninput="checkId">
-            <div class="row" id="a"></div>
+            <input type="text" name="memberId" class="form-input w-100" 
+            id="id" autocomplete="off" minlength="5" maxlength="20" oninput="join();">
+            <div class="row left" id="a"></div>
         </div>
         <div class="row left">
             <span>비밀번호</span>
-            <input type="password" name="memberPw" class="form-input w-100" autocomplete="off" id="userPw">
+            <input type="password" name="memberPw" class="form-input w-100" 
+            id="pw" autocomplete="off" minlength="5" maxlength="20" oninput="join();">
+            <div class="row left" id="b"></div>
         </div>
         <div class="row left">
             <span>비밀번호 확인</span>
-            <input type="password" name="memberPw" class="form-input w-100" autocomplete="off">
+            <input type="password" name="memberPw" class="form-input w-100" 
+            id="cpw" autocomplete="off" minlength="5" maxlength="20" oninput="join();">
+            <div class="row left" id="c"></div>
         </div>
         <div class="row">
-            <button class="btn btn-positive w-100">가입하기</button>
+            <button type="submit" class="btn btn-positive w-100">가입하기</button>
         </div>
     </div> 
 </body>
