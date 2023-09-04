@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
+<script src="/js/memberJoin.js"></script>
+
  <style>
     .important{
         font-weight: bold;
@@ -26,11 +29,13 @@
         font-size: 14px;
     }
     </style>
-<form action="join" method="post" autocomplete="off">
+    
 	 <div class="container w-400">
-        <div class="row mt-30 mb-20">
+        <div class="row mt-10 mb-20">
             <h2>회원가입</h2>
         </div>
+        
+		<form action="join" method="post" autocomplete="off" onsubmit="return checkForm();" >
             <div class="row left">
             <!-- 
                 라벨에는 for를 이용하여 특정 대상을 연결시킬 수 있다 
@@ -39,19 +44,38 @@
             -->
             <label for="id-input" class="text-size">아이디<span class="important">*</span></label>
             <input type="text" name="memberId" 
-            class="form-input w-100"
-            id="id-input" 
+            class="form-input w-100" 
+            id="id-input"
+            oninput="checkId();"
             placeholder="영문 소문자+숫자 8~20자 이내">
+            <div class="success-feedback">멋진 아이디입니다!</div>
+            <div class="fail-feedback">아이디는 영문과 숫자 5~20자로 작성하세요</div>
         </div>
         <div class="row left">
             <label class="text-size">비밀번호<span class="important"> *</span></label>
             <input type="password" name="memberPw" 
-            class="form-input w-100" placeholder="영문 대소문자+숫자+특수문자 8~16자 이내">
+            class="form-input w-100" 
+            oninput="checkPw();"
+            placeholder="영문 대소문자+숫자+특수문자 8~16자 이내">
+            <div class="success-feedback">올바른 비밀번호 형식입니다</div>
+            <div class="fail-feedback">비밀번호는 영문, 문자, 숫자, 특수문자를 반드시 포함하여 8~16자로 작성하세요</div>
+        </div>
+         <div class="row left">
+            <label class="text-size">비밀번호 확인<span class="important"> *</span></label>
+            <input type="password" 
+            class="form-input w-100" 
+            id="password-check"
+            oninput="checkPw2();"
+            placeholder="영문 대소문자+숫자+특수문자 8~16자 이내">
+             <div class="success-feedback">비밀번호가 일치합니다</div>
+            <div class="fail-feedback">비밀번호가 일치하지 않습니다</div>
+            <div class="fail2-feedback">비밀번호를 먼저 작성하세요</div>
         </div>
         <div class="row left">
             <label class="text-size">닉네임<span class="important"> *</span></label>
             <input type="text" name="memberNickname" 
-            class="form-input w-100" placeholder="한글, 숫자 2~10자 이내">
+            class="form-input w-100" 
+            placeholder="한글, 숫자 2~10자 이내">
         </div>
         <div class="row w-100 left">
             <label class="text-size">이메일</label>
@@ -76,9 +100,11 @@
             <input type="text" name="memberAddr2" class="form-input w-100 mt-10" placeholder="상세주소">
         </div>
         <div class="row mt-20 mb-30">
-            <button type="submit" class="btn btn-positive w-100">가입하기</button>
+            <button type="submit" class="btn btn-positive w-100">
+            <i class="fa-solid fa-plus"></i>
+            가입하기</button>
         </div>
-    </div>
 </form>
+    </div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -9,18 +9,19 @@
         border: 1px solid gainsboro;
     }
    .btn.btn-positive{
-   		
+ 		
         border-color: black;
         background-color: black;
         color: white;
     }
+
 </style>
    <div class="container w-300">
-        <div class="row">
+        <div class="row mb-30">
             <h2>로그인</h2>
         </div>
 
-<form actiom="login" method="post" autocomplete="off">
+	<form action="login" method="post" autocomplete="off">
 	 <div class="row">
             <input type="text" name="memberId" class="form-input w-100" placeholder="아이디">
         </div>
@@ -28,9 +29,9 @@
             <input type="password" name="memberPw" class="form-input w-100" placeholder="비밀번호">
         </div>
         <div class="row">
-            <button class="btn btn-positive w-100">로그인</button>
+            <button class="btn btn-positive w-100 mb-10">로그인</button>
         </div>
-        <div class="row">
+        <div class="row mb-10">
             <hr>
         </div>
         <div class="row">
