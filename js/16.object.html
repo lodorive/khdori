@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오브젝트</title>
+    <title>자바스크립트 객체(Object)</title>
     <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
 
     <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
@@ -57,7 +57,56 @@
         function window05() {
             //window.open("주소", "ID", "새창 옵션");
             // open("https://www.google.com", "", "width=500 height=500"); //무한 새창
-            open("https://www.google.com", "win1", "width=500 height=500"); //하나만 열림
+            
+            //구글은 새창이 타겟팅되지 않음
+            open("https://www.melon.com", "win1", "width=500 height=500"); //하나만 열림
+        }
+
+        function location01() {
+            // console.log(window.location);
+            // console.log(location);
+            location.href = "https://www.google.com";
+            
+        }
+
+        function location02() {
+            // console.log(window.location.reload);
+            // window.location.reload();
+            location.reload();
+        }
+        
+        function history01() {
+            history.back(); //history.go(-1);
+        }
+
+        function history02() {
+            history.go(-2);
+        }
+        
+        //document.querySelector()는 가장 위에 있는 1개의 태그를 선택
+        //document.querySelectorAll()은 해당하는 모든 태그를 선택
+        function document01() {
+            // console.log(window.document);
+            // var tag = document.querySelector("h1"); //원치 않는 결과
+            // tag.style.color = "red";
+            var tag = document.querySelectorAll(".temp"); //All은 배열과 같음
+            // tag[0].style.color = "red"; //반복문으로 여러태그에 적용 가능
+            // tag[1].style.color = "red"; 
+
+            for(var i = 0; i < tag.length; i++) {
+                tag[i].style.color = "red";
+            }
+        }
+
+        //document.getElementById(아이디) - 가장 중요!
+        //document.getElementByClassName(클래스)
+        //document.getElementByTagName(태그명))
+        function document02() {
+            // var tag = document.getElementById("target");
+            // tag.style.color = "red";
+
+            // var tag = document.getElementsByClassName("temp");
+            // tag[0].style.color = "red";
         }
     </script>
 </head>
@@ -78,6 +127,37 @@
             <button onclick="window03();">입력창</button>
             <button onclick="window04();">새탭</button>
             <button onclick="window05();">새창</button>
+        </div>
+
+        <div class="row left">
+            location은 window의 하위 객체이며
+            주소창과 새로고침버튼 등의 정보 및 제어 기능이 존재
+        </div>
+        <div class="row">
+            <button onclick="location01();">구글로 이동</button>
+            <button onclick="location02();">새로고침</button>
+        </div>
+
+        <div class="row left">
+            history는 window의 하위객체이며
+            방문이력을 관리하며 뒤로 혹은 앞으로 이동 기능이 존재
+        </div>
+        <div class="row">
+            <button onclick="history01();">뒤로가기</button>
+            <button onclick="history02();">뒤로 2페이지 가기</button>
+        </div>
+
+        <div class="row left">
+            document는 window의 하위 객체이며
+            문서를 제어할 수 있는 기능을 가지고 있다
+        </div>
+        <div class="row">
+            <button onclick="document01();">선택하기(신버전)</button>
+            <button onclick="document02();">선택하기(구버전)</button>
+        </div>
+        
+        <div class="row">
+            <h1 id="target" class="temp">선택 대상</h1>
         </div>
     </div>
 </body>
