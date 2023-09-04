@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>체크박스 제어</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+        
+    </style>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        //속성명과 값이 같은 속성들은 자바스크립트에서 논리로 관리한다
+        //- (ex) checked, selected, required, disabled, readonly
+        function testCheck() {
+            var checkbox = document.querySelector("#test");
+            // var checkbox = document.getElementById(test);
+            
+            // console.log(checkbox.checked);
+
+            var button = document.querySelector("#button");
+
+            // if(checkbox.checked) {//체크가 되었다면
+            //     //버튼의 비활성화를 해제
+            //     button.disabled = false;
+            // }
+            // else {
+            //     //버튼의 비활성화를 설정
+            //     button.disabled = true;
+            // }
+            button.disabled = !checkbox.checked; //버튼 비활성화를 체크 반대로 설정
+        }
+    </script>
+</head>
+<body>
+    <div class="container w-600">
+        <div class="row">
+            <h1>체크박스 제어</h1>
+        </div>
+        <div class="row left">
+            <!-- 라벨로 체크박스를 감싸면 ID가 없어도 타겟팅이 가능-->
+            <label>
+            <!-- <input id="test" type="checkbox" onchange="testCheck();"> -->
+            <input id="test" type="checkbox" oninput="testCheck();">
+            체크박스
+            </label>
+        </div>
+        <div class="row">
+            <button id="button" class="btn btn-positive w-100" disabled>버튼</button>
+        </div>
+    </div>
+</body>
+</html>
