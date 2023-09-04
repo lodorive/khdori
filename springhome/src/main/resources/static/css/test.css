@@ -5,6 +5,6 @@
 
 @charset "UTF-8";
 
-div {    
+div, main, header, nav, section, article, aside, footer, p, label, span {    
     box-shadow: 0px 0px 1px 0px black; 
 }
