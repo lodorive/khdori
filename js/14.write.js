@@ -32,6 +32,6 @@ function checkBoardContent() {
 
 function checkForm() {
     var result1 = checkBoardTitle();
-    var resutl2 = checkBoardContent();
+    var result2 = checkBoardContent();
     return result1 && result2;
 }
