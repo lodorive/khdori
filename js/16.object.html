@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오브젝트</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        //자바스크립트 객체(Object)
+        //- 기본적인 브라우저 통제를 위한 내장 객체
+        //- 내가 만들어 쓰는 사용자 객체
+
+        function window01() {
+            // console.log(window);
+            // window.alert("알림창 출력 완료");
+            alert("알림창 출력 완료");
+        }
+
+        function window02() {
+            var choice = window.confirm("정말 이동하시겠습니까?");
+            console.log(choice); //확인(true) / 취소(false)
+
+            if(choice) {
+                location.href = "https://www.google.com";
+            }
+        }
+
+        function window03() {
+            //사용하지 않는 기능
+            var value = window.prompt("아무거나 입력하세요");
+            console.log(value);
+        }
+
+        function window04() {
+            //window.open("주소");
+            open("https://www.naver.com");
+        }
+
+        function window05() {
+            //window.open("주소", "ID", "새창 옵션");
+            // open("https://www.google.com", "", "width=500 height=500"); //무한 새창
+            open("https://www.google.com", "win1", "width=500 height=500"); //하나만 열림
+        }
+    </script>
+</head>
+<body>
+    <div class="container w-600">
+        <div class="row">
+            <h1>자바스크립트 내장 객체</h1>
+        </div>
+        <div class="row left">
+            자바스크립트 내장객체는 브라우저를 제어하는 것이 목표이며
+            브라우저의 최상위 요소가 창(Window)이다.
+            <br>
+            창을 제어하는 내장객체의 이름은 window 이다.
+        </div>
+        <div class="row">
+            <button onclick="window01();">알림창</button>
+            <button onclick="window02();">확인창</button>
+            <button onclick="window03();">입력창</button>
+            <button onclick="window04();">새탭</button>
+            <button onclick="window05();">새창</button>
+        </div>
+    </div>
+</body>
+</html>
