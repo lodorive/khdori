@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        function realCheckbox(tag) {
+            //1. 체크된 체크박스를 확인
+            //2-1. 전체가 체크된 경우 개별항목을 모두 체크
+            //2-2. 개별항목이 체크된 경우 전체 체크여부를 확인
+            console.log(tag.classList.contains("check-item"));
+
+            if(tag.classList.contains("check-all")){
+                var itemList = document.querySelectorAll(".check-item");
+                var allList = document.querySelectorAll(".check-all");
+
+                for(var i=0; i<itemList.length; i++){
+                    itemList[i].checked = tag.checked;
+                }
+                for(var i=0; i<allList.length; i++){
+                    allList[i].checked = tag.checked;
+                }
+            }
+                else if(tag.classList.contains("check-item")){//2-2
+                //개별항목이 모두 체크되어 있는지를 알아야 함
+                //- itemList - 전체 체크박스 목록
+                //- checkedItemList = 체크된 체크박스 목록
+                var itemList = document.querySelectorAll(".check-item");
+                var checkedItemList = document.querySelectorAll(".check-item:checked");
+                var allChecked = itemList.length == checkedItemList.length;
+
+                var allList = document.querySelectorAll(".check-all");
+                for(var i=0; i<allList.length; i++){
+                allList[i].checked = allChecked;
+                }
+        }
+    </script>
+</head>
+<body>
+    <div class="container w-300">
+        <div class="row">
+            <h2>KH 과일 상회</h2>
+        </div>
+        <div class="row">
+            <label><input type="checkbox" class="check-all" oninput="realCheckbox(this);">모두 선택</label>
+        </div>
+        <hr>
+        <div class="row">
+            <label><input type="checkbox" class="check-item" oninput="realCheckbox(this);">사과 (500원)</label>
+        </div>
+        <div class="row">
+            <label><input type="checkbox" class="check-item" oninput="realCheckbox(this);">딸기 (1000원)</label>
+        </div>
+        <div class="row">
+            <label><input type="checkbox" class="check-item" oninput="realCheckbox(this);">바나나 (800원)</label>
+        </div>
+        <div class="row">
+            <label><input type="checkbox" class="check-item" oninput="realCheckbox(this);">포도 (2000원)</label>
+        </div>
+        <hr>
+        <div class="row">예상 결제 금액 : 0원</div>
+    </div>
+</body>
+</html>
