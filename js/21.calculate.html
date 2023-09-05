@@ -24,13 +24,15 @@
 
     <!-- javascript 작성 공간 -->
     <script>
-        function realCheckbox(tag) {
+         function refreshCheckbox(tag) {
+            //<계획>
             //1. 체크된 체크박스를 확인
             //2-1. 전체가 체크된 경우 개별항목을 모두 체크
             //2-2. 개별항목이 체크된 경우 전체 체크여부를 확인
-            console.log(tag.classList.contains("check-item"));
+            // console.log(tag.classList);
+            // console.log(tag.classList.contains("check-item"));
 
-            if(tag.classList.contains("check-all")){
+            if(tag.classList.contains("check-all")){//2-1
                 var itemList = document.querySelectorAll(".check-item");
                 var allList = document.querySelectorAll(".check-all");
 
@@ -40,8 +42,9 @@
                 for(var i=0; i<allList.length; i++){
                     allList[i].checked = tag.checked;
                 }
+
             }
-                else if(tag.classList.contains("check-item")){//2-2
+            else if(tag.classList.contains("check-item")){//2-2
                 //개별항목이 모두 체크되어 있는지를 알아야 함
                 //- itemList - 전체 체크박스 목록
                 //- checkedItemList = 체크된 체크박스 목록
@@ -51,9 +54,29 @@
 
                 var allList = document.querySelectorAll(".check-all");
                 for(var i=0; i<allList.length; i++){
-                allList[i].checked = allChecked;
+                    allList[i].checked = allChecked;
                 }
+          }
         }
+
+        function calculate(tag) {
+            // console.log(tag.value); //value를 읽는 방법
+            // console.log(tag.dataset.price); //data-*을 읽는방법
+
+            // 체크되어 있는 모든 체크박스를 불러와서 data-price를 합쳐서 출력
+
+            var checkboxList = document.querySelectorAll(".check-item:checked");
+            var total = 0;
+
+            for(var i=0; i<checkboxList.length; i++) {
+                total += parseInt(checkboxList[i].dataset.price);
+            }
+
+            var span = document.querySelector(".display");
+            span.textContent = total;
+        }
+
+
     </script>
 </head>
 <body>
@@ -61,24 +84,45 @@
         <div class="row">
             <h2>KH 과일 상회</h2>
         </div>
-        <div class="row">
-            <label><input type="checkbox" class="check-all" oninput="realCheckbox(this);">모두 선택</label>
+        <div class="row left">
+            <label>
+                <!-- 어떠한 태그에 정보를 저장해두고 싶으면 data- 속성을 사용 -->
+                <input type="checkbox" class="check-all" 
+                onchange="calculate(this);"
+                oninput="refreshCheckbox(this);">모두 선택
+            </label>
         </div>
         <hr>
-        <div class="row">
-            <label><input type="checkbox" class="check-item" oninput="realCheckbox(this);">사과 (500원)</label>
+        <div class="row left">
+            <label>
+                <input type="checkbox" class="check-item" name="frult"
+                onchange="calculate(this);" oninput="refreshCheckbox(this);" 
+                data-price="500">사과 (500원)
+            </label>
         </div>
-        <div class="row">
-            <label><input type="checkbox" class="check-item" oninput="realCheckbox(this);">딸기 (1000원)</label>
+        <div class="row left">
+            <label>
+                <input type="checkbox" class="check-item" name="frult" 
+                onchange="calculate(this);" oninput="refreshCheckbox(this);" 
+                data-price="1000">딸기 (1000원)
+            </label>
         </div>
-        <div class="row">
-            <label><input type="checkbox" class="check-item" oninput="realCheckbox(this);">바나나 (800원)</label>
+        <div class="row left">
+            <label>
+                <input type="checkbox" class="check-item" name="frult" 
+                onchange="calculate(this);" oninput="refreshCheckbox(this);" 
+                data-price="800">바나나 (800원)
+            </label>
         </div>
-        <div class="row">
-            <label><input type="checkbox" class="check-item" oninput="realCheckbox(this);">포도 (2000원)</label>
+        <div class="row left">
+            <label>
+                <input type="checkbox" class="check-item" name="frult" 
+                onchange="calculate(this);" oninput="refreshCheckbox(this);" 
+                data-price="2000">포도 (2000원)
+            </label>
         </div>
         <hr>
-        <div class="row">예상 결제 금액 : 0원</div>
+        <div class="row left">예상 결제 금액 : <span class="display">0</span> 원</div>
     </div>
 </body>
 </html>
