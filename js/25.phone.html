@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+        .p-10 {
+            padding: 5px;
+        }
+        .target {
+            display: flex;
+            justify-content: end;
+            align-items: end;
+            padding: 10px;
+            font-size: 24px;
+        }
+    </style>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+
+        window.addEventListener("load", function(){
+            var btnList = document.querySelectorAll(".keypad");
+
+            for(var i=0; i<btnList.length; i++){
+                btnList[i].addEventListener("click", function(){
+                    var target = document.querySelector(".target");
+                    target.textContent += this.textContent;
+                });
+            };
+
+            var clearBtn = document.querySelector(".clear");
+            clearBtn.addEventListener("click", function(){
+                var div = document.querySelector(".target");
+                div.textContent = "";
+            });
+        });
+        
+    </script>
+</head>
+<body>
+    <div class="container w-300">
+        <div class="row">
+        <h2>전화기 화면 만들기</h2>
+        </div>
+        <div class="row">
+            <div class="target" style="height: 50px;"></div>
+        </div>
+        <div class="row float-container">
+            <div class="col-3 p-10"><button class="btn w-100 keypad">1</button></div>
+            <div class="col-3 p-10"><button class="btn w-100 keypad">2</button></div>
+            <div class="col-3 p-10"><button class="btn w-100 keypad">3</button></div>
+            <div class="col-3 p-10"><button class="btn w-100 keypad">4</button></div>
+            <div class="col-3 p-10"><button class="btn w-100 keypad">5</button></div>
+            <div class="col-3 p-10"><button class="btn w-100 keypad">6</button></div>
+            <div class="col-3 p-10"><button class="btn w-100 keypad">7</button></div>
+            <div class="col-3 p-10"><button class="btn w-100 keypad">8</button></div>
+            <div class="col-3 p-10"><button class="btn w-100 keypad">9</button></div>
+            <div class="col-3 p-10"><button class="btn w-100 keypad">*</button></div>
+            <div class="col-3 p-10"><button class="btn w-100 keypad">0</button></div>
+            <div class="col-3 p-10"><button class="btn w-100 clear">#</button></div>
+        </div>
+        <!-- <button class="btn keypad">7</button>
+        <button class="btn keypad">8</button>
+        <button class="btn keypad">9</button>
+        </div> 
+        <div class="row"> 
+        <button class="btn keypad">4</button>
+        <button class="btn keypad">5</button>
+        <button class="btn keypad">6</button>
+        </div>
+        <div class="row"> 
+        <button class="btn keypad">1</button>
+        <button class="btn keypad">2</button>
+        <button class="btn keypad">3</button>
+        </div> 
+        <div class="row">
+        <button class="btn keypad">*</button>
+        <button class="btn keypad">0</button>
+        <button class="btn clear">#</button>
+         </div>
+    </div> -->
+</body>
+</html>
