@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+         function refreshCheckbox(tag) {
+            //<계획>
+            //1. 체크된 체크박스를 확인
+            //2-1. 전체가 체크된 경우 개별항목을 모두 체크
+            //2-2. 개별항목이 체크된 경우 전체 체크여부를 확인
+            // console.log(tag.classList);
+            // console.log(tag.classList.contains("check-item"));
+
+            if(tag.classList.contains("check-all")){//2-1
+                var itemList = document.querySelectorAll(".check-item");
+                var allList = document.querySelectorAll(".check-all");
+
+                for(var i=0; i<itemList.length; i++){
+                    itemList[i].checked = tag.checked;
+                }
+                for(var i=0; i<allList.length; i++){
+                    allList[i].checked = tag.checked;
+                }
+
+            }
+            else if(tag.classList.contains("check-item")){//2-2
+                //개별항목이 모두 체크되어 있는지를 알아야 함
+                //- itemList - 전체 체크박스 목록
+                //- checkedItemList = 체크된 체크박스 목록
+                var itemList = document.querySelectorAll(".check-item");
+                var checkedItemList = document.querySelectorAll(".check-item:checked");
+                var allChecked = itemList.length == checkedItemList.length;
+
+                var allList = document.querySelectorAll(".check-all");
+                for(var i=0; i<allList.length; i++){
+                    allList[i].checked = allChecked;
+                }
+          }
+        }
+
+        function calculate(tag) {
+            // console.log(tag.value); //value를 읽는 방법
+            // console.log(tag.dataset.price); //data-*을 읽는방법
+
+            // 체크되어 있는 모든 체크박스를 불러와서 data-price를 합쳐서 출력
+
+            var checkboxList = document.querySelectorAll(".check-item:checked");
+            var total = 0;
+
+            for(var i=0; i<checkboxList.length; i++) {
+                //체크박수 위 -> 뒤 태그 불러오기
+                var input = checkboxList[i].parentNode.nextElementSibling;
+                var qty = parseInt(input.value);
+                var price = parseInt(checkboxList[i].dataset.price);
+                total += qty * price;
+            }
+
+            var span = document.querySelector(".display");
+            span.textContent = total;
+        }
+
+
+    </script>
+</head>
+<body>
+    <div class="container w-400">
+        <div class="row">
+            <h1>KH 과일 상회</h1>
+        </div>
+        <div class="row left">
+            <label>
+                <input type="checkbox" class="check-all"
+                    oninput="refreshCheckbox(this);" onchange="calculate(this);">
+                모두 선택하기
+            </label>
+        </div>
+        <hr>
+        <div class="row left">
+            <label>
+                <!-- 어떠한 태그에 정보를 저장해두고 싶으면 data- 속성을 사용 -->
+                <input type="checkbox" class="check-item" 
+                    onchange="calculate(this);" oninput="refreshCheckbox(this);"
+                    name="fruit" data-price="500">
+                사과(500원)
+            </label>
+            <input type="number" name="qty" value="1" oninput="calculate(this);">
+        </div>
+        <div class="row left">
+            <label>
+                <input type="checkbox" class="check-item" 
+                    name="fruit" data-price="1000" 
+                    onchange="calculate(this);" oninput="refreshCheckbox(this);">
+                딸기(1000원)
+            </label>
+            <input type="number" name="qty" value="1" oninput="calculate(this);">
+        </div>
+        <div class="row left">
+            <label>
+                <input type="checkbox" class="check-item"
+                    name="fruit" data-price="800" 
+                    onchange="calculate(this);" oninput="refreshCheckbox(this);">
+                바나나(800원)
+            </label>
+            <input type="number" name="qty" value="1" oninput="calculate(this);">
+        </div>
+        <div class="row left">
+            <label>
+                <input type="checkbox" class="check-item"
+                    name="fruit" data-price="2000" 
+                    onchange="calculate(this);" oninput="refreshCheckbox(this);">
+                포도(2000원)
+            </label>
+            <input type="number" name="qty" value="1" oninput="calculate(this);">
+        </div>
+        <hr>
+        <div class="row left">예상 결제 금액 : <span class="display">0</span> 원</div>
+    </div>
+</body>
+</html>
