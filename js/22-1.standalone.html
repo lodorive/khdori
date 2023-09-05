@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        //목표 :
+        //버튼을 누르면 안녕!이라는 alert이 뜨게 해보자!
+        //단, onclick 안쓰고
+
+        //1. 버튼을 선택한다
+        //2. 버튼에 클릭 이벤트를 설정한다
+        //3. 클릭 이벤트에서 함수를 실행한다
+
+        //모든화면이 준비되면 init을 실행하도록 예약할게요(콜백, callback)
+        window.onload =  function() { //익명함수(이름이 없으니까)
+            var btn = document.querySelector(".btn");
+
+            // .btn을 클릭하면 welcome함수를 실행하도록 예약할게요
+            btn.onclick = function() {
+                alert("Hello!");
+            };
+        };
+
+    </script>
+</head>
+<body>
+    <button class="btn">Click</button>
+</body>
+</html>
