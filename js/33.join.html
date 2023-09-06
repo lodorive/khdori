@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+    
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        
+        $(function(){
+            $("[name=memberId]").blur(function(){      
+                var regex = /^[a-z0-9]{5,20}$/;
+                var isValid = regex.test($(this).val());
+
+                $(this).removeClass("success fail");
+                $(this).addClass(isValid ? "success" : "fail");
+
+            });
+      
+            $("[name=memberPw]").blur(function(){
+                var regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$])[A-Za-z0-9!@#$]{8,16}$/;
+                var isValid = regex.test($(this).val());
+
+                $(this).removeClass("success fail");
+                $(this).addClass(isValid ? "success" : "fail");
+
+            });
+
+            $("#password-check").blur(function(){
+                
+                var originPw = $("[name=memberPw]").val();
+                var checkPw =$(this).val();
+
+                $(this).removeClass("success fail fail2");
+
+                if(originPw.length == 0) { //비밀번호 미입력
+                    $(this).addClass("fail2");
+                }
+                else if(originPw == checkPw) { //비밀번호 일치
+                    $(this).addClass("success");
+                }
+                else { //비밀번호 불일치
+                    $(this).addClass("fail");
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="container w-500">
+        <div class="row">
+            <h1>회원가입</h1>
+        </div>
+    
+        <form action="#" autocomplete="off" onsubmit="return checkForm();">
+    
+        <div class="row left">
+            <label>아이디</label>
+            <input type="text" name="memberId" class="form-input w-100" autocomplete="off">
+            <div class="success-feedback">멋진 아이디입니다!</div>
+            <div class="fail-feedback">아이디는 영문과 숫자 5~20자로 작성하세요</div>
+        </div>
+        <div class="row left">
+            <label>비밀번호</label>
+            <input type="password"name="memberPw" class="form-input w-100">
+            <div class="success-feedback">올바른 비밀번호 형식입니다</div>
+            <div class="fail-feedback">비밀번호는 영문, 문자, 숫자, 특수문자를 반드시 포함하여 8~16자로 작성하세요</div>
+        </div>
+        <div class="row left">
+            <label>비밀번호 확인</label>
+            <input type="password" id="password-check" class="form-input w-100">
+            <div class="success-feedback">비밀번호가 일치합니다</div>
+            <div class="fail-feedback">비밀번호가 일치하지 않습니다</div>
+            <div class="fail2-feedback">비밀번호를 먼저 작성하세요</div>
+        </div>
+        <div class="row mt-20 mb-30">
+            <button type="submit" class="btn btn-positive w-100">
+            <i class="fa-solid fa-plus"></i>
+            가입하기</button>
+    </form>
+    </div>
+</body>
+</html>
