@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+    
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        $(function(){
+            $(".btn").click(function(){
+                var width = $(this).data("width");
+                var height = $(this).data("height");
+
+                $(".target").css("width", width, "height", height);
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="container w-500">
+        <div class="row">
+            <h1>이미지 크기 변경</h1>
+        </div>
+        <div class="row">
+            <button class="btn" data-width="50" data-height="auto">아주작게</button>
+            <button class="btn" data-width="150" data-height="auto">작게</button>
+            <button class="btn" data-width="300" data-height="auto">보통</button>
+            <button class="btn" data-width="450" data-height="auto">크게</button>
+        <div class="row">
+            <input type="range" value="500" min="0" max="1000">
+        </div>
+        </div>
+        <hr>
+        <div class="row">
+            <img class="target" src="https://picsum.photos/id/888/300/300">
+        </div>
+    </div>
+</body>
+</html>
