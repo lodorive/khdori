@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+    
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+    <!-- javascript 작성 공간 -->
+    <script>
+
+        $(function(){
+            $(".form-input").on("input", function(){
+                var content = $(this).val(); 
+                $(this).next(".form-input-length").text(content.length);
+
+                if(content.length > 1000){
+                    $(this).next(".form-input-length").css("color", "red");
+                }
+                else {
+                    $(this).next(".form-input-length").css("color", "black");
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="container w-500">
+        <div class="row">
+            <h1>자기소개서</h1>
+        </div>
+        <div class="row">
+            <h3>(Q) 본인 성격의 장단점을 기술하시오.<h3>
+        </div>
+        <div class="row right">
+            <textarea class="form-input w-100" rows="10"></textarea>
+            <span class="form-input-length">0</span> /1000
+        </div>
+        <div class="row">
+            <h3>(Q) 입사 후 20년 뒤 나의 모습은?<h3>
+        </div>
+        <div class="row right">
+            <textarea class="form-input w-100" rows="10"></textarea>
+            <span class="form-input-length">0</span> / 1000
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-positive w-100">제출하기</button>
+        </div>
+    </div>
+</body>
+</html>
