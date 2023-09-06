@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        
+        $(function(){
+            // $(".btn").on("click", function(){
+            $(".btn").click(function(){
+                //var color = this.dataset.color; //JS
+                var color =  $(this).data("color"); //jQuery
+                $(".target").css("color", color);
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="container w-500">
+        <div class="row">
+            <h1 class="target">색상 변경 예제(jQuery)</h1>
+        </div>
+        <div class="row">
+            <button class="btn" data-color="black">검정</button>
+            <button class="btn" data-color="red">빨강</button>
+            <button class="btn" data-color="blue">파랑</button>
+        </div>
+            <div class="row">
+            <button class="btn" data-color="yellow">노랑</button>
+            <button class="btn" data-color="pink">핑크</button>
+            <button class="btn" data-color="green">초록</button>
+        </div>
+    </div>
+</body>
+</html>
