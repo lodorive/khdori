@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+    
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        $(function(){
+            // $(".ck").on("input", function(){});
+            // $(".ck").on("change", function(){});
+            $(".ck").change(function(){
+                //this == 체크박스
+                // console.log(this.checked); //JS
+
+                //jQuery에서는 태그의 정보를 읽을 때 두 가지 명령이 있다
+                //- .prop()은 자바스크립트에서 관리하는 태그의 정보를 읽는다
+                //- .attr()은 태그에 써있는 글자를 읽는다
+                //- 원래 태그에 존재하는 속성은 prop(), 아니면 attr()을 사용
+                // console.log($(this).prop("checked"));
+                // console.log($(this).attr("checked"));
+
+                //체크 여부에 따라 비밀번호가 표시되도록 처리
+                if($(this).prop("checked")){ // 비밀번호 표시 체크가 되어있다면 
+                    $("[name=memberPw]").prop("type", "text");
+                }
+                else { //아니라면
+                    $("[name=memberPw]").prop("type", "password");
+                }
+            }); 
+
+            $(".btn").click(function(){
+                //this == 버튼
+                // $(".check-item").prop("checked", true); //전체선택
+                // $(".check-item").prop("checked", false); //전체해제
+
+                //체크 상태를 반대로 하고 싶다면
+                //일괄 처리가 아니기 때문에 반복이 필요
+                $(".check-item").each(function(index, element){
+                    //this == 현재 회차의 체크박스
+                    // console.log(this);
+                    // console.log(element);
+                    // this.checked = !this.checked; //JS (현재 체크 상태의 반대로 넣어라)
+
+                    //jQuery
+                    var checked = $(this).prop("checked"); //선택이 되어있다면 
+                    $(this).prop("checked", !checked); // this의 chekced를 반대로 해라..
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container w-500">
+        <div class="row">
+            <h1>체크박스 제어</h1>
+        </div>
+        <div class="row left">
+            <input type="checkbox" class="ck">비밀번호 표시
+        </div>
+        <div class="row left">
+            <input type="password" name="memberPw" class="form-input w-100">
+        </div>
+        <div class="row left">
+            <button type="button" class="btn">전체선택</button>
+        </div>
+        <div class="row left">
+            <input type="checkbox" class="check-item">
+            <input type="checkbox" class="check-item">
+            <input type="checkbox" class="check-item">
+            <input type="checkbox" class="check-item">
+            <input type="checkbox" class="check-item">
+        </div>
+    </div>
+</body>
+</html>
