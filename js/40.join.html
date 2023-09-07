@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+
+    <style>
+        .btn.btn-positive{
+        border-color: black;
+        background-color: black;
+        color: white;
+    }
+    .form-input{
+        font-size: 13px;
+    }
+    .form-input.form-post{
+        width: 100px;
+    }
+    .btn.btn-post{
+        font-size: 11.5px;
+        width: 100px;
+        height: 31px;
+    }
+    .text-size{
+        font-size: 14px;
+    }
+
+    /*
+        진행바 디자인
+    */
+    .progressbar {
+        width: 100%;
+        height: 5px;
+    }
+
+    .progressbar > .guage {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(195,180,217,1) 43%, rgba(148,187,233,1) 100%);
+        /* 스르륵 */
+        transition: width 0.1s ease-out;
+    }
+    </style>
+    
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+    <script src="multipage.js"></script>
+    <script src="join.js"></script>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+     $(function(){
+
+        refreshProgressbar();
+
+        //이전이나 다음버튼을 누르면 진행상황을 파악하여 게이지 계산
+        $(".btn-prev, .btn-next").click(function(){
+            //page 중에 보여지는 태그를 찾아서 계산
+            //- 전체 페이지 수 + 보여지는 페이지 번호
+            refreshProgressbar();
+        });
+            
+            function refreshProgressbar() {
+
+                var count = 0;
+                var index = 0;
+                $(".page").each(function(idx, el){
+                    if($(this).is(":visible")){ //현재 태그가 표시중이라면
+                        index = idx+1; //그렇다면 인덱스에 기록해라
+                    }
+                    count++; //페이지가 몇 개냐
+                });
+          
+                var percent = index * 100 / count;
+                $(".progressbar > .guage").css("width", percent+"%");
+            };
+
+        });
+
+ 
+    </script>
+</head>
+<body>
+    <form class="join-form" action="" method="post" autocomplete="off">
+        
+        <div class="container w-400">
+            <div class="row">
+                <h1>회원가입</h1>
+            </div>
+            
+            <!-- 전체 진행단계를 알 수 있는 게이지 출력-->
+            <div class="row">
+                <div class="progressbar">
+                    <div class="guage">
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1단계 : 아이디+비밀번호+확인 -->
+            <div class="row page">
+
+                <div class="row">
+                    <h3>1단계 : 아이디/비밀번호</h3>
+                </div>
+                <div class="row left">
+                    <label>아이디</label>
+                    <i class="fa-solid fa-asterisk red"></i></label>
+                    <input type="text" name="memberId" class="form-input w-100" autocomplete="off">
+                    <div class="success-feedback">멋진 아이디입니다!</div>
+                    <div class="fail-feedback">아이디는 영문과 숫자 5~20자로 작성하세요</div>
+                </div>
+                <div class="row left">
+                    <label>비밀번호</label>
+                    <i class="fa-solid fa-asterisk red"></i></label>
+                    <input type="password"name="memberPw" class="form-input w-100">
+                    <div class="success-feedback">올바른 비밀번호 형식입니다</div>
+                    <div class="fail-feedback">비밀번호는 영문, 문자, 숫자, 특수문자를 반드시 포함하여 8~16자로 작성하세요</div>
+                </div>
+                <div class="row left">
+                    <label>비밀번호 확인</label>
+                    <i class="fa-solid fa-asterisk red"></i></label>
+                    <input type="password" id="password-check" class="form-input w-100">
+                    <div class="success-feedback">비밀번호가 일치합니다</div>
+                    <div class="fail-feedback">비밀번호가 일치하지 않습니다</div>
+                    <div class="fail2-feedback">비밀번호를 먼저 작성하세요</div>
+                </div>
+
+                <div class="row right">
+                    <button type="button" class="btn btn-prev">이전
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button type="button" class="btn btn-next">다음
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+
+                <!-- 2단계 : 닉네임-->
+                
+            <div class="row page">
+
+                <div class="row">
+                    <h3>2단계 : 닉네임</h3>
+                </div>
+                <div class="row left">
+                    <label>닉네임
+                        <i class="fa-solid fa-asterisk red"></i></label>
+                        <input type="text" name="memberNickname" placeholder="한글 또는 숫자 2~10자"
+                         class="form-input w-100">
+                         <div class="success-feedback">멋진 닉네임입니다</div>
+                         <div class="fail-feedback">닉네임 형식이 올바르지 않습니다</div>
+                         <div class="fail2-feedback">이미 사용중인 닉네임입니다</div>
+                </div>
+
+                <div class="row right">
+                    <button type="button" class="btn btn-prev">이전
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button type="button" class="btn btn-next">다음
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- 3단계 : 이메일+연락처 -->
+            <div class="row page">
+
+                <div class="row">
+                    <h3>3단계 : 이메일</h3>
+                </div>
+                <div class="row left">
+                    <label>이메일</label>
+                    <input type="text" name="memberEmail" 
+                    placeholder="test@kh.com" class="form-input w-100">
+                     <div class="fail-feedback">이메일 형식이 잘못되었습니다</div>
+                </div>
+                <div class="row left">
+                    <label>전화번호</label>
+                    <input type="tel" name="memberContact" placeholder="010XXXXXXXX (-빼고)"
+                     class="form-input w-100">
+                     <div class="fail-feedback">전화번호 형식이 올바르지 않습니다</div>
+                </div>
+
+                <div class="row right">
+                    <button type="button" class="btn btn-prev">이전
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button type="button" class="btn btn-next">다음
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- 4단계 : 생년월일 -->
+            <div class="row page">
+
+                <div class="row">
+                    <h3>4단계 : 생년월일</h3>
+                </div>
+                <div class="row left">
+                    <label>생년월일</label>
+                    <input type="date" name="memberBirth" class="form-input w-100">
+                    <div class="fail-feedback">잘못된 날짜를 선택하셨습니다</div>
+                </div>
+
+                <div class="row right">
+                    <button type="button" class="btn btn-prev">이전
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button type="button" class="btn btn-next">다음
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 5단계 : 주소 -->
+            <div class="row page">
+
+                <div class="row">
+                    <h3>5단계 : 주소</h3>
+                </div>
+                <div class="row left">
+                    <label style="display: block;">주소</label>
+                    <input type="text" name="memberPost" placeholder="우편번호"
+                    class="form-input"" 
+                    size="6" maxlength="6">
+                    <button type="button" class="btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <input type="text" name="memberAddr1" placeholder="기본주소"
+                    class="form-input w-100 mt-10">
+                    <input type="text" name="memberAddr2" placeholder="상세주소"
+                    class="form-input w-100 mt-10">
+                    <div class="fail-feedback">모든 주소를 작성해주세요</div>
+                    </div>
+
+                <div class="row right">
+                    <button type="button" class="btn btn-prev">이전
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button type="button" class="btn btn-next">다음
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <button type="submit" class="btn btn-positive">
+                        <i class="fa-solid fa-plus"></i>
+                        가입하기</button>
+                </div>
+            </div>
+        
+            </div>
+        </form>
+</body>
+</html>

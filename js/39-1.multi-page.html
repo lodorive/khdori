@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+    </style>
+    
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        $(function(){
+          //페이지에 버튼이 포함되어 있으므로 DOM 탐색으로 처리
+          //[1] 첫페이지만 빼고 다 숨김
+          $(".page").hide().first().show();
+          $(".btn-prev").first().remove();
+          $(".btn-next").last().remove();
+
+          //[2] 다음버튼을 누르면 버튼이 속한 페이지를 숨기고 뒷페이지 표시
+          $(".btn-next").click(function(){
+            $(this).parent(".page").hide().next(".page").show();
+          });
+
+          //[3] 이전버튼을 누르면 버튼이 속한 페이지를 숨기고 앞페이지 표시
+          $(".btn-prev").click(function(){
+            $(this).parent(".page").hide().prev(".page").show();
+          });
+        });
+    </script>
+</head>
+<body>
+    <div class="container w-500">
+        <div class="row">
+            <h1>멀티 페이지</h1>
+        </div>
+        <div class="row page-wrapper">
+        <div class="page">
+            1페이지
+            <button class="btn btn-prev">이전</button>
+            <button class="btn btn-next">다음</button>
+        </div>
+        <div class="page">
+            2페이지
+            <button class="btn btn-prev">이전</button>
+            <button class="btn btn-next">다음</button>
+        </div>
+        <div class="page">
+            3페이지
+            <button class="btn btn-prev">이전</button>
+            <button class="btn btn-next">다음</button>
+        </div>
+        <div class="page">
+            4페이지
+            <button class="btn btn-prev">이전</button>
+            <button class="btn btn-next">다음</button>
+        </div>
+        <div class="page">
+            5페이지
+            <button class="btn btn-prev">이전</button>
+            <button class="btn btn-next">다음</button>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
