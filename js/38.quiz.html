@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+    
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        $(function(){
+            //전체선택과 개별체크박스에 대한 이벤트 구현
+
+            //전체선택
+            $(".check-all").change(function(){
+                var checked = $(this).prop("checked");
+                $(".check-all, .check-item").prop("checked", checked);
+            });
+
+            //개별체크박스
+            $(".check-item").change(function(){
+                //개별체크박스개수 == 체크된개별체크박스개수
+                // var allCheck = $(".checkitem").length == $(".checkitem:checked").length;
+                var allCheck = $(".check-item").length == $(".check-item").filter(":checked").length;
+                $(".check-all").prop("checked", allCheck);
+            });
+        });
+        
+    </script>
+</head>
+<body>
+    <div class="container w-400">
+        <div class="row">
+            <h2>이용 약관</h2>
+        </div>
+        <div class="row">
+            <textarea class="w-100" rows="5" readonly>dummy text</textarea>
+        </div>
+        <div class="row left">
+            <label><input class="check-item" type="checkbox">동의합니다</label>
+        </div>
+        <div class="row">
+            <textarea class="w-100" rows="5" readonly>dummy text</textarea>
+        </div>
+        <div class="row left">
+            <label><input class="check-item" type="checkbox">동의합니다</label>
+        </div>
+        <div class="row left">
+            <label><input type="checkbox" class="check-all">모두 동의합니다</label>
+        </div>
+        <div class="row">
+            <button id="next-btn"  class="btn btn-positive w-100">다음 단계로 이동</button>
+        </div>
+    </div>
+</body>
+</html>
