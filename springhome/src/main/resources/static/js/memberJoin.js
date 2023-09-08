@@ -1,134 +1,205 @@
-        function checkMemberId() {
-            var input = document.querySelector("[name=memberId]");
-            var regex = /^[a-z0-9]{5,20}$/
-
-            var isValid = regex.test(input.value);
-
-            input.classList.remove("success", "fail", "fail2");
-
-            if(isValid) {   
-                //아이디 중복검사 코드 및 성공 실패
-                input.classList.add("success");
-                return true;
-            }
-            else {
-                input.classList.add("fail");
-                return false;
-            }
+$(function(){
+    //객체를 하나 만들어서 검사 결과를 저장
+    //-검사 결과를 이곳에 저장
+    var status = {
+        memberId:false,
+        memberPw:false,
+        memberPwCheck:false,
+        memberNickName:false,
+        memberEmail:false,
+        memberContact:false,
+        memberBirth:false,
+        memberAddress:false,
+        ok:function(){
+            return this.memberId && this.memberPw && this.memberPwCheck
+            && this.memberNickName && this.memberEmail && this.memberContact 
+            && this.memberBirth && this.memberAddress;
         }
-    
-        function checkMemberPw() {
-            var input = document.querySelector("[name=memberPw]");
-            var regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$])[A-Za-z0-9!@#$]{8,16}$/;
+    };
 
-            var isValid = regex.test(input.value);
+    $("[name=memberId]").blur(function(e){      
+        var regex = /^[a-z0-9]{5,20}$/;
+        var isValid = regex.test($(e.target).val());
 
-            input.classList.remove("success", "fail");
-            input.classList.add(isValid ? "success" : "fail");
-
-            return isValid;
-        }
-
-        function checkMemberPw2() {
-            var input1 = document.querySelector("[name=memberPw]");
-            var input2 = document.querySelector("#password-check");
-
-            input2.classList.remove("success", "fail", "fail2");
-
-            if(input1.value.length == 0) { //비밀번호 미작성
-                input2.classList.add("fail2");
-                return false;
-            }
-            else if(input1.value == input.value2) { //비밀번호 일치
-                input2.classList.add("success");
-                return true;
-            }
-            else { //비밀번호 불일치
-                input2.classList.add("fail");
-                return false;
-            }
-        }
         
-        function checkMemberNickname() {
-            var input = document.querySelector("[name=memberNickname]");
-            // var regex = /^[가-힣0-9]$/
-            var regex = /^[ㄱ-ㅎㅏ-ㅣ-가-힣0-9]{2,10}$/;
+        if(isValid) {//형식이 유효하다면
+            
+            $.ajax({
+                url:"http://localhost:8080/rest/member/idCheck",
+                method:"post",
+                //data : {memberId = e.target.value},
+                data:{ memberId : $(e.target).val() },
+                success: function(response){
+                    $(e.target).removeClass("success fail fail2"); //통신 끝나고 지워라
+                    if(response == "Y"){ //사용가능
+                        $(e.target).addClass("success");
+                        status.memberId = true;
+                    }
+                    else { //사용불가(중복)
+                        $(e.target).addClass("fail2");
+                        status.memberId = false;
+                    }
+                },
+                error: function(){
+                    alert("서버와 통신이 원활하지 않습니다");
+                },
+            });
 
-            var isValid = regex.test(input.value);
-
-            input.classList.remove("success", "fail", "fail2");
-
-            if(isValid) {
-                //+중복검사(추후)
-                input.classList.add("success");
-                return true;
-            }
-            else {
-                input.classList.add("fail");
-                return false;
-            }       
         }
-    
-        function checkMemberEmail() {
-            var input = document.querySelector("[name=memberEmail]");
-            var regex = /^(.*?)@(.*?)$/;
-
-            var isValid = input.value.length == 0 || regex.test(input.value);
-
-            input.classList.remove("success", "fail");
-            input.classList.add(isValid ? "success" : "fail");
-            return isValid;
+        else {//형식이 유효하지 않다면(1차 실패)
+            $(e.target).removeClass("success fail fail2");
+            $(e.target).addClass("fail");
+            status.memberId = false;
         }
+    });
 
-        function checkMemberContact() {
-            var input = document.querySelector("[name=memberContact]");
-            var regex = /^010[1-9][0-9]{7}$/;
+    $("[name=memberPw]").blur(function(){
+        var regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$])[A-Za-z0-9!@#$]{8,16}$/;
+        var isValid = regex.test($(this).val());
 
-            var isValid = regex.test(input.value);
-            input.classList.remove("success", "fail");
-            input.classList.add(isValid ? "success" : "fail");
-            return isValid;
+        $(this).removeClass("success fail");
+        $(this).addClass(isValid ? "success" : "fail");
+
+        //검사 결과를 status에 저장
+        status.memberPw = isValid;
+
+        //비밀번호 확인창에 강제로 blur이벤트를 발생시킨다(트리거
+        $("#password-chek").blur();
+    });
+
+    $("#password-check").blur(function(){
+        
+        var originPw = $("[name=memberPw]").val();
+        var checkPw =$(this).val();
+
+        $(this).removeClass("success fail fail2");
+
+        if(originPw.length == 0) { //비밀번호 미입력
+            $(this).addClass("fail2");
+            status.memberPwCheck = false;
         }
-
-        function checkMEmberBirth() {
-            var input = document.querySelector("[name=memberBirth]");
-            var regex = /^(19[0-9]{2}|20[0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[01])$/;
-
-            var isValid = input.value.length == 0 || regex.test(input.value);
-            input.classList.remove("success", "fail");
-            input.classList.add(isValid ? "success" : "fail");
-            return isValid;
+        else if(originPw == checkPw) { //비밀번호 일치
+            $(this).addClass("success");
+            status.memberPwCheck = true;
         }
-
-         function checkMemberAddress() {
-            var input1 = document.querySelector("[name=memberPost]");
-            var input2 = document.querySelector("[name=memberAddr1]");
-            var input3 = document.querySelector("[name=memberAddr2]");
-
-            var isBlank = input1.value.length == 0 && input2.value.length == 0 && input3.value.length == 0;
-            var isFill = input1.value.length > 0 && input2.value.length > 0 && input3.value.length > 0;
-            var isValid = isBlank || isFill;
-
-            input1.classList.remove("success", "fail");
-            input2.classList.remove("success", "fail");
-            input3.classList.remove("success", "fail");
-
-            input1.classList.add(isValid ? "success" : "fail");
-            input2.classList.add(isValid ? "success" : "fail");
-            input3.classList.add(isValid ? "success" : "fail");
-
-            return isValid;
+        else { //비밀번호 불일치
+            $(this).addClass("fail");
+            status.memberPwCheck = false;
         }
+    });
 
-         function checkForm() {
-            var result1 = checkMemberId();
-            var result2 = checkMemberPw();
-            var result3 = checkMemberPw2();
-            var result4 = checkMemberNickname();
-            var result5 = checkMemberEmail();
-            var result6 = checkMEmberBirth();
-            var result7 = checkMemberContact();
-            var result8 = checkMemberAddress();
-            return result1 && result2 && result3 && result4 && result5 &&
-                    result6 && result7 && result8;
-         }
+    $("[name=memberNickname]").blur(function(e){
+
+        var regex = /^[ㄱ-ㅎㅏ-ㅣ-가-힣0-9]{2,10}$/;
+        var isValid = regex.test($(e.target).val());
+
+        $(e.target).removeClass("success fail fail2")
+
+        if(isValid) { //형식 통과
+            $.ajax({
+                url:"http://localhost:8080/rest/member/nicknameCheck",
+                method:"post",
+                data:{ memberNickname : $(e.target).val() },
+
+                success: function(response){
+                    $(e.target).removeClass("success fail fail2");
+                    if(response == "Y"){ //사용가능
+                        $(e.target).addClass("success");
+                        status.memberNickName = true;
+                    }
+                    else { //사용불가(중복)
+                        $(e.target).addClass("fail2");
+                        status.memberNickName = false;
+                    }
+                },
+                error: function(){
+                    alert("서버와 통신이 원활하지 않습니다");
+                },
+            });
+        }
+        else { //형식오류
+            $(e.target).removeClass("success fail fail2");
+            $(e.target).addClass("fail");
+            status.memberNickName = false;
+        }
+    });
+
+    $("[name=memberEmail]").blur(function(){
+
+        var regex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
+        var email = $(this).val();
+        var isValid = email.length == 0 || regex.test(email);
+
+        $(this).removeClass("success fail")
+        $(this).addClass(isValid ? "success" : "fail");
+
+        status.memberEmail = isValid;
+    });
+
+    $("[name=memberContact]").blur(function(){
+
+        var regex = /^010[1-9][0-9]{7}$/;
+        var contact = $(this).val();
+        var isValid = contact.length == 0 || regex.test(contact);
+
+        $(this).removeClass("success fail")
+        $(this).addClass(isValid ? "success" : "fail");
+
+        status.memberContact = isValid;
+
+    });
+
+    $("[name=memberBirth]").blur(function(){
+
+        var regex = /^(19[0-9]{2}|20[0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[01])$/;
+        var birth = $(this).val();
+        var isValid = birth.length == 0 || regex.test(birth);
+
+        $(this).removeClass("success fail")
+        $(this).addClass(isValid ? "success" : "fail");
+
+        status.memberBirth= isValid;
+    });
+
+    $("[name=memberPost],[name=memberAddr1],[name=memberAddr2]").blur(function(){
+        //this 사용 불가(확실히 누군지 알 수 없음)
+        var input1 = $("[name=memberPost]").val();
+        var input2 = $("[name=memberAddr1]").val();
+        var input3 = $("[name=memberAddr2]").val();
+
+        var isBlank = input1.length == 0 && input2.length == 0 && input3.length == 0;
+        var isFill = input1.length > 0 && input2.length > 0 && input3.length > 0;
+        var isValid = isBlank || isFill;
+
+        $("[name=memberPost],[name=memberAddr1],[name=memberAddr2]").removeClass("success fail");
+        $("[name=memberPost],[name=memberAddr1],[name=memberAddr2]").addClass(isValid ? "success" : "fail");
+        
+        // $("[name=memberPost]").removeClass("success fail");
+        // $("[name=memberAddr1]").removeClass("success fail");    
+        // $("[name=memberAddr2]").removeClass("success fail"); 
+        
+        // $("[name=memberPost]").addClass(isValid ? "success" : "fail");
+        // $("[name=memberAddr1]").addClass(isValid ? "success" : "fail");
+        // $("[name=memberAddr2]").addClass(isValid ? "success" : "fail");
+
+        status.memberAddress = isValid;
+    });
+
+    //페이지 이탈 방지
+    //- window에 beforeunload 이벤트 설정
+    $(window).on("beforeunload", function(){
+        return false;
+    });
+
+    //- form 전송할 때는 beforeunload 이벤트를 제거
+    $(".join-form").submit(function(e){
+        $(".form-input").blur();
+
+        if(!status.ok()){
+            e.preventDefault();
+        }
+        else {
+            $(window).off("beforeunload");
+        }
+    });
+});

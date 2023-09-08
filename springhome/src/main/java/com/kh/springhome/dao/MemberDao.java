@@ -30,4 +30,7 @@ public interface MemberDao {
 	
 	List<MemberBlockDto> selectBlockList();
 	MemberBlockDto selectBlockOne(String memberId);
+	
+	//닉네임 중복 검사
+	MemberDto selectOneByMemberNickname(String memberNickname);
 }
