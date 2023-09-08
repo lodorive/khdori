@@ -4,9 +4,15 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.kh.spring11.dao.MemberDao;
+import com.kh.spring11.dto.MemberDto;
 
 //CORE를 해제하기 위한 설정(Annotation)
 //@CrossOrigin //전부 다 허용(위험)
@@ -33,4 +39,31 @@ public class DummyRestController {
 		return set;
 	}
 	
+	@Autowired
+	private MemberDao memberDao;
+	
+	//아이디 중복검사
+	@PostMapping("/idCheck")
+	public String idCheck(@RequestParam String memberId) {
+		MemberDto memberDto = memberDao.selectOne(memberId);
+		if(memberDto != null) {//아이디가 있으면
+			return "Y";
+		}
+		else {//아이디가 없으면
+			return "N";
+		}
+	}
+	
+	//닉네임 중복검사
+	@PostMapping("/nicknameCheck")
+	public String nicknameCheck(@RequestParam String memberNickname) {
+		MemberDto memberDto = memberDao.selectNickname(memberNickname);
+		if(memberDto == null) {
+			return "Y"; //아이디 사용 가능
+		}
+		else {
+			return "N"; //아이디 이미 있음
+		}
+	}
+		
 }
