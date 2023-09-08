@@ -231,6 +231,30 @@ table.table-stripe > tbody > tr:nth-child(2n){
 .table.table-slit > tbody > tr:not(tr:last-child){
     border-bottom: 1px dotted black;
 }
+
+/*
+    페이지 네비게이터 디자인
+*/
+.page-navigator > a {
+    display:inline-block;
+    font-size: 12px;
+    padding: 0.5em;
+    min-width:2.25em;
+    cursor: pointer;
+    text-decoration: none;
+    /* border:1px solid #2d3436; */
+    box-shadow: 0px 0px 1px 0px #2d3436;
+    color: #2d3436;
+}
+.page-navigator > a.on,
+.page-navigator > a:hover {
+    /* border-color: #0984e3; */
+    box-shadow: 0px 0px 2px 0px #0984e3;
+    color: #0984e3;
+}
+
+/*
+
 /*
     글자 색상과 관련된 클래스
 */
@@ -420,16 +444,18 @@ table.table-stripe > tbody > tr:nth-child(2n){
             right: 0;
             top: 0;
         }
-/*
+/* 
     링크 스타일
     - 방문한 링크는 :visited로 선택 가능
 */
-a.link,
-a.link:visited {
+a.link, 
+a.link:visited 
+{
     text-decoration: none;
     color: #2d3436;
 }
-a.link:hover{
+a.link:hover 
+{
     color: #0652DD;
 }
 /*
@@ -514,7 +540,6 @@ flex-wrap: wrap;
     /* important는 우선순위를 최상위로 올린다 */
     .success {
         border-color: rgb(22,216,56) !important;
-        background-image: url("../images/vaild.png");
         background-repeat: no-repeat;
         background-position-x: right;
         background-position-y: center;
