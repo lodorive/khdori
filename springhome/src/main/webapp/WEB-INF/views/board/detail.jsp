@@ -109,7 +109,49 @@ $(function(){
 					//- 전환 시 작성된 값들을 입력창으로 이동시켜야 함
 					//- 전송 가능한 form과 취서 버튼을 구현
 					//- 수정 시 서버로 글번호와 글내용만 전달하면 됨
-					$(htmlTemplate).find(".btn-edit").click(function(){
+					$(htmlTemplate).find(".btn-edit")
+					.attr("data-reply-no", reply.replyNo)
+					.click(function(){
+						//this == 수정버튼
+						
+						var editTemplate = $("#reply-edit-template").html();
+						var editHtmlTemplate = $.parseHTML(editTemplate);
+						
+						//value 설정
+						var replyNo = $(this).attr("data-reply-no");
+						var replyContent = $(this).parents(".view-container").find(".replyContent").text();
+						$(editHtmlTemplate).find("[name=replyNo]").val(replyNo);
+						$(editHtmlTemplate).find("[name=replyContent]").val(replyContent);
+						
+						//취소 버튼에 대한 처리 구현
+						$(editHtmlTemplate).find(".btn-cancel").click(function(){
+							//this == 취소버튼
+							$(this).parents(".edit-container").prev(".view-container").show();
+							$(this).parents(".edit-container").remove();
+						});
+						
+						//완료(등록) 버튼 처리
+						//- editHtmlTemplate 자체가 form이므로 추가 탐색을 하지 않음
+						$(editHtmlTemplate).submit(function(e){
+							
+							//검사 코드(미입력)
+							
+							
+							//기본 이벤트 차단
+							e.preventDefault();
+							
+							$.ajax({
+								url:"/rest/reply/edit",
+								method:"post",
+								data: $(e.target).serialize(),
+								success:function(response){
+									loadList();	
+								}
+							});
+						});
+						
+						//화면 배치
+						$(this).parents(".view-container").hide().after(editHtmlTemplate);
 						
 					});
 					
@@ -122,7 +164,7 @@ $(function(){
 </script>
 
 <script id="reply-template" type="text/template">
-<div class="row flex-container">
+<div class="row flex-container view-container">
 			<div class="w-75">
 				<div class="row left">
 					<h3 class="replyWriter">작성자</h3>
@@ -135,12 +177,12 @@ $(function(){
 				</div>
 			</div>
 			<div class="w-25">
-				<div class="row right">
+				<div class="row">
 					<button class="btn btn-edit">
 						<i class="fa-solid fa-edit"></i>
 					</button>
 				</div>
-				<div class="row right">
+				<div class="row">
 					<button class="btn btn-negative btn-delete">
 						<i class="fa-solid fa-trash"></i>
 					</button>
@@ -150,7 +192,7 @@ $(function(){
 </script>
 
 <script id="reply-edit-template" type="text/template">
-<form class="reply-edit-form">
+<form class="reply-edit-form edit-container">
 		<input type="hidden" name="replyNo" vlaue="?">
 		<div class="row flex-container">
 			<div class="w-75">
@@ -158,10 +200,10 @@ $(function(){
 			</div>
 			<div class="w-25">
 				<div class="row">
-					<button class="btn btn-positive">등록</button>	
+					<button type="submit" class="btn btn-positive">등록</button>	
 				</div>
 				<div class="row">
-					<button class="btn btn-negative">취소</button>	
+					<button type="button" class="btn btn-negative btn-cancel">취소</button>	
 				</div>
 			</div>
 		</div>
@@ -210,6 +252,7 @@ $(function(){
 	</div>
 	
 	<%-- 댓글과 관련된 화면이 작성될 위치 --%>
+	<c:if test="${sessionScope.name != null}">
 	<div class="row left">
 	<form  class="reply-insert-form">
 		<input type="hidden" name="replyOrigin" value="${boardDto.boardNo}">
@@ -225,6 +268,7 @@ $(function(){
 		</div>
 	</form>
 	</div>
+	</c:if>
 	
 	<%-- 댓글 목록이 표시될 영역 --%>
 	<div class="row left reply-list"></div>

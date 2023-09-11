@@ -55,4 +55,11 @@ public class ReplyDaoImpl implements ReplyDao{
 		Object[] data = {replyNo};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
+	
+	@Override
+	public boolean update(ReplyDto replyDto) {
+		String sql = "update reply set reply_content=? where reply_no=?";
+		Object[] data = {replyDto.getReplyContent(), replyDto.getReplyNo()};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
 }

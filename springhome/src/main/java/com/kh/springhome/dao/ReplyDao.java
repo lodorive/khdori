@@ -12,4 +12,5 @@ public interface ReplyDao {
 	ReplyDto selectOne(int replyNo);
 	
 	boolean delete(int replyNo);
+	boolean update(ReplyDto replyDto);
 }
