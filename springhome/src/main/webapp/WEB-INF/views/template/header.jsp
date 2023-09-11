@@ -25,6 +25,9 @@
 <!-- <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
 <style></style>
 
+<!-- jquery cdn -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 </head>
 <body>
 <main>
