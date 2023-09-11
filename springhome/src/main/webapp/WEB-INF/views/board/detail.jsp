@@ -40,9 +40,55 @@
 	<div class="row left">
 		<h2>${boardDto.boardTitle}</h2>
 	</div>
+	
+	<%-- 게시글 내용(본문) --%>
 	<div class="row left" style="min-height:250px">
 		<pre>${boardDto.boardContent}</pre>
 	</div>
+	
+	<%-- 댓글과 관련된 화면이 작성될 위치 --%>
+	<div class="row left">
+	<form>
+		<div class="row">
+		<textarea name="" class="form-input w-100" rows="4"></textarea>
+		</div>
+		<div class="row">
+		<button class="btn btn-positive w-100">
+		<i class="fa-solid fa-pen"></i>
+		등록</button>
+		</div>
+	</form>
+	</div>
+	
+	<div class="row left w-600">
+		<div class="row flex-container">
+			<div class="w-75">
+				<div class="row left">
+					<h3 class="DB이름">작성자</h3>
+				</div>
+				<div class="row left">
+					<pre class="DB이름">내용</pre>
+				</div>
+				<div class="row left">
+					<span class="DB이름">yyyy-MM-dd HH:mm:ss</span>
+				</div>
+			</div>
+			<div class="w-25">
+				<div class="row right">
+					<button class="btn">
+						<i class="fa-solid fa-edit"></i>
+					</button>
+				</div>
+				<div class="row right">
+					<button class="btn btn-negative">
+						<i class="fa-solid fa-trash"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<%-- 각종 버튼이 위치하는 곳 --%>
 	<div class="row right">
 		<%-- 회원일 때만 글쓰기,수정,삭제가 나와야 한다 --%>
 		<c:if test="${sessionScope.name != null}">
