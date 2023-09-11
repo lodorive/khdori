@@ -10,4 +10,6 @@ public interface ReplyDao {
 	
 	List<ReplyDto> selectList(int replyOrigin);
 	ReplyDto selectOne(int replyNo);
+	
+	boolean delete(int replyNo);
 }

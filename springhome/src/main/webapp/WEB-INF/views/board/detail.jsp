@@ -28,7 +28,8 @@ $(function(){
 			data : $(e.target).serialize(),
 			success:function(response){
 				//console.log("성공");
-				$("[name=replyContent]").val("");
+				$("[name=replyContent]").val(""); //입력창 초기화
+				loadList(); //목록 갱신
 			}
 		});
 	});
@@ -39,13 +40,19 @@ $(function(){
 	//- 목록을 모두 지우고 전부 다 새로 불러오도록 구현한다.
 	loadList();
 	
-	function loadList(){
-		//화면 청소
-		$(".reply-list").empty(); //자기 자신을 제외한 내부 코드 삭제
-		
+	//목록을 불러온 뒤 추가로 해야할 것
+	//- 내 글에만 수정/삭제 버튼이 나오도록 처리
+	//- 게시글 작성자가 쓴 댓글에 추가 표시
+	//- 수정 버튼을 누르면 화면에 변화를 주도록 처리
+	//- 삭제 버튼을 누르면 확인창 출력 후 삭제하도록 처리
+	
+	function loadList(){		
 		//Javascript로 boardNo라는 이름의 파라미터 값 읽기
 		var params = new URLSearchParams(location.search); //분석해..
 		var no = params.get("boardNo"); 
+		
+		//(중요) 로그인한 사용자의 정보를 EL을 이용하여 저장(매우 위험한 코드)
+		var memberId = "${sessionScope.name}";
 		
 		//비동기 통신으로 화면 갱신
 		$.ajax({
@@ -53,13 +60,112 @@ $(function(){
 			method:"post",
 			data:{replyOrigin : no},
 			success:function(response){
+				//화면 청소
+				$(".reply-list").empty(); //자기 자신을 제외한 내부 코드 삭제
+				
 				//response는 댓글 목록(JSON)
-				console.log(response);
+				for(var i=0; i<response.length; i++){
+					var reply = response[i];
+					
+					var template = $("#reply-template").html();
+					var htmlTemplate = $.parseHTML(template);
+					
+					//작성자를 표시할 때 다음과 같이 로직을 추가
+					//1. 탈퇴한 사용자는 빈칸이 아니라 "탈퇴한 사용자"로 처리
+					//2. 게시글 작성자
+					$(htmlTemplate).find(".replyWriter").text(reply.replyWriter || "탈퇴한 사용자");
+					$(htmlTemplate).find(".replyContent").text(reply.replyContent);
+					$(htmlTemplate).find(".replyTime").text(reply.replyTime);
+					
+					//비회원이거나 내가 작성한 댓글이 아니라면
+					 if(memberId.length == 0 || memberId != reply.replyWriter){
+						//버튼 삭제
+						$(htmlTemplate).find(".w-25").empty();
+					}
+					
+					//만드는 시점에 이벤트 설정
+					//- 반복문의 데이터 사용 불가(위치가 다름)
+					//- 지금과 같이 버튼 내부에 태그가 더 있을 때, 
+					//		this와 e.target은 다를 수 있다
+					//		(this는 주인공, e.target은 실제대상)
+					$(htmlTemplate).find(".btn-delete")
+					.attr("data-reply-no", reply.replyNo)
+					.click(function(e){
+						//var replyNo = $(this).data("reply-no");
+						var replyNo = $(this).attr("data-reply-no");
+						//var replyNo = $(e.target).attr("data-reply-no");
+						$.ajax({
+							url:"/rest/reply/delete",
+							method:"post",
+							data: {replyNo : replyNo}, //보내는 이름: 보내는 데이터
+							success:function(response){
+								loadList();
+							},
+						});
+					});
+					
+					//수정 버튼을 누르면
+					//- 편집 상태의 템플릿을 만들어서 추가 
+					//- 전환 시 작성된 값들을 입력창으로 이동시켜야 함
+					//- 전송 가능한 form과 취서 버튼을 구현
+					//- 수정 시 서버로 글번호와 글내용만 전달하면 됨
+					$(htmlTemplate).find(".btn-edit").click(function(){
+						
+					});
+					
+					$(".reply-list").append(htmlTemplate);
+				}
 			},
 		})
-	}
-	
+	}	
 });
+</script>
+
+<script id="reply-template" type="text/template">
+<div class="row flex-container">
+			<div class="w-75">
+				<div class="row left">
+					<h3 class="replyWriter">작성자</h3>
+				</div>
+				<div class="row left">
+					<pre class="replyContent">내용</pre>
+				</div>
+				<div class="row left">
+					<span class="replyTime">yyyy-MM-dd HH:mm:ss</span>
+				</div>
+			</div>
+			<div class="w-25">
+				<div class="row right">
+					<button class="btn btn-edit">
+						<i class="fa-solid fa-edit"></i>
+					</button>
+				</div>
+				<div class="row right">
+					<button class="btn btn-negative btn-delete">
+						<i class="fa-solid fa-trash"></i>
+					</button>
+				</div>
+		</div>
+</div>
+</script>
+
+<script id="reply-edit-template" type="text/template">
+<form class="reply-edit-form">
+		<input type="hidden" name="replyNo" vlaue="?">
+		<div class="row flex-container">
+			<div class="w-75">
+				<textarea name="replyContent" class="form-input w-100" rows="4">어쩌구</textarea>
+			</div>
+			<div class="w-25">
+				<div class="row">
+					<button class="btn btn-positive">등록</button>	
+				</div>
+				<div class="row">
+					<button class="btn btn-negative">취소</button>	
+				</div>
+			</div>
+		</div>
+		</form>
 </script>
 
 <div class="container w-800">
@@ -121,34 +227,7 @@ $(function(){
 	</div>
 	
 	<%-- 댓글 목록이 표시될 영역 --%>
-	<div class="row left reply-list">
-	
-		<div class="row flex-container">
-			<div class="w-75">
-				<div class="row left">
-					<h3 class="DB이름">작성자</h3>
-				</div>
-				<div class="row left">
-					<pre class="DB이름">내용</pre>
-				</div>
-				<div class="row left">
-					<span class="DB이름">yyyy-MM-dd HH:mm:ss</span>
-				</div>
-			</div>
-			<div class="w-25">
-				<div class="row right">
-					<button class="btn">
-						<i class="fa-solid fa-edit"></i>
-					</button>
-				</div>
-				<div class="row right">
-					<button class="btn btn-negative">
-						<i class="fa-solid fa-trash"></i>
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div class="row left reply-list"></div>
 	
 	<%-- 각종 버튼이 위치하는 곳 --%>
 	<div class="row right">
