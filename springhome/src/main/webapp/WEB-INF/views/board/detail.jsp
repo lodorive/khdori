@@ -226,12 +226,15 @@ $(function(){
 			method:"post",
 			data:{boardNo : boardNo},
 			success:function(response){
-				if(response == "Y"){
+				//response는 {"check":ture, "count":0} 형태의 JSON이다
+				if(response.check){
 					$(".fa-heart").removeClass("fa-solid fa-regular").addClass("fa-solid");
 				}
 				else {
 					$(".fa-heart").removeClass("fa-solid fa-regular").addClass("fa-regular");
 				}
+				//전달받은 좋아요 개수를 하트 뒤의 span에 출력
+				$(".fa-heart").next("span").text(response.count);
 			}
 		});
 		
@@ -242,12 +245,14 @@ $(function(){
 				method:"post",
 				data:{boardNo : boardNo},
 				success:function(response){
-					if(response == "Y"){
+					if(response.check){
 						$(".fa-heart").removeClass("fa-solid fa-regular").addClass("fa-solid");
 					}
 					else {
 						$(".fa-heart").removeClass("fa-solid fa-regular").addClass("fa-regular");
 					}
+					//전달받은 좋아요 개수를 하트 뒤의 span에 출력
+					$(".fa-heart").next("span").text(response.count);
 				}
 			});
 		});
@@ -283,7 +288,7 @@ $(function(){
 		${boardDto.boardReadcount}
 		&nbsp;&nbsp;
 		<i class="fa-regular fa-heart red"></i> 
-		${boardDto.boardLikecount}
+		<span>?</span>
 		&nbsp;&nbsp;
 		<i class="fa-solid fa-comment blue"></i> 
 		${boardDto.boardReplycount}
