@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 import com.kh.springhome.dto.MemberBlockDto;
 import com.kh.springhome.dto.MemberDto;
 import com.kh.springhome.dto.MemberListDto;
+import com.kh.springhome.dto.StatDto;
 import com.kh.springhome.mapper.MemberBlockMapper;
 import com.kh.springhome.mapper.MemberListMapper;
 import com.kh.springhome.mapper.MemberMapper;
+import com.kh.springhome.mapper.StatMapper;
 import com.kh.springhome.vo.PaginationVO;
 
 @Repository
@@ -273,5 +275,17 @@ public class MemberDaoImpl implements MemberDao{
 			Object[] data = {memberNickname};
 			List<MemberDto> list = jdbcTemplate.query(sql, memberMapper, data);
 			return list.isEmpty() ? null : list.get(0);
+		}
+		
+		@Autowired
+		private StatMapper statMapper;
+		
+		@Override
+		public List<StatDto> selectGroupByMemberLevel() {
+			String sql = "select member_level name, count(*) cnt "
+					+ "from member "
+					+ "group by member_level "
+					+ "order by cnt desc";
+			return jdbcTemplate.query(sql, statMapper);
 		}
 	}
