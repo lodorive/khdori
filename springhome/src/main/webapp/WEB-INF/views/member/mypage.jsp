@@ -7,7 +7,7 @@
 
 <div class="container w-500">
 	<div class="row">
-		<h1>${memberDto.memberId} 님의 회원 정보</h1>
+		<h3>${memberDto.memberId} 님의 회원 정보</h3>
 	</div>
 	
 	<div class="row">
@@ -70,6 +70,23 @@
 									pattern="y년 M월 d일 E a h시 m분 s초"/>
 				</td>
 			</tr>
+		</table>
+	</div>
+	
+	<div class="row mt-40">
+		<h3>내가 좋아요 한 게시글</h3>
+	</div>
+	
+	<div class="row">
+		<table class="table table-border table-stripe">
+		<c:forEach var="boardDto" items="${boardLikeList}">
+			<tr>
+				<td class="w-75 left">
+				<a href="/board/detail?boardNo=${boardDto.boardNo}" class="link">
+				${boardDto.boardTitle}</a></td>
+				<td class="w-25">${boardDto.boardWriter}</td>
+			</tr>
+			</c:forEach>
 		</table>
 	</div>
 	
