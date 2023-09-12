@@ -1,0 +1,61 @@
+<div style="width: 500px;">
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+<script>
+    $(function(){
+        //시작하자마자 서버로 비동기 통신을 시도하여 
+        //차트 구현을 위한 데이터를 가져온다
+
+        $.ajax({
+            url:"http://localhost:8080/rest/member/stat/count",
+            method:"get",
+            //data 없음
+            dataType:"json", //서버에서 받기를 기대하는 형태(아니면 에러처리)
+            success:function(response){
+                //response는 무조건 json임
+                // console.log(response);
+                var labels = [], data = [];
+
+                for(var i=0; i <response.length; i++) {
+                    labels.push(response[i].name);
+                    data.push(response[i].cnt);
+                }
+
+                //labels와 data를 이용하여 차트를 생성하는 코드
+                const ctx = document.getElementById('myChart');
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: '인원수',
+                            data: data,
+                            borderWidth: 1,
+                            borderRadius: 10
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '회원 등급별 인원수 현황',
+                        }
+                        }
+                    }
+                });
+            },
+        });
+    });
+
+    
+</script>
