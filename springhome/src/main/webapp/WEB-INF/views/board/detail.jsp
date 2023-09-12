@@ -210,6 +210,52 @@ $(function(){
 		</form>
 </script>
 
+<c:if test="${sessionScope.name != null}">
+<script>
+	//좋아요 처리
+	//[1] 페이지가 로드되면 비동기 통신으로 좋아요 상태를 체크하여 하트 생성
+	//[2] 하트에 클릭 이벤트를 설정하여 좋아요 처리가 가능하도록 구현
+	
+	$(function(){
+		//Javascript로 boardNo라는 이름의 파라미터 값 읽기
+		var params = new URLSearchParams(location.search); //분석해라 
+		var boardNo = params.get("boardNo");
+		
+		$.ajax({
+			url:"/rest/like/check",
+			method:"post",
+			data:{boardNo : boardNo},
+			success:function(response){
+				if(response == "Y"){
+					$(".fa-heart").removeClass("fa-solid fa-regular").addClass("fa-solid");
+				}
+				else {
+					$(".fa-heart").removeClass("fa-solid fa-regular").addClass("fa-regular");
+				}
+			}
+		});
+		
+		//[2]
+		$(".fa-heart").click(function(){
+			$.ajax({
+				url:"/rest/like/action",
+				method:"post",
+				data:{boardNo : boardNo},
+				success:function(response){
+					if(response == "Y"){
+						$(".fa-heart").removeClass("fa-solid fa-regular").addClass("fa-solid");
+					}
+					else {
+						$(".fa-heart").removeClass("fa-solid fa-regular").addClass("fa-regular");
+					}
+				}
+			});
+		});
+	});
+	
+</script>
+</c:if>
+
 <div class="container w-800">
 	<div class="row">
 		<h1>
@@ -236,7 +282,7 @@ $(function(){
 		<i class="fa-solid fa-eye"></i> 
 		${boardDto.boardReadcount}
 		&nbsp;&nbsp;
-		<i class="fa-solid fa-heart red"></i> 
+		<i class="fa-regular fa-heart red"></i> 
 		${boardDto.boardLikecount}
 		&nbsp;&nbsp;
 		<i class="fa-solid fa-comment blue"></i> 
