@@ -19,7 +19,7 @@
     <!-- 내가 만든 CSS 파일 -->
     <link rel="stylesheet" type="text/css" href="./css/reset.css">
     <link rel="stylesheet" type="text/css" href="./css/commons.css">
-    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/test.css"> -->
     <style>
 
     </style>
@@ -35,17 +35,17 @@
     <script>
         $(function () {
             $('[name=boardContent]').summernote({
-                placeholder: 'Hello stand alone ui',
-                tabsize: 2,
-                height: 300,
+                placeholder: '내용을 작성하세요',
+                tabsize: 2, //탭을 누르면 이동할 간격
+                height: 250, //에디터 높이
+                minHeight: 250, //에디터 최소높이
                 toolbar: [
                     ['style', ['style']],
-                    ['font', ['bold', 'underline', 'clear']],
+                    ['font', ['bold', 'underline', 'italic']],
                     ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['para', ['paragraph']],
                     ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
+                    ['insert', ['link']],
                 ]
             });
         });
@@ -53,7 +53,7 @@
 </head>
 
 <body>
-    <form method="post">
+    <form method="post" autocomplete="off">
         <div class="container w-700">
             <div class="row">
                 <h1>게시글 작성</h1>
@@ -64,7 +64,7 @@
             </div>
             <div class="row left">
                 <label>내용</label>
-                <textarea name="boardContent" class="form-input w-100" rows="10"></textarea>
+                <textarea name="boardContent"></textarea>
             </div>
             <div class="row">
                 <button type="submit" class="btn btn-positive w-100">작성하기</button>
