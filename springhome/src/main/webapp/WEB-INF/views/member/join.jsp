@@ -4,15 +4,12 @@
 
 <script src="/js/memberJoin.js"></script>
 <script src="/js/multipage.js"></script>
+
 <!-- daum 우편 API cdn -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
  <style>
-    .important{
-        font-weight: bold;
-         color: crimson;
-    }
-    .btn.btn-positive{
+  .btn.btn-positive{
         border-color: black;
         background-color: black;
         color: white;
@@ -30,6 +27,23 @@
     }
     .text-size{
         font-size: 14px;
+    }
+
+    /*
+        진행바 디자인
+    */
+    .progressbar {
+        width: 100%;
+        height: 5px;
+    }
+
+    .progressbar > .guage {
+        width: 0%;
+        height: 100%;
+        background: rgb(99,255,103);
+        background: linear-gradient(270deg, rgba(99,255,103,1) 0%, rgba(255,174,0,1) 100%);
+        /* 스르륵 */
+        transition: width 0.1s ease-out;
     }
     </style>
     
