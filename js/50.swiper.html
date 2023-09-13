@@ -29,6 +29,10 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
     <style>
+        :root {
+            --swiper-theme-color : rgb(450, 133, 221);
+        } 
+
         .swiper {
             width: 100%;
             height: 300px;
@@ -64,6 +68,15 @@
                 // scrollbar: {
                 //     el: '.swiper-scrollbar',
                 // },
+
+                //자동재생
+                autoplay:{
+                    delay:2000, //재생간격(ms)
+                    pauseOnMouseEnter:true, //마우스 진입 시 멈춤 여부
+                },
+
+                //이펙트(전환효과) 설정
+                effect:"cards", // ('slide', 'fade', 'cube', 'coverflow', 'flip', 'creative', 'cards')
             });
         });
     </script>
@@ -89,6 +102,15 @@
                     </div>
                     <div class="swiper-slide">
                         <img src="https://picsum.photos/id/888/600/300" width="100%" height="300px">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://picsum.photos/id/123/600/300" width="100%" height="300px">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://picsum.photos/id/864/600/300" width="100%" height="300px">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://picsum.photos/id/568/600/300" width="100%" height="300px">
                     </div>
                 </div>
                 <!-- If we need pagination -->
