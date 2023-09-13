@@ -3,15 +3,16 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <form action="insert" method="post" enctype="multipart/form-data" autocomplete="off">
+	<div class="container w-400">
+
+	이름 : <input type="text" name="name" class="form-input w-100"><br><br>
+	속성 : <input type="text" name="type" class="form-input w-100"><br><br>
 	
-	번호 : <input type="text" name="no"><br><br>
-	이름 : <input type="text" name="name"><br><br>
-	속성 : <input type="text" name="type"><br><br>
+	<!-- 이미지 : <input type="file" name="attach" accept=".png, .jpg, .gif"><br><br> -->
+	이미지 : <input type="file" name="attach" accept="image/*" class="form-input w-100"><br><br>
 	
-	이미지 : <input type="file" name="attach"><br><br>
-	
-	<button type="submit">등록</button>
-	
+	<button type="submit" class="btn btn-positive w-100">등록</button>
+	</div>
 </form>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

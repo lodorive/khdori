@@ -5,4 +5,5 @@ import com.kh.springhome.dto.PocketmonDto;
 public interface PocketmonDao {
 	int sequence();
 	void insert(PocketmonDto pocketmonDto);
+	void connect(int pocketmonNo, int attachNo);
 }
