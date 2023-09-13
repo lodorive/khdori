@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파일 업로드</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+    
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        
+    </script>
+</head>
+<body>
+    <!--
+        form을 이용해서 데이터를 전송하는 경우에는
+        데이터가 key=value 세트를 이루어 전송된다
+
+        주소>name=value&name=value&...
+        
+        하나의 이름에 데이터를 하나만 연결하여 보낼 수 있다
+        이러한 방식을 Form URL Encoding 방식이라고 부른다
+
+        파일은 보내야 할 정보가 한 개가 아니므로 이 방식에선 이름만 전송된다
+        따라서, 파일을 전송하고 싶다면 전송방식의 변경이 필요하다
+
+        여기에 적합한 방식을 Multipart 방식이라고 부른다
+
+        form에 다음 정보를 추가한다
+        method="post" enctype="multipart/form-data"
+    -->
+
+
+    <form action="http://localhost:8080/file/upload" 
+            method="post" enctype="multipart/form-data">
+        <input type="file" name="attach">
+        <button>전송</button>
+    </form>
+</body>
+</html>
