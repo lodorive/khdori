@@ -2,12 +2,6 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<script src="/js/memberJoin.js"></script>
-<script src="/js/multipage.js"></script>
-
-<!-- daum 우편 API cdn -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
  <style>
   .btn.btn-positive{
         border-color: black;
@@ -46,6 +40,12 @@
         transition: width 0.1s ease-out;
     }
     </style>
+<script src="/js/memberJoin.js"></script>
+<script src="/js/multipage.js"></script>
+
+<!-- daum 우편 API cdn -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
     
 	   <script>
      $(function(){
