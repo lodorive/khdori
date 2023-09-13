@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 슬라이더</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/test.css"> -->
+    <style>
+
+    </style>
+
+    <!-- swiper cdn-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <style>
+        .swiper {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        $(function () {
+            var swiper = new Swiper('.swiper', {
+                // Optional parameters
+                // direction: 'vertical', //슬라이드 방향
+                loop: true, //슬라이드 순환 설정
+
+                // If we need pagination
+                pagination: { //페이지 번호 표시(분할)
+                    el: '.swiper-pagination', //적용할 영역(요소)
+                    type: 'bullets', //페이지네이션 유형 ('progressbar' | 'bullets' | 'fraction' | 'custom')
+                    clickable:true, //페이지네이션 클릭가능여부
+                },
+
+                // Navigation arrows (이동 화살표)
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                    hideOnClick:true, //클릭 시 숨김 처리 여부
+                },
+
+                // And if we need scrollbar (스크롤바)
+                // scrollbar: {
+                //     el: '.swiper-scrollbar',
+                // },
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container w-600">
+        <div class="row">
+            <h1>이미지 슬라이더</h1>
+        </div>
+
+        <div class="row">
+            <!-- Slider main container -->
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        <img src="https://picsum.photos/id/666/600/300" width="100%" height="300px">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://picsum.photos/id/777/600/300" width="100%" height="300px">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://picsum.photos/id/888/600/300" width="100%" height="300px">
+                    </div>
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+                <!-- If we need scrollbar -->
+                <!-- <div class="swiper-scrollbar"></div> -->
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
