@@ -12,4 +12,5 @@ public class PocketmonDto {
 	private int no;
 	private String name;
 	private String type;	
+	private boolean image;
 }

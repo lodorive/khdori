@@ -17,6 +17,8 @@ public class PocketmonMapper implements RowMapper<PocketmonDto> {
 		dto.setNo(rs.getInt("no"));
 		dto.setName(rs.getString("name"));
 		dto.setType(rs.getString("type"));
+//		dto.setImage(rs.getInt("attach_no") > 0); //int일 때는 0이냐 아이냐
+		dto.setImage(rs.getObject("attach_no") != null); //이미지가 있다는 소리임(false : true)
 		return dto;
 	}
 
