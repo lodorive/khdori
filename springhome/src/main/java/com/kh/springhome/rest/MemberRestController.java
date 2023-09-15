@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +85,8 @@ public class MemberRestController {
 		}
 		
 		@PostMapping("/upload")
-		public Map<String, Object> upload(@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+		public Map<String, Object> upload(@RequestParam MultipartFile attach, HttpSession session) 
+				throws IllegalStateException, IOException {
 			//절대규칙 - 파일은 하드디스크에, 정보는 DB에!
 			
 			//[1] 시퀀스 번호를 생성한다
@@ -103,6 +105,11 @@ public class MemberRestController {
 			attachDto.setAttachType(attach.getContentType());
 			attachDao.insert(attachDto);
 
+			//파일 업로드가 완료되면 아이디와 파일번호를 연결
+			String memberId = (String)session.getAttribute("name");
+			memberDao.deleteProfile(memberId); //기존 이미지를 제거하고
+			memberDao.insertProfile(memberId, attachNo); //신규 이미지를 추가해
+			
 			//화면에서 사용할 수 있도록 파일번호 또는 다운주소를 반환
 			//return 객체 or Map;
 			return Map.of("attachNo", attachNo);

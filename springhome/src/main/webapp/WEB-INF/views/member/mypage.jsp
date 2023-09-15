@@ -39,13 +39,25 @@ $(function(){
 
 
 <div class="container w-500">
+	
 	<div class="row">
 		<h3>${memberDto.memberId} 님의 회원 정보</h3>
 	</div>
 	
-	<div class="row">
+	<div class="row mv-30">
+	<c:choose>
+	<c:when test="${profile == null}">
 		<img src="/images/user.png" width="150" height="150" 
 		class="image image-circle image-border profile-image">
+		</c:when>
+		
+		<c:otherwise>
+		<img src="/rest/member/download?attachNo=${profile}" 
+		width="150" height="150" 
+		class="image image-circle image-border profile-image">
+		</c:otherwise>
+		</c:choose>
+		
 		<br>
 		<input type="file" class="profile-chooser" accept="image/*">
 		<button class="btn btn-change">변경</button>

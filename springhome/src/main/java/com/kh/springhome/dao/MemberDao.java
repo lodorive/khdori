@@ -37,4 +37,9 @@ public interface MemberDao {
 	
 	//통계 기능 추가
 	List<StatDto> selectGroupByMemberLevel();
+	
+	//프로필 관련 기능
+	void insertProfile(String memberId, int attachNo);
+	boolean deleteProfile(String memberId);
+	Integer findProfile(String memberId);
 }
