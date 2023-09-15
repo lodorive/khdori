@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javascript 실습</title>
+    <title>카카오 지도 다루기</title>
     <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
 
     <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
@@ -53,23 +53,84 @@
             //범위 제한을 없애고 싶다면 외부에 만들거나 window에 추가한다
             window.map = new kakao.maps.Map(container, options);
 
-            $(".btn-move").click(function(){
+            $(".btn-move").click(function () {
                 //지도 이동 처리
                 var lat = $(this).data("lat");
                 var lng = $(this).data("lng");
 
+                //이동
+                move(lat, lng);
+
+                //마커 생성
+                // createMarker(lat, lng);
+                createMarkerText(lat, lng, $(this).text()); //text()누른 버튼에 있는 글자
+            });
+
+            //이동하는 함수
+            function move(lat, lng) {
                 // 이동할 위도 경도 위치를 생성합니다 
                 var moveLatLon = new kakao.maps.LatLng(lat, lng);
 
                 // 지도 중심을 이동 시킵니다
                 // map.setCenter(moveLatLon);
                 map.panTo(moveLatLon);
-            });
+            }
+
+            //마커를 표시하는 함수
+            function createMarker(lat, lng) {
+                // 마커가 표시될 위치
+                var markerPosition = new kakao.maps.LatLng(lat, lng);
+                // 마커를 생성
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+                // 마커가 지도 위에 표시되도록 설정
+                marker.setMap(map);
+            }
+
+            //마커와 텍스트를 같이 표시하는 함수
+            function createMarkerText(lat, lng, text) {
+                // 마커가 표시될 위치입니다 
+                var markerPosition = new kakao.maps.LatLng(lat, lng);
+
+                // 마커를 생성합니다
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+
+                // 마커가 지도 위에 표시되도록 설정합니다
+                marker.setMap(map);
+
+                // 템플릿을 불러와서 글자를 설정한 뒤 인포윈도우 추가
+                var template = $("#info-window-template").html();
+                var result = $(template).find(".inner") //inner를 찾아서
+                                .text(text) //글자를 바꾸고
+                                .parents(".outer") //outer로 돌아와서
+                                .html(); //html 글자를 내놔라
+
+                var iwContent = result;
+                iwPosition = new kakao.maps.LatLng(lat, lng); //인포윈도우 표시 위치입니다
+
+                // 인포윈도우를 생성합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    position: iwPosition,
+                    content: iwContent
+                });
+                //마커 위에 인포윈도우를 표시합니다
+                infowindow.open(map, marker); 
+            }
+
         });
 
     </script>
-</head>
 
+    <script id="info-window-template" type="text/template">
+        <div class="outer">
+            <div class="inner"></div>
+        </div>
+    </script>
+
+</head>
 <body>
     <div class="container w-500">
         <div class="row">
@@ -79,7 +140,7 @@
             <div id="map"></div>
         </div>
         <div class="row">
-            <button class="btn btn-move" data-lat="37.558479" data-lng="126.971385">서울역</button>
+            <button class="btn btn-move" data-lat="37.558479" data-lng="126.971820">서울역</button>
             <button class="btn btn-move" data-lat="36.332519" data-lng="127.434192">대전역</button>
             <button class="btn btn-move" data-lat="35.876584" data-lng="128.596251">대구역</button>
             <button class="btn btn-move" data-lat="35.114632" data-lng="129.039360">부산역</button>
