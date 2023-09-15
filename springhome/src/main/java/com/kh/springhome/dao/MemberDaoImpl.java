@@ -308,6 +308,11 @@ public class MemberDaoImpl implements MemberDao{
 		public Integer findProfile(String memberId) {
 			String sql = "select attach_no from member_profile where member_id=?";
 			Object[] data = {memberId};
-			return jdbcTemplate.queryForObject(sql, Integer.class, data);
+			try {
+				return  jdbcTemplate.queryForObject(sql, Integer.class, data);
+			}
+			catch(Exception e) {
+				return null;
+			}
 		}
 	}

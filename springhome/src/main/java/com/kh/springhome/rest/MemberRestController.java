@@ -141,4 +141,10 @@ public class MemberRestController {
 		)
 		.body(resource);
 		}
+		
+		@PostMapping("delete")
+		public void delete(HttpSession session) {
+			String mamberId = (String)session.getAttribute("name");
+			memberDao.deleteProfile(mamberId);
+		}
 }

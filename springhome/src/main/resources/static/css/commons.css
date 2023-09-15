@@ -204,16 +204,16 @@ textarea.form-input.fixed {
     확장 스타일 - 마우스 반응 테이블
 */
 .table.table-hover > tbody > tr:hover{
-    background-color:lavender;
+    background-color:gainsboro;
 }
 /*
     확장 스타일 - 줄무늬 테이블
 */
 table.table-stripe > thead {
-    background-color: lavender;       
+    background-color: gainsboro;       
 }
 table.table-stripe > tbody > tr:nth-child(2n){
-    background-color: lavender;       
+    background-color: gainsboro;       
 }
 /*
     확장 스타일 - 옆트임 테이블
@@ -553,5 +553,39 @@ flex-wrap: wrap;
         background-position-y: center;
         background-size: 1.2em;
     }
+/*
+    이미지 디자인
+*/
+.image.image-circle {
+    border-radius: 50%;
+}
+.image.image-round {
+    border-radius: 4px;
+}
+.image.image-border,
+.image.image-hover:hover
+{
+    /* border: 1px solid #2d3436; */
+    box-shadow: 0 0 0 1px #2d3436;
+}
 
+.image.image-blur {
+    opacity: 0.6;
+}
+.image.image-blur:hover {
+    opacity: 1;
+}
+.image.image-lift {
+    box-shadow: 0 0 2px 0px #2d3436;
+}
+.image.image-leaf {
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+.image.image-invert {
+    filter:invert(100%);
+}
+.image.image-grayscale {
+    filter: grayscale(100%);
+}
         
