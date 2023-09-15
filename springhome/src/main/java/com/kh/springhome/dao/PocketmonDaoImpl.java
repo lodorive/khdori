@@ -72,5 +72,18 @@ public class PocketmonDaoImpl implements PocketmonDao {
 		return list.isEmpty() ? null : list.get(0);
 	}
 	
+	@Override
+	public boolean delete(int no) {
+		String sql = "delete pocketmon where no=?";
+		Object[] data = {no};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	@Override
+	public boolean update(PocketmonDto pocketmonDto) {
+		String sql = "update pocketmon set name=?, type=? where no=?";
+		Object[] data = {pocketmonDto.getName(), pocketmonDto.getType(), pocketmonDto.getNo()};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
 	
 }

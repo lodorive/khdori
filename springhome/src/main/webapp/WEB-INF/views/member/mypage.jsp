@@ -5,10 +5,89 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<script>
+$(function(){
+	//파일이 변경되면 프로필을 업로드하고 이미지 교체
+	$(".profile-chooser").change(function(){
+		//선택된 파일이 있는지 확인하고 없으면 중단
+		//var input = $(".profile-chooser")[0];
+		var input = this;
+		if(input.files.length == 0) return;
+		
+		//ajax로 multipart 업로드
+		var form = new FormData();
+		form.append("attach", input.files[0]);
+		
+		$.ajax({
+			url:"/rest/member/upload",
+			method:"post",
+			processData:false,
+			contentType:false,
+			data:form,
+			success:function(response){
+				//응답 형태 - { "attachNo" : 7 }
+				//프로필 이미지 교체
+				$(".profile-image").attr("src", "/rest/member/download?attachNo="+response.attachNo);
+				
+			},
+			error:function(){
+				window.alert("통신 오류 발생\n잠시 후 다시 시도해주세요");
+			},
+		});
+	});
+	
+	//삭제 아이콘을 누르면 프로필이 제거되도록 구현
+	$(".profile-delete").click(function(){
+		//확인창
+		var choice = window.confirm("프로필을 지우시겠습니까?");
+		if(choice == false) return;
+		
+		//삭제요청
+		$.ajax({
+			url:"/rest/member/delete",
+			method:"post",
+			success:function(response){
+				$(".profile-image").attr("src", "/images/user.png");
+			},
+		});
+	});
+});
+</script>
+
+
 <div class="container w-500">
+	
 	<div class="row">
 		<h3>${memberDto.memberId} 님의 회원 정보</h3>
 	</div>
+	
+	<div class="row mv-30">
+	<c:choose>
+		<c:when test="${profile == null}">
+		<img src="/images/user.png" width="150" height="150" 
+		class="image image-circle image-border profile-image">
+		</c:when>
+		
+		<c:otherwise>
+		<img src="/rest/member/download?attachNo=${profile}" 
+		width="150" height="150" 
+		class="image image-circle image-border profile-image">
+		</c:otherwise>
+	</c:choose>
+		
+		<br><br>
+	
+	<!-- 라벨을 만들고 파일선택창을 숨김 -->
+	<label>
+		<input type="file" class="profile-chooser" accept="image/*" style="display:none;">
+		<i class="fa-solid fa-camera blue"></i> 프로필 변경
+	</label>
+	
+	<label class="profile-delete">
+	<i class="fa-solid fa-circle-minus red"></i> 프로필 삭제
+	</label>
+
+</div>
 	
 	<div class="row">
 		<table class="table table-border table-stripe">

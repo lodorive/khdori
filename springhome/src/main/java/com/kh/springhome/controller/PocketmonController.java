@@ -2,11 +2,14 @@ package com.kh.springhome.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,7 +73,7 @@ public class PocketmonController {
 			pocketmonDao.connect(no, attachNo);						
 		}
 		
-		return "redirect:insert";
+		return "redirect:detail?no=" +pocketmonDto.getNo();
 	}
 	
 		//파일 다운로드
@@ -105,11 +108,23 @@ public class PocketmonController {
 			
 			//4,5 - header(정보), body(내용)
 			return ResponseEntity.ok()
-				.header("Content-Encoding", "UTF-8")
-				.header("Content-Length", String.valueOf(attachDto.getAttachSize()))
-				.header("Content-Type", attachDto.getAttachType()) //저장된 유형
+//				.header("Content-Encoding", "UTF-8")
+				.header(HttpHeaders.CONTENT_ENCODING, StandardCharsets.UTF_8.name())
+//				.header("Content-Length", String.valueOf(attachDto.getAttachSize()))
+				.contentLength(attachDto.getAttachSize())
+//				.header("Content-Type", attachDto.getAttachType()) //저장된 유형
+				.header(HttpHeaders.CONTENT_TYPE, attachDto.getAttachType())
 //				.header("Content-Type", "application/octet-stream") //무조건 다운로드
-				.header("Content-Disposition", "attachment; filename="+attachDto.getAttachName())
+//				.contentType(MediaType.APPLICATION_OCTET_STREAM)
+//				.header("Content-Disposition", "attachment; filename="+attachDto.getAttachName())
+				.header(HttpHeaders.CONTENT_DISPOSITION, 
+						ContentDisposition.attachment().
+						filename(attachDto.getAttachName(), StandardCharsets.UTF_8)
+						.build().toString()
+						)
+//				.header("Content-Disposition", ContentDisposition.attachment()
+//										.filename(attachDto.getAttachName(), StandardCharsets.UTF_8)
+//									.build().toString())
 				.body(resource);
 		}
 			
@@ -129,5 +144,74 @@ public class PocketmonController {
 			return "/WEB-INF/views/pocketmon/list.jsp";
 		}
 		
+		//삭제
+		//- [1] 포켓몬 삭제 [2] 파일 정보 삭제 [3] 실제파일 삭제
+		@RequestMapping("/delete")
+		public String delete(@RequestParam int no) {
+			AttachDto attachDto = pocketmonDao.findImage(no);
+			pocketmonDao.delete(no); //포켓몬+이미지연결정보 삭제
 			
+			if(attachDto != null) {
+				String home = System.getProperty("user.home");
+				File dir = new File(home, "upload");
+				File target = new File(dir, String.valueOf(attachDto.getAttachNo()));
+				target.delete(); //실제파일 삭제		
+				
+				attachDao.delete(attachDto.getAttachNo()); //파일정보 삭제
+			}
+			return "redirect:list";
+		}
+		
+		//수정
+		@GetMapping("/edit")
+		public String edit(@RequestParam int no, Model model) {
+			PocketmonDto pocketmonDto = pocketmonDao.selectOne(no);
+			model.addAttribute("pocketmonDto",pocketmonDto);
+			return "/WEB-INF/views/pocketmon/edit.jsp";
+		}
+		
+		//수정 처리를 할 때 첨부파일 유무에 따라 다른 처리를 해야 한다
+		//- 첨부파일이 없으면 기존 첨부파일을 유지(아무것도 안하면 됨)
+		//- 첨부파일이 있으면 기존 첨부파일을 변경(변경 대신 삭제+등록)
+		@PostMapping("/edit")
+		public String edit(@ModelAttribute PocketmonDto pocketmonDto, 
+								@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+			//포켓몬스터 정보 변경
+			pocketmonDao.update(pocketmonDto);
+			
+			if(!attach.isEmpty()) {//파일이 있으면
+				//파일 삭제 - 기존 파일이 있을 경우에만 처리
+				AttachDto attachDto = pocketmonDao.findImage(pocketmonDto.getNo());
+				
+				String home = System.getProperty("user.home");
+				File dir = new File(home, "upload");
+				
+				if(attachDto != null) {
+					attachDao.delete(attachDto.getAttachNo());
+					
+					File target = new File(dir, String.valueOf(attachDto.getAttachNo()));
+					target.delete(); //실제 파일 삭제
+				}
+				
+				//파일 추가 및 연결
+				//파일번호 생성
+				int attachNo = attachDao.sequence();
+				
+				//신규파일 저장
+				File insertTarget = new File(dir, String.valueOf(attachNo));
+				attach.transferTo(insertTarget);
+				
+				//신규파일 정보 저장
+				AttachDto insertDto = new AttachDto();
+				insertDto.setAttachNo(attachNo);
+				insertDto.setAttachName(attach.getOriginalFilename());
+				insertDto.setAttachSize(attach.getSize());
+				insertDto.setAttachType(attach.getContentType());
+				attachDao.insert(insertDto);
+				
+				//포켓몬 + 파일 연결
+				pocketmonDao.connect(pocketmonDto.getNo(), attachNo);
+			}
+			return "redirect:detail?no=" +pocketmonDto.getNo();
+		}
 }
