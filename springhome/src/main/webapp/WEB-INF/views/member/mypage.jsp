@@ -46,7 +46,7 @@ $(function(){
 	
 	<div class="row mv-30">
 	<c:choose>
-	<c:when test="${profile == null}">
+		<c:when test="${profile == null}">
 		<img src="/images/user.png" width="150" height="150" 
 		class="image image-circle image-border profile-image">
 		</c:when>
@@ -56,7 +56,7 @@ $(function(){
 		width="150" height="150" 
 		class="image image-circle image-border profile-image">
 		</c:otherwise>
-		</c:choose>
+	</c:choose>
 		
 		<br>
 		<input type="file" class="profile-chooser" accept="image/*">
