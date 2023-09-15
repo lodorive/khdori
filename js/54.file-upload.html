@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+    
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        //목표 : 설정하기 버튼을 누르면 선택된 파일을 업로드하고 이미지 변경
+        $(function(){
+            $(".btn-save").click(function(){
+
+                //파일 선택창을 Javascript 형태로 불러와야 함(내장API 사용)
+                // var input = document.querySelector(".file-chooser");
+                var input = $(".file-chooser")[0];
+
+                //input이 file일 경우에만 files라는 항목이 존재
+                // console.log(input.files);
+                if(input.files.length == 0) return;
+
+                //비동기 통신
+                //- form으로 파일을 전송할 때 multipart/form-data 설정을 했음
+                //- 비동기 통신일 때는 무슨 처리를 해야 하는가?
+                //- processData : false로 설정
+                //- contentType : false로 설정
+                //- FormData 객체를 만들어 파일을 추가한 뒤 전송
+                var form = new FormData();
+                // form.append("이름", 데이터);
+                form.append("attach", input.files[0]);
+
+                $.ajax({
+                    url:"http://localhost:8080/restfile/upload",
+                    method:"post",
+                    processData:false,
+                    contentType:false,
+                    data: form,
+                    success:function(response){
+                        console.log(response);
+                        //이미지의 src를 바꾸는 코드
+                        $("img").attr("src", "http://localhost:8080/restfile/download?attachNo="+response.attachNo);
+                    },
+                });
+
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="file" class="file-chooser">
+    <button type="button" class="btn-save">설정하기</button>
+    <hr>
+    <img src="https://dummyimage.com/200x200/000/fff" width="200" height="200">
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+        .container {
+            width: 484px;
+            height: 504px;
+            box-shadow: 0px 0px 10px 0px black;
+        }
+
+        .login {
+            margin: 50px;
+            padding: 2em;
+        }
+
+        .id,
+        .pw {
+            width: 400px;
+            height: 3em;
+            border-radius: 5px 5px 5px 5px;
+            border-color: gainsboro;
+        }
+
+        hr {
+            width: 400px;
+        }
+
+        .btn.btn-positive {
+            width: 400px;
+            border-color: rgb(52, 152, 219);
+            border-radius: 5px 5px 5px 5px;
+            background-color: rgb(52, 152, 219);
+            color: white
+        }
+
+        .btn.btn-negative {
+            width: 400px;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        .float-container {
+            width: 400px;
+            text-align: center;
+        }
+        .col-2 {
+            margin: auto;
+        }
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+
+     $(function(){
+        var status = {
+        userId:false,
+        userPw:false,
+        ok:function(){
+            return this.userId && this.userPw;
+        }
+    };
+
+
+    $("[name=userId]").blur(function(){      
+
+        var isValid = $(this).val().length > 0;
+        
+        $(this).removeClass("success fail");
+        $(this).addClass(isValid ? "success" : "fail");
+                
+
+                status.userId = isValid;
+            });
+
+        $("[name=userPw]").blur(function(){      
+
+         var isValid = $(this).val().length > 0;
+
+        $(this).removeClass("success fail");
+         $(this).addClass(isValid ? "success" : "fail");
+                
+              
+          status.userPw = isValid;
+            });
+    });
+
+    </script>
+</head>
+
+<body>
+    <form class="join-form" action="login" method="post" autocomplete="off">
+        <div class="container">
+            <div class="row login">
+                <h1>User Login</h1>
+            </div>
+            <div class="row">
+                <input type="text" name="userId" placeholder="ID" class="id mb-20">
+            </div>
+            <div class="fail-feedback">모든 항목을 입력해야 합니다</div>
+            <div class="row">
+                <input type="password" name="userPw" placeholder="Password" class="pw mb-20">
+            </div>
+            <div class="fail-feedback">모든 항목을 입력해야 합니다</div>
+            <div class="float-container mb-20">
+                <div class="row col-2 left">
+                    <input type="radio" name="type" value="normal" checked>일반회원
+                </div>
+                <div class="row col-2 right">
+                    <input type="radio" name="type" value="admin">관리자
+                </div>
+            </div>
+            <div class="row mb-20">
+                <button type="submit" class="btn btn-positive">로그인</button>
+            </div>
+            <hr>
+            <div class="row mt-20">
+                <a href="join" class="btn btn-negative">회원가입</a>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>
