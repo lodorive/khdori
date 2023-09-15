@@ -73,37 +73,17 @@
     <script>
 
      $(function(){
-        var status = {
-        userId:false,
-        userPw:false,
-        ok:function(){
-            return this.userId && this.userPw;
-        }
-    };
+        $(".login-form").submit(function(e){
+            var id = $("[name=userId]").val();
+            var pw = $("[name=userPw]").val();
 
-
-    $("[name=userId]").blur(function(){      
-
-        var isValid = $(this).val().length > 0;
-        
-        $(this).removeClass("success fail");
-        $(this).addClass(isValid ? "success" : "fail");
-                
-
-                status.userId = isValid;
-            });
-
-        $("[name=userPw]").blur(function(){      
-
-         var isValid = $(this).val().length > 0;
-
-        $(this).removeClass("success fail");
-         $(this).addClass(isValid ? "success" : "fail");
-                
-              
-          status.userPw = isValid;
-            });
-    });
+            if(id.length == 0 || pw.length ==0){
+                window.alert("모든 항목을 입력하세요");
+                e.preventDefault();
+                return false;
+            }
+        });
+     });
 
     </script>
 </head>
@@ -117,11 +97,9 @@
             <div class="row">
                 <input type="text" name="userId" placeholder="ID" class="id mb-20">
             </div>
-            <div class="fail-feedback">모든 항목을 입력해야 합니다</div>
             <div class="row">
                 <input type="password" name="userPw" placeholder="Password" class="pw mb-20">
             </div>
-            <div class="fail-feedback">모든 항목을 입력해야 합니다</div>
             <div class="float-container mb-20">
                 <div class="row col-2 left">
                     <input type="radio" name="type" value="normal" checked>일반회원
