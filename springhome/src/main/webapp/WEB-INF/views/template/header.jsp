@@ -48,6 +48,12 @@
             		<li><a href="/member/mypage" >MYPAGE</a></li>
 					<li><a href="/member/logout">LOGOUT</a></li>
 					<li><a href="/board/list" >BOARD</a></li>
+					<li>
+						<a href="/pocketmon/list" >POCKETMON</a>
+						<ul>
+							<li><a href="/pocketmon/insert">ADD</a></li>
+						</ul>
+					</li>
 					
 					<%-- 관리자인 경우 추가 메뉴 출력 --%>
 					<c:if test="${sessionScope.level == '관리자'}">
