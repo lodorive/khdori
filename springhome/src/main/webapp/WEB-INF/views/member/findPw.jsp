@@ -3,18 +3,18 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 
-<form action="findPw" method="post">
-<div class="container w-400">
-	<div class="row">
+<form action="findPw" method="post" autocomplete="off">
+<div class="container w-300">
+	<div class="row mb-30">
 		<h2>비밀번호 찾기</h2>
-		<div class="row">
-			아이디 <input type="text" name="memberId" class="form-input" required>
+		<div class="row mt-30">
+			<input type="text" name="memberId" class="form-input w-100" placeholder="아이디" required>
 		</div>
 		<div class="row">
-			이메일 <input type="email" name="memberEmail" class="form-input" required>
+			<input type="email" name="memberEmail" class="form-input w-100" placeholder="이메일" required>
 		</div>
 		<div class="row">
-		 	<button type="submit" class="btn">비밀번호 찾기</button>
+		 	<button type="submit" class="btn btn-positive w-100">비밀번호 찾기</button>
 		</div>
 	</div>
 </div>

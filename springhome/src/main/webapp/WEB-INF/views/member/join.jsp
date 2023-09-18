@@ -216,7 +216,8 @@
                     <h3>3단계 : 이메일</h3>
                 </div>
                 <div class="row left">
-                    <label>이메일</label>
+                    <label>이메일
+                    <i class="fa-solid fa-asterisk red"></i></label>
                     <input type="text" name="memberEmail" 
                     placeholder="test@kh.com" class="form-input w-100">
                      <div class="fail-feedback">이메일 형식이 잘못되었습니다</div>
