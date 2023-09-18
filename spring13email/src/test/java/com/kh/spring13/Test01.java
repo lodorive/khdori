@@ -24,16 +24,18 @@ public class Test01 {
 		
 		sender.setHost("smtp.gmail.com"); //업체주소
 		sender.setPort(587); //업체포트
-		sender.setUsername("khdodori@gmail.com"); //내 이메일 계정
-		sender.setPassword("rtuheestftvryruv"); //나의 앱 비밀번호
+//		sender.setUsername("khdodori"); //내 이메일 계정
+//		sender.setPassword("cpgscnkcymckkfht"); //나의 앱 비밀번호
+		sender.setUsername("hwang8243");
+		sender.setPassword("twfbdvhsxjpxqzpa");
 		
 		//통신과 관련된 추가 설정
 		Properties props = new Properties();
-		props.setProperty("mail.smtp.auth", "true"); //인증 후 이용 설정(필수)
-		props.setProperty("mail.smtp.debug", "true"); //디버깅 기능 이용 설정(선택)
-		props.setProperty("mail.smtp.starttls.enable", "true"); //TLS 사용 설정(필수)
-		props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2"); //TLS 버전 설정(필수)
-		props.setProperty("mail.smtp.ssl.trust", "smtp.gmail.com"); //신뢰할 수 있는 대상 설정(필수)
+		props.setProperty("mail.smtp.auth", "true");//인증 후 이용 설정(필수)
+		props.setProperty("mail.smtp.debug", "true");//디버깅 기능 이용 설정(선택)
+		props.setProperty("mail.smtp.starttls.enable", "true");//TLS 사용 설정(필수)
+		props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");//TLS 버전 설정(필수)
+		props.setProperty("mail.smtp.ssl.trust", "smtp.gmail.com");//신뢰할 수 있는 대상 설정(필수)
 		sender.setJavaMailProperties(props);
 		
 		//전송 메세지 - 상대방의 정보와 메일 내용을 설정
@@ -41,7 +43,7 @@ public class Test01 {
 
 		message.setTo("s_s0309@naver.com"); //받는 사람
 		message.setSubject("안니옹하세요"); //제목
-		message.setText("방가방가"); //내용
+		message.setText("테스트내용"); //내용
 		
 		//전송
 		sender.send(message);
