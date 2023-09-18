@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/test.css"> -->
+    <style>
+        .container {
+            padding: 2em;
+            box-shadow: 0px 0px 10px 0px black;
+        }
+        .id,
+        .pw {
+            height: 2.5em;
+            border-radius: 5px 5px 5px 5px;
+            border-color: gainsboro;
+        }
+        .btn.btn-positive {
+            border-color: rgb(52, 152, 219);
+            border-radius: 5px 5px 5px 5px;
+            background-color: rgb(52, 152, 219);
+            color: white;
+            font-size: 15px;
+        }
+
+        .btn.btn-negative {
+            border-radius: 5px 5px 5px 5px;
+            font-size: 15px;
+        }
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+
+     $(function(){
+        $(".login-form").submit(function(e){
+
+            var id = $("[name=userId]").val();
+            var pw = $("[name=userPw]").val();
+
+            if(id.length == 0 || pw.length ==0){
+                window.alert("모든 항목을 입력하세요");
+                e.preventDefault();
+                return false;
+            }
+        });
+     });
+
+    </script>
+</head>
+
+<body>
+    <form class="login-form" action="#" method="post" autocomplete="off">
+
+        <div class="container w-400 mt-50">
+            <div class="row login mb-30">
+                <h1>User Login</h1>
+            </div>
+
+            <div class="row">
+                <input type="text" name="userId" placeholder="ID" class="id w-100 mb-20">
+            </div>
+
+            <div class="row">
+                <input type="password" name="userPw" placeholder="Password" class="pw w-100 mb-20">
+            </div>
+
+            <div class="row float-container mb-20">
+                <div class="row col-2 left">
+                    <input type="radio" name="type" value="normal" checked>일반회원
+                </div>
+                <div class="row col-2 right">
+                    <input type="radio" name="type" value="admin">관리자
+                </div>
+            </div>
+
+            <div class="row mb-20">
+                <button type="submit" class="btn btn-positive w-100">로그인</button>
+            </div>
+
+            <hr>
+
+            <div class="row mt-20">
+                <a href="join" class="btn btn-negative w-100">회원가입</a>
+            </div>
+            
+        </div>
+    </form>
+</body>
+
+</html>
