@@ -40,4 +40,18 @@ public class CertDaoImpl implements CertDao{
 		return list.isEmpty() ? null : list.get(0);
 	}
 
+	@Override
+	public CertDto selectOneIn5min(String certEmail) {
+		String sql = "select * from cert where cert_email=? and "
+				+ "cert_time between sysdate-5/24/60 and sysdate";
+		Object[] data = {certEmail};
+		List<CertDto> list = jdbcTemplate.query(sql, certMapper, data);
+		return list.isEmpty() ? null : list.get(0);
+	}
+	
+	@Override
+	public boolean deleteOver5min() {
+		String sql = "delete cert where cert_time < sysdate-5/24/60";
+		return jdbcTemplate.update(sql)> 0;
+	}
 }
