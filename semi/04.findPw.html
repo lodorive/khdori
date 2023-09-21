@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홈런볼</title>
+    <!-- 외부에 만들어진 css파일을 불러오는 코드 -->
+
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/4.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/test.css"> -->
+    <link rel="stylesheet" type="text/css" href="./css/semi-layout.css">
+
+
+    <!-- 아이콘 사용을 위한 font awesomedmf 불러오기 위한  -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+    .form-input, 
+    .btn{
+        width: 350px;
+        height: 50px;
+        font-size: 15px;
+        padding: 0.5em 1em;
+        outline: none; /* outline은 입력 창 선택 시 강조 효과 */
+        border: 1px solid #747171;
+        border-radius: 9px; /* 글자 크기의 10%만큼 깎겠다 */
+        background-color: #FFFCFC;
+    }
+    .form-input:focus{/* 선택된 상태를 focus라 한다 */
+        border-color: #360A01;
+    }
+
+    /*
+        버튼은 입력창과 동일하게 구현
+        글자를 두껍게 보여주도록 처리(bold)
+    */
+    .btn{
+        font-weight: bold;
+        border-color: #360A01;
+        background-color: #360A01;
+        color: white;
+        cursor: pointer;
+    }
+    .btn:hover{ /* 마우스가 버튼에 올라가면 배경을 조금 더 어둡게 처리 */
+        filter: brightness(95%);
+    }
+    </style>
+    <!-- js작성공간 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+    <div class="right">
+        <div class="etc">
+            <div class="row">
+                <a href="">로그인</a>
+            </div>
+            &nbsp;
+            <div class="row">
+                |
+            </div>
+            &nbsp;
+            <div class="row">
+                <a href="">회원가입</a>
+            </div>
+            &nbsp;
+            <div class="row">
+                <a href="">마이페이지</a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <header>
+
+            <div class="logo">
+                <img src="./images/logo.jpg" width="170" alt="">
+            </div>
+
+            <nav>
+                <ul class="menu center">
+
+                        <div class="title float-container">
+                        <div class="row col-5">
+                            <li><a href="#">
+                                    <i class="fa-solid fa-calendar-days"></i>경기일정</a>
+                            </li>
+                        </div>
+
+                        <div class="row col-5">
+                            <li><a href="#">
+                                    <i class="fa-solid fa-ticket"></i>예매하기</a></li>
+                        </div>
+
+                        <div class="row col-5">
+                            <li><a href="#">
+                                    <i class="fa-solid fa-chair"></i>팀정보</a></li>
+                        </div>
+
+                        <div class="row col-5">
+                            <li><a href="#">
+                                    <i class="fa-solid fa-ranking-star"></i>팀순위</a>
+                            </li>
+                        </div>
+
+                        <div class="row col-5">
+                            <li><a href="/board/list">
+                                    <i class="fa-solid fa-check"></i>공지사항</a></li>
+                            </li>
+                        </div>
+                    </div>
+
+                    </ul>
+                </nav>
+
+        </header>
+        <section>
+
+            <!-- 헤더 -->
+
+            
+            <form action="#" method="post" autocomplete="off">
+                <div class="container w-400">
+
+                    <div class="row">
+                        <input type="text" name="memberId" class="form-input w-100" placeholder="아이디 입력">
+                    </div>
+
+                    <div class="row">
+                        <input type="password" name="memberPw" class="form-input w-100" placeholder="이메일 입력">
+                    </div>
+
+                    <div class="row">
+                        <button class="btn w-100">비밀번호 찾기</button>
+                    </div>
+
+
+
+                </div>
+                </form>
+
+
+            <!-- 푸터 -->
+
+        </section>
+        <hr>
+        <footer>
+            <div class="row flex-container auto-width">
+                <div class="left">
+                    <a href="#" class="link">이용약관</a> |
+                    <a href="#" class="link">개인정보취급방침</a> |
+                    <a href="#" class="link">대표번호 : 010</a> |
+                </div>
+                <div class="right">
+                    <i class="fa-brands fa-google me-10"></i>
+                    <i class="fa-brands fa-facebook me-10"></i>
+                    <i class="fa-brands fa-twitter me-10"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+            </div>
+            <div class="row left mv-30">
+                <pre>킹갓제너럴4조 ｜ 사업자등록하고싶어요 ｜ c반2분단 2열부터3열 ｜ 대표이사 : 최家문권 ｜ 책임자 : 조家준희 ｜  취업마렵다
+        
+위치 : 서울특별시 영등포구 선유동2로 57 이레빌딩(구관) 19F c 반 2 분단 2열 부터 3열
+Copyright ⓒ 홈런볼
+            </div>
+        </footer>
+        </main>
+        </body>
+        </html>
