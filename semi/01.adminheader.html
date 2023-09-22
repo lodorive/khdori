@@ -42,7 +42,7 @@
             }
     
             .col-5 {
-                width: 20%;
+                width: 14%;
             }
     
             .i-font {
@@ -61,7 +61,48 @@
             .logo{
                 margin-top: -20px;
             }
-            
+
+            header> .logo {
+            width: 25%;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin-left: 0em;
+        }
+    
+        section {
+        min-height: 400px;
+        display: flex;
+    }
+    section > aside {
+        width: 200px;
+    }
+    section > article {
+        flex-grow: 1;
+    }
+    .flex-container {
+            display: flex;
+        }
+        .inline-flex-container {
+            display: inline-flex;
+        }
+        .flex-container.auto-width > *,
+        .inline-flex-container.auto-width > * {
+            flex-grow: 1;
+        }
+        .flex-container.vertical,
+        .inline-flex-container.vertical {
+            flex-direction: column;
+        }
+        .flex-container.align-center,
+        .inline-flex-container.align-center {
+            justify-content: center;
+            align-items: center;
+        }
+        .flex-container.allow-wrap,
+        .inline-flex-container.allow-wrap {
+            flex-wrap: wrap;
+        }
         </style>
         <!-- js작성공간 -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -103,21 +144,33 @@
                             <div class="row col-5">
                                 <div class="row">
                                     <li><a href="#">
-                                            <i class="fa-solid fa-calendar-days"></i></a></li>
-                                </div>
-                                <div class="row i-font">
-                                    경기일정
-                                </div>
+                                        <i class="fa-solid fa-people-group"></i></a>
+                                
+                                    </li>
+                                    </div>
+                                    <div class="row i-font">
+                                        팀관리
+                                    </div>
                             </div>
     
     
                             <div class="row col-5">
                                 <div class="row">
                                     <li><a href="#">
-                                            <i class="fa-solid fa-ticket"></i></a></li>
+                                        <i class="fa-solid fa-landmark-dome"></i></a></li>
                                 </div>
                                 <div class="row i-font">
-                                    예매하기
+                                    경기장관리
+                                </div>
+                            </div>
+    
+                            <div class="row col-5">
+                                <div class="row">
+                                    <li><a href="#">
+                                            <i class="fa-solid fa-baseball-bat-ball"></i></a></li>
+                                </div>
+                                <div class="row i-font">
+                                    경기관리
                                 </div>
                             </div>
     
@@ -127,20 +180,32 @@
                                             <i class="fa-solid fa-chair"></i></a></li>
                                 </div>
                                 <div class="row i-font">
-                                    팀정보
+                                    좌석관리
                                 </div>
                             </div>
     
                             <div class="row col-5">
                                 <div class="row">
-                                    <li><a href="#">
-                                            <i class="fa-solid fa-ranking-star"></i></a></li>
+                                    <li><a href="/board/list">
+                                            <i class="fa-solid fa-ticket"></i></a></li>
+    
                                 </div>
                                 <div class="row i-font">
-                                    팀순위
+                                    예매관리
                                 </div>
                             </div>
+                            
+                            <div class="row col-5">
+                                <div class="row">
+                                    <li><a href="/board/list">
+                                            <i class="fa-solid fa-user"></i></a></li>
     
+                                </div>
+                                <div class="row i-font">
+                                    회원관리
+                                </div>
+                            </div>
+
                             <div class="row col-5">
                                 <div class="row">
                                     <li><a href="/board/list">
@@ -160,7 +225,26 @@
             </header>
             <section>
                 <!-- 헤더 -->
-    
+                <aside>
+                    <div class="flex-container vertical center">
+                        <div class="row">
+                            <h2><a href="#" class="link">팀 등록</a></h2>
+                        </div>
+                        <div class="row">
+                            <h2><a href="#" class="link">팀 목록</a></h2>
+                        </div>
+                        <!-- <div class="row">
+                            <h2><a href="#" class="link">메뉴3</a></h2>
+                        </div>
+                        <div class="row">
+                            <h2><a href="#" class="link">메뉴4</a></h2>
+                        </div>
+                        <div class="row">
+                            <h2><a href="#" class="link">메뉴5</a></h2>
+                        </div> -->
+                    </div>
+                </aside>
+                <article>컨텐츠</article>
                 <!-- 푸터 -->
     
             </section>

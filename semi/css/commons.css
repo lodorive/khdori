@@ -490,6 +490,8 @@ align-items: center;
 .inline-flex-container.allow-wrap {
 flex-wrap: wrap;
 }
+
+
 /*
         성공/실패에 대한 스타일 구현
     */
