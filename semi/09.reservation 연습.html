@@ -28,86 +28,123 @@
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="multipage.js"></script>
+    <!-- <script src="ajax.js"></script> -->
     <!-- javascript 작성 공간 -->
 
     <script>
+       
        $(document).ready(function () {
-        var matchNo = "31"; // 여기에 원하는 matchNo를 넣어주세요.
-
-            // AJAX GET 요청을 보냅니다.
+            // 경기 정보 가져오는 AJAX 요청
+            var matchNo = "31"; // 여기에 원하는 matchNo를 넣어주세요.
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/matchInfo", // 요청할 URL
-                data: {
-                    matchNo: matchNo // matchNo 파라미터를 설정하여 전달
-                },
+                url: "http://localhost:8080/matchInfo",
+                data: { matchNo: matchNo },
                 dataType: "json",
                 success: function (response) {
-                    // 요청이 성공했을 때 처리할 코드
-                    console.log("경기 정보:", response);
-
-                    // 경기 정보를 화면에 표시
                     $("#matchNo").text(response.matchNo);
                     $("#homeTeam").text(response.homeTeam);
                     $("#awayTeam").text(response.awayTeam);
                     $("#stadiumName").text(response.stadiumName);
                 },
                 error: function () {
-                    // 요청이 실패했을 때 처리할 코드
                     console.error("경기 정보를 불러오는데 실패했습니다.");
                 }
             });
-          });
-                // 좌석 구역 정보를 가져오는 Ajax 요청
+
+            // 경기장 정보 가져오는 AJAX 요청
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/stadium",
+                dataType: "json",
+                success: function (stadiumInfo) {
+                    $("#stadiumName").text(stadiumInfo[0].stadiumName);
+                    // 경기장 정보에는 경기장 이름, 좌석 구역 정보가 있어야 함
+                    // 여기에서 프론트엔드에 경기장 정보 표시 코드를 추가해주세요.
+                },
+                error: function () {
+                    console.error("경기장 정보를 불러오는데 실패했습니다.");
+                }
+            });
+
+            // 좌석 구역 정보 가져오는 AJAX 요청
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/seatAreaNo",
+                dataType: "json",
+                success: function (seatAreas) {
+                    var zoneSelect = $("#zoneSelect");
+                    // 좌석 구역 정보를 드롭다운 메뉴에 추가
+                    $.each(seatAreas, function (index, area) {
+                        zoneSelect.append($("<option>").val(area.areaId).text(area.areaName));
+                    });
+                },
+                error: function () {
+                    console.error("좌석 구역 정보를 불러오는데 실패했습니다.");
+                }
+            });
+
+            // 좌석 번호 정보를 가져오는 Ajax 요청
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/seatNo", // 엔드포인트 URL
+                dataType: "json",
+                success: function (seatNumbers) {
+                    // 성공적으로 데이터를 가져온 경우 처리
+                    console.log("좌석 번호 정보:", seatNumbers);
+                    
+                    // 여기에서 seatNumbers를 이용하여 프론트엔드에 좌석 번호 정보를 표시하거나 활용할 수 있습니다.
+                },
+                error: function () {
+                    // 요청이 실패한 경우 처리
+                    console.error("좌석 번호 정보를 가져오는데 실패했습니다.");
+                }
+            });
+
+            // 구역 선택 이벤트 핸들러
+            $("#zoneSelect").on("change", function () {
+                var selectedZone = $(this).val();
+                // 선택한 구역에 해당하는 좌석 번호 정보 가져오는 AJAX 요청 추가
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:8080/seatAreaNo", // 엔드포인트 URL
-                    dataType: "json",
-                    success: function (seatAreas) {
-                        // 성공적으로 데이터를 가져온 경우 처리
-                        console.log("좌석 구역 정보:", seatAreas);
-                        
-                        // 여기에서 seatAreas를 이용하여 프론트엔드에 좌석 구역 정보를 표시하거나 활용할 수 있습니다.
-                    },
-                    error: function () {
-                        // 요청이 실패한 경우 처리
-                        console.error("좌석 구역 정보를 가져오는데 실패했습니다.");
-                    }
-                });
-            
-                // 좌석 번호 정보를 가져오는 Ajax 요청
-                $.ajax({
-                    type: "GET",
-                    url: "http://localhost:8080/seatNo", // 엔드포인트 URL
+                    url: "http://localhost:8080/seatNo",
+                    data: { areaId: selectedZone },
                     dataType: "json",
                     success: function (seatNumbers) {
-                        // 성공적으로 데이터를 가져온 경우 처리
-                        console.log("좌석 번호 정보:", seatNumbers);
-                        
-                        // 여기에서 seatNumbers를 이용하여 프론트엔드에 좌석 번호 정보를 표시하거나 활용할 수 있습니다.
+                        var seatNumberSelect = $("#seatNumberSelect");
+                        seatNumberSelect.empty(); // 기존 옵션 삭제
+                        seatNumberSelect.append($("<option>").val("").text("좌석을 선택하세요"));
+                        // 좌석 번호 정보를 드롭다운 메뉴에 추가
+                        $.each(seatNumbers, function (index, seat) {
+                            seatNumberSelect.append($("<option>").val(seat.seatId).text(seat.seatNumber));
+                        });
                     },
                     error: function () {
-                        // 요청이 실패한 경우 처리
-                        console.error("좌석 번호 정보를 가져오는데 실패했습니다.");
+                        console.error("좌석 번호 정보를 불러오는데 실패했습니다.");
                     }
                 });
+            });
 
             // 좌석 예매 버튼 클릭 이벤트 핸들러
             $("#reserveButton").click(function () {
-                // 사용자가 선택한 정보 가져오기
                 var selectedZone = $("#zoneSelect").val();
-                var seatNumber = $("#seatNumber").val();
+                var selectedSeatNumber = $("#seatNumberSelect").val();
 
-                // 좌석 예매 요청 데이터 생성
-                var reservationData = {
+                if (selectedZone === "" || selectedSeatNumber === "") {
+                    alert("구역과 좌석을 선택하세요.");
+                    return;
+                }
+
+               // 예매 정보를 이용하여 백엔드에 예매 요청 보내는 AJAX 요청 추가
+               var reservationData = {
                     zone: selectedZone,
-                    seatNumber: seatNumber
+                    seatNumber: selectedSeatNumber,
+                    matchNo: matchNo // 경기 번호도 함께 전송
                 };
 
-                // 좌석 예매 API 엔드포인트로 데이터 전송
                 $.ajax({
-                    url: "http://localhost:8080/seat", // 백엔드에서 좌석 예매 처리 API 엔드포인트
-                    method: "POST",
+                    type: "POST", // POST 요청으로 변경
+                    url: "http://localhost:8080/seat/reserve", // 백엔드에서 좌석 예매 처리 API 엔드포인트
                     dataType: "json",
                     data: JSON.stringify(reservationData),
                     contentType: "application/json",
@@ -121,33 +158,36 @@
                     }
                 });
             });
-     
+        });
+    </script>
+</body>
+</html>
+               
     </script>
     
 </head>
 <body>
-    <h1>경기 정보</h1>
-<p>경기 번호: <span id="matchNo"></span></p>
-<p>홈 팀: <span id="homeTeam"></span></p>
-<p>원정 팀: <span id="awayTeam"></span></p>
+    <<h1>경기 정보</h1>
+    <p>경기 번호: <span id="matchNo"></span></p>
+    <p>홈 팀: <span id="homeTeam"></span></p>
+    <p>원정 팀: <span id="awayTeam"></span></p>
 
-<h1>경기장 정보</h1>
-<p>경기장 이름: <span id="stadiumName"></span></p>
-
-
+    <h1>경기장 정보</h1>
+    <p>경기장 이름: <span id="stadiumName"></span></p>
 
     <h1>구역 선택</h1>
     <select id="zoneSelect">
-        <option value="A">A 구역</option>
-        <option value="B">B 구역</option>
-        <option value="C">C 구역</option>
+        <option value="">구역을 선택하세요</option>
     </select>
 
     <h1>좌석 선택</h1>
-    <div>
-        <label for="seatNumber">좌석 번호:</label>
-        <input type="text" id="seatNumber" placeholder="좌석 번호 입력">
-    </div>
+    <select id="seatNumberSelect">
+        <option value="">좌석을 선택하세요</option>
+    </select>
+
+    <button id="reserveButton">좌석 예매</button>
+
+    
 
     <button id="reserveButton">좌석 예매</button>
 </body>
