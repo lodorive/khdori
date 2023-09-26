@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kh.spring11.dto.StadiumDto;
 import com.kh.spring11.dao.MatchDao;
 import com.kh.spring11.dao.MemberDao;
 import com.kh.spring11.dao.PocketmonDao;
 import com.kh.spring11.dao.SeatAreaDao;
 import com.kh.spring11.dao.SeatDao;
+import com.kh.spring11.dao.StadiumDao;
 import com.kh.spring11.dto.MatchDto;
 import com.kh.spring11.dto.MemberDto;
 import com.kh.spring11.dto.PocketmonDto;
@@ -131,5 +133,15 @@ public class DummyRestController {
     public ResponseEntity<List<SeatAreaDto>> getSeatNumbers() {
         List<SeatAreaDto> seatNumbers = seatAreaDao.selectList();
         return ResponseEntity.ok(seatNumbers);
+    }
+
+    @Autowired
+    private StadiumDao stadiumDao;
+
+@GetMapping("/stadium")
+public ResponseEntity<List<StadiumDto>> getStadiumInfo() {
+    // stadiumId를 이용하여 경기장 정보를 데이터베이스에서 가져옴
+	List<StadiumDto> stadium = stadiumDao.selectList();
+    return ResponseEntity.ok(stadium);
     }
 }
