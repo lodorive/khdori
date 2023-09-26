@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+
+    <!-- css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일-->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/test.css"> -->
+    <style>
+        .boxborder {
+        box-shadow: 0px 0px 0px 1px #2d3436;
+        padding: 1em;
+    }
+        .clickseat {
+            height: 550px;
+        }
+
+        .seatreservation {
+            padding: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: #360a01;
+            color: white;
+        }
+
+        .float-container>.float-left {
+            float: left;
+            width: 70%;
+            /* 왼쪽 영역이 70%로 설정 */
+        }
+
+        .float-container>.float-right {
+            float: right;
+            width: 30%;
+            /* 오른쪽 영역이 30%로 설정 */
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .checkbox {
+            display: flex;
+            align-items: center;
+            /* 세로 중앙 정렬 */
+            margin-bottom: 2.27%;
+        }
+        .btn {
+            background-color: #360a01;
+            color: white;
+            width: 120px;
+        }
+
+
+    .seatrow {
+        margin: 0.1em;
+    }
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="multipage.js"></script>
+    <!-- javascript 작성 공간 -->
+
+    <script>
+        $(function () {
+            $(".load-btn").click(function () {
+                // AJAX 요청을 통해 해당 구역의 좌석 정보를 가져옵니다.
+                $.ajax({
+                    url: "http://localhost:8080/seat",
+                    method: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        // console.log(response); // response는 배열
+                        for (var i = 0; i < response.length; i++) {
+                            var seat = response[i];
+    
+                              //html 템플릿 불러와서 좌석정보 설정 후 추가
+                            var template = $("#template").html();
+                            var htmlTemplate = $.parseHTML(template);
+                            
+                            // 각 요소를 찾고 텍스트를 설정합니다.
+                        $(htmlTemplate).find(".seatNo").text(seat.seatNo);
+                        $(htmlTemplate).find(".seatAreaNo").text(seat.seatAreaNo);
+                        $(htmlTemplate).find(".seatRow").text(seat.seatRow);
+                        $(htmlTemplate).find(".seatCol").text(seat.seatCol);
+                        $(htmlTemplate).find(".seatStatus").text(seat.seatStatus);
+
+                        $(".container").append(htmlTemplate);
+                        }
+                    },
+                });
+            });
+        });
+    </script>
+    <script id="template" type="text/template">
+        <div class="row">
+            <h1 class="seatNo">100</h1>
+            <ul>
+                <li>좌석번호 : <span class="seatAreaNo">25</span></li>
+                <li>행 : <span class="seatRow">1</span></li>
+                <li>열 : <span class="seatCol">1</span></li>
+                <li>열 : <span class="seatStatusl">Y</span></li>
+            </ul>
+        </div>
+    </script>
+    
+</head>
+<body>
+    <div class="container w-500">
+        <div class="row">
+            <h1>HTML 템플릿 활용하기</h1>
+        </div>
+        
+        <div class="row">
+            <button class="btn w-100 load-btn">좌석 정보 불러오기</button>
+        </div>
+
+    </div>
+</body>
+</html>
