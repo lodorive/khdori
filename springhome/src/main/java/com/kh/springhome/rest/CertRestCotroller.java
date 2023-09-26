@@ -39,7 +39,7 @@ public class CertRestCotroller {
 		//[2] 이메일 발송
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(certEmail);
-		message.setSubject("[KH정보교육원] 인증번호코드");
+		message.setSubject("[홈런볼] 인증번호코드");
 		message.setText("인증번호코드 [" +certNumber+"]");
 		sender.send(message);
 		

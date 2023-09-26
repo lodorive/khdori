@@ -6,20 +6,30 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kh.spring11.dto.StadiumDto;
+import com.kh.spring11.dao.MatchDao;
 import com.kh.spring11.dao.MemberDao;
 import com.kh.spring11.dao.PocketmonDao;
+import com.kh.spring11.dao.SeatAreaDao;
+import com.kh.spring11.dao.SeatDao;
+import com.kh.spring11.dao.StadiumDao;
+import com.kh.spring11.dto.MatchDto;
 import com.kh.spring11.dto.MemberDto;
 import com.kh.spring11.dto.PocketmonDto;
+import com.kh.spring11.dto.SeatAreaDto;
+import com.kh.spring11.dto.SeatDto;
 
 //CORE를 해제하기 위한 설정(Annotation)
-//@CrossOrigin //전부 다 허용(위험)
-@CrossOrigin(origins = {"http://192.168.30.46:5500"})
+@CrossOrigin //전부 다 허용(위험)
+//@CrossOrigin(origins = {"http://192.168.30.46:5500"})
 @RestController //@Controller + @ResponseBody
 public class DummyRestController {
 	
@@ -77,4 +87,61 @@ public class DummyRestController {
 	public List<PocketmonDto> pocketmon(){
 		return pocketmonDao.selectList();
 	}
+	
+	@Autowired
+	private SeatDao seatDao;
+	
+	@RequestMapping("/seat")
+	public List<SeatDto> seat() {
+		return seatDao.selectList();
+	}
+	
+	@Autowired
+	private MatchDao matchDao;
+	
+	@RequestMapping("/match")
+	public List<MatchDto> match() {
+		return matchDao.selectList();
+	}
+
+	@GetMapping("/matchInfo")
+	public ResponseEntity<MatchDto> getMatchInfo(@RequestParam int matchNo) {
+	    // matchNo를 이용하여 경기 정보를 데이터베이스에서 가져옴
+	    MatchDto match = matchDao.selectOne(matchNo);
+
+	    if (match != null) {
+	        return ResponseEntity.ok(match);
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
+	
+	// 좌석 구역과 좌석 번호 정보를 반환하는 API 엔드포인트
+    
+    // 좌석 구역 정보를 반환하는 API 엔드포인트
+    @GetMapping("/seatAreaNo")
+    public ResponseEntity<List<SeatDto>> getSeatAreas() {
+        List<SeatDto> seatAreas = seatDao.selectList();
+        return ResponseEntity.ok(seatAreas);
+    }
+    
+    @Autowired
+	private SeatAreaDao seatAreaDao;
+	
+    // 좌석 번호 정보를 반환하는 API 엔드포인트
+    @GetMapping("/seatNo")
+    public ResponseEntity<List<SeatAreaDto>> getSeatNumbers() {
+        List<SeatAreaDto> seatNumbers = seatAreaDao.selectList();
+        return ResponseEntity.ok(seatNumbers);
+    }
+
+    @Autowired
+    private StadiumDao stadiumDao;
+
+@GetMapping("/stadium")
+public ResponseEntity<List<StadiumDto>> getStadiumInfo() {
+    // stadiumId를 이용하여 경기장 정보를 데이터베이스에서 가져옴
+	List<StadiumDto> stadium = stadiumDao.selectList();
+    return ResponseEntity.ok(stadium);
+    }
 }
