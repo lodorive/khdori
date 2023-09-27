@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+
+    <!-- css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일-->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/commons.css"> -->
+    <link rel="stylesheet" type="text/css" href="/4.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/test.css"> -->
+    <link rel="stylesheet" type="text/css" href="/semi-layout.css">
+
+    <style>
+   
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="multipage.js"></script>
+    <!-- javascript 작성 공간 -->
+    <script>
+        var teamData;
+
+        $(document).ready(function () {
+    // 경기 정보 가져오는 AJAX 요청
+    var matchNo = 26; // 여기에 원하는 matchNo를 넣어주세요
+    var stadiumInfo; // 스타디움 정보를 저장할 전역 변수
+
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/matchInfo",
+        data: { matchNo: matchNo },
+        dataType: "json",
+        success: function (response) {
+            $("#matchNo").text(response.matchNo);
+            $("#homeTeam").text(response.homeTeam);
+            $("#awayTeam").text(response.awayTeam);
+            $("#stadiumName").text(response.stadiumName);
+
+            
+            // 경기 정보에서 바로 해당 경기의 경기장과 구역 선택을 설정하는 함수 호출
+            loadSeatAreasByStadium(response.stadiumName);
+        },
+        error: function () {
+            console.error("경기 정보를 불러오는데 실패했습니다.");
+        }
+    });
+    
+    $.ajax({
+    type: "GET",
+    url: "http://localhost:8080/team", // 팀 정보를 가져오는 엔드포인트 URL
+    dataType: "json",
+    success: function (data) {
+        // 성공적으로 팀 정보를 받아온 경우
+        teamData = data; // 전역 변수에 팀 데이터를 저장
+        
+    
+        // 원하는 작업을 수행 (예: 옵션 메뉴에 추가)
+    },
+    error: function () {
+        // 실패한 경우 처리
+        console.error("팀 정보를 불러오는데 실패했습니다.");
+    }
+    });
+
+
+// 경기장에 해당하는 구역 정보를 가져오는 함수
+function loadSeatAreasByStadium(stadiumName) {
+    // 경기장 정보를 가져오는 AJAX 요청
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/stadium",
+        dataType: "json",
+        success: function (stadiumInfo) {
+            // 성공적으로 데이터를 가져온 경우 처리
+            console.log("경기장 정보:", stadiumInfo);
+
+            // 스타디움 번호를 추출합니다.
+            var stadiumName = $("#stadiumName").text();
+            var stadiumNo = findStadiumByName(stadiumName, stadiumInfo);
+
+            // 구역 선택을 설정하는 함수 호출
+            loadSeatNumbersByStadium(stadiumInfo, stadiumName);
+        },
+        error: function () {
+            // 요청이 실패한 경우 처리
+            console.error("경기장 정보를 가져오는데 실패했습니다.");
+        }
+    });
+}
+
+// 경기장과 관련된 구역 정보를 가져오는 함수
+function loadSeatNumbersByStadium(stadiumInfo, stadiumName) {
+    // 선택한 경기장에 해당하는 경기장 정보를 찾음
+    var selectedStadium = stadiumInfo.find(function (stadium) {
+        return stadium.stadiumName === stadiumName;
+    });
+
+    if (selectedStadium) {
+        var stadiumNo = selectedStadium.stadiumNo;
+
+        // 선택한 경기장과 연결된 구역 정보를 가져오는 AJAX 요청
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/seatAreaNo",
+            dataType: "json",
+            success: function (seatAreas) {
+                // 성공적으로 데이터를 가져온 경우 처리
+                console.log("좌석 구역 정보:", seatAreas);
+
+                // 좌석 구역 정보를 드롭다운 메뉴에 추가
+                var zoneSelect = $("#zoneSelect");
+                zoneSelect.empty(); // 기존 옵션 삭제
+                zoneSelect.append($("<option>").val("").text("구역을 선택하세요"));
+
+                // 선택한 경기장과 연결된 구역 정보만 표시
+                seatAreas.forEach(function (area) {
+                    if (area.stadiumNo === stadiumNo) {
+                        // 경기장과 비교할 때 형 변환
+                        zoneSelect.append($("<option>").val(area.seatAreaNo).text(area.seatAreaZone));
+                    }
+                });
+
+                // 구역 선택 이벤트 핸들러 호출
+                loadSeatNumbers();
+            },
+            error: function () {
+                // 요청이 실패한 경우 처리
+                console.error("좌석 구역 정보를 가져오는데 실패했습니다.");
+            }
+        });
+    } else {
+        console.error("선택한 경기장 정보를 찾을 수 없습니다.");
+    }
+}
+
+    // 좌석 번호 정보를 가져오는 함수
+    function loadSeatNumbers() {
+        // 선택한 구역에 해당하는 좌석 번호 정보를 드롭다운 메뉴에 추가
+        var selectedZone = $("#zoneSelect").val();
+        var seatNumberSelect = $("#seatNumberSelect");
+        seatNumberSelect.empty(); // 기존 옵션 삭제
+        seatNumberSelect.append($("<option>").val("").text("좌석을 선택하세요"));
+
+        // 좌석 번호 정보를 가져오는 Ajax 요청
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/seatNo",
+            dataType: "json",
+            success: function (seatNumbers) {
+                // 성공적으로 데이터를 가져온 경우 처리
+                console.log("좌석 번호 정보:", seatNumbers);
+
+                $.each(seatNumbers, function (index, seat) {
+                    if (seat.seatAreaNo == selectedZone) { // 선택한 구역과 비교할 때 형 변환
+                        seatNumberSelect.append($("<option>").val(seat.seatNo).text(seat.seatNo));
+                    }
+                });
+            },
+            error: function () {
+                // 요청이 실패한 경우 처리
+                console.error("좌석 번호 정보를 가져오는데 실패했습니다.");
+            }
+        });
+    }
+
+        // 구역 선택 이벤트 핸들러
+        $("#zoneSelect").on("change", function () {
+            // 선택한 구역에 해당하는 좌석 번호 정보를 다시 가져오는 함수 호출
+            loadSeatNumbers();
+        });
+
+        // seatNo를 초기화
+        var seatNo;
+
+        // 좌석 번호 선택 이벤트 핸들러
+        $("#seatNumberSelect").on("change", function () {
+            var selectedSeatNumber = $(this).val(); // 선택한 좌석 번호 가져오기
+            seatNo = selectedSeatNumber; // seatNo 변수에 설정
+        });
+
+        // 예매 버튼 클릭 이벤트 핸들러
+        $("#reservationForm").submit(function (event) {
+            event.preventDefault(); // 기본 제출 동작을 막음
+
+        // 경기 정보
+        var matchNo = $("#matchNo").text();
+
+        // 선택한 구역 및 좌석 번호
+        var selectedZone = $("#zoneSelect").val();
+        
+        // 홈팀 및 어웨이 팀 이름
+        var homeTeamName = $("#homeTeam").text();
+        var awayTeamName = $("#awayTeam").text();
+
+        // 홈 팀 및 원정 팀 정보를 팀 데이터에서 찾아서 팀 번호를 추출합니다.
+        var homeTeam = findTeamByName(homeTeamName, teamData);
+        var awayTeam = findTeamByName(awayTeamName, teamData);
+
+        // 홈 팀 및 원정 팀의 팀 번호를 가져옵니다.
+        var homeTeamNo = homeTeam ? homeTeam.teamNo : null;
+        var awayTeamNo = awayTeam ? awayTeam.teamNo : null;
+
+        // 스타디움 번호
+        var stadiumName = $("#stadiumName").text();
+        // var stadiumNo = findStadiumByName(stadiumName, stadiumInfo);
+
+
+        // 폼 데이터를 서버로 전송
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/reservation",
+            data: {
+                matchNo: matchNo,
+                homeTeam: homeTeamNo, // 팀 번호로 변경
+                awayTeam: awayTeamNo, // 팀 번호로 변경
+                stadiumNo: stadiumName, // 경기장 번호로 변경
+                seatAreaNo: selectedZone,
+                seatNo: seatNo
+            },
+            dataType: "json",
+            success: function (response) {
+                // 예매 성공 시 처리
+                alert(response.message); // 예매 성공 메시지 출력
+            },
+            error: function () {
+                // 예매 실패 시 처리
+                alert("예매에 실패하였습니다."); // 실패 메시지 출력
+            }
+            
+        });
+    });
+
+    // 팀 이름으로 팀 번호를 찾는 함수
+    function findTeamByName(teamName, teamData) {
+
+            for (var i = 0; i < teamData.length; i++) {
+                if (teamData[i].teamName === teamName) {
+                    return teamData[i];
+                }
+            }
+            return null; // 매치되는 팀을 찾지 못한 경우
+        }
+
+    //스타디움 이름으로 스타디움 번호를 찾는 함수
+    function findStadiumByName(stadiumName, stadiumInfo) {
+    for (var i = 0; i < stadiumInfo.length; i++) {
+        if (stadiumInfo[i].stadiumName === stadiumName) {
+            return stadiumInfo[i];
+        }
+    }
+    return null; // 매치되는 경기장을 찾지 못한 경우
+}
+
+});
+
+
+    </script>
+</body>
+</html>
+               
+</script>
+</head>
+<body>
+
+    <form id="reservationForm">
+
+        <h1>경기 정보</h1>
+        <p>경기 번호: <span id="matchNo"></span></p>
+        <p>홈 팀: <span id="homeTeam"></span></p>
+        <p>원정 팀: <span id="awayTeam"></span></p>
+
+        <h1>경기장 정보</h1>
+        <p>경기장 이름: <span id="stadiumName"></span></p>
+
+        <select name="selectedZone" id="zoneSelect">
+            <h1>구역 선택</h1>
+    <select id="zoneSelect">
+        <option value="">구역을 선택하세요</option>
+    </select>
+        </select>
+        <select name="selectedSeatNumber" id="seatNumberSelect">
+            <h1>좌석 선택</h1>
+            <select id="seatNumberSelect">
+                <option value="">좌석을 선택하세요</option>
+            </select>
+        </select>
+        <button type="submit">좌석 예매</button>
+    </form>
+
+</body>
+</html>
