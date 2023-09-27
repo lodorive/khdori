@@ -6,11 +6,18 @@ import lombok.Data;
 
 @Data
 public class MemberDto {
-	private String memberId, memberPw, memberNickname;
-	private String memberEmail, memberContact;
-	private String memberBirth;
-	private String memberPost, memberAddr1, memberAddr2;
+	private String memberId;
+	private String memberPw;
+	private String memberNick;
+	private String memberTel;
+	private Date memberBirth;
+	private String memberEmail;
+	private Date memberJoin;
+	private Date memberLastLogin;
+	private Date memberLastUpdate;
 	private String memberLevel;
-	private int memberPoint;
-	private Date memberJoin, memberLogin, memberChange;
+	private String memberPost;
+	private String memberAddr1;
+	private String memberAddr2;
+
 }
