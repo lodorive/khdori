@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<script src="/js/join.js"></script>
-<script src="/js/multipage.js"></script>
+<script src="${pageContext.request.contextPath}/js/join.js"></script>
+<script src="${pageContext.request.contextPath}/js/multipage.js"></script>
 
  <style>
   .btn.btn-positive{

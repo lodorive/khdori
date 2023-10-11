@@ -16,11 +16,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" type="text/css" href="/css/reset.css">
-<link rel="stylesheet" type="text/css" href="/css/layout-sidebar.css">
-<link rel="stylesheet" type="text/css" href="/css/commons.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reset.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/layout-sidebar.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/commons.css">
 <!-- <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
 <style></style>
+
+<script>
+	window.contextPath = "${pageContext.request.contextPath}";
+</script>
 
 </head>
 <body>
@@ -38,21 +42,21 @@
             <ul class="menu">
             	<c:choose>
             		<c:when test="${sessionScope.name != null}">
-            			<li><a href="/">Home</a></li>
-            			<li><a href="/member/mypage">내정보</a></li>
-            			<li><a href="/member/logout">로그아웃</a></li>
-            			<li><a href="/board/list">게시판</a></li>
+            			<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+            			<li><a href="${pageContext.request.contextPath}/member/mypage">내정보</a></li>
+            			<li><a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
+            			<li><a href="${pageContext.request.contextPath}/board/list">게시판</a></li>
             			
        					<%-- 관리자인 경우 추가 메뉴 출력 --%>
 						<c:if test="${sessionScope.level == '관리자'}">
-							<li><a href="/admin/home">관리자메뉴</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/home">관리자메뉴</a></li>
 						</c:if>
             		</c:when>
             		<c:otherwise>
-            			<li><a href="/">Home</a></li>
-            			<li><a href="/member/join">회원가입</a></li>
-            			<li><a href="/member/login">로그인</a></li>
-            			<li><a href="/board/list">게시판</a></li>
+            			<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+            			<li><a href="${pageContext.request.contextPath}/member/join">회원가입</a></li>
+            			<li><a href="${pageContext.request.contextPath}/member/login">로그인</a></li>
+            			<li><a href="${pageContext.request.contextPath}/board/list">게시판</a></li>
             		</c:otherwise>
             	</c:choose>
             </ul>
@@ -64,7 +68,7 @@
 						<h1>관리자 페이지</h1>
 					</div>
 					<div class="row">
-						<h3><a class="link" href="/admin/member/list?size=20">회원 관리</a></h3>
+						<h3><a class="link" href="${pageContext.request.contextPath}/admin/member/list?size=20">회원 관리</a></h3>
 					</div>
 					<div class="row">
 						<h3><a class="link" href="#">회원 통계</a></h3>
