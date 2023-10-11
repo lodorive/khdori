@@ -31,7 +31,7 @@
 	- 자바스크립트에서 절대경로를 알 수 있는 방법이 없다
 	- window에 절대경로 값을 탑재시켜 사용
 --%>
-
+    
 <script>
 	window.contextPath = "${pageContext.request.contextPath}";
 </script>
