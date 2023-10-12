@@ -19,7 +19,7 @@ public class Test04 {
 	@Test
 	public void test() {
 		PocketmonDto dto = new PocketmonDto();
-		dto.setNo(1);
+		dto.setNo(41);
 		dto.setName("바꿀이름");
 		dto.setType("바꿨음");
 
