@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="book">
+
+	<!-- 등록 -->
+	<insert id="add">
+		insert into book (
+			book_id, 
+			book_title, 
+			book_author, 
+			book_publication_date, 
+			book_price, 
+			book_publisher, 
+			book_page_count, 
+			book_genre
+		) 
+		values (
+			book_seq.nextval, 
+			#{bookTitle}, 
+			#{bookAuthor}, 
+			#{bookPublicationDate}, 
+			#{bookPrice}, 
+			#{bookPublisher}, 
+			#{bookPageCount}, 
+			#{bookGenre}
+		)
+	</insert>
+	
+	<!-- 조회 -->
+	<select id="list" resultType="BookDto">
+		select * from book order by book_id asc
+	</select>
+	
+	<!-- 상세 : 이 구문은 실행을 위해 int 하나만 필요하므로 사실상 이름이 의미가 없다 -->
+	<select id="find" resultType="BookDto">
+		select * from book where book_id = #{bookId}
+	</select>
+	
+	<!-- 수정 -->
+	<update id="edit">
+		update book set
+			book_title = #{bookTitle},
+		    book_author = #{bookAuthor},
+		    book_publication_date = #{bookPublicationDate},
+		    book_price = #{bookPrice},
+		    book_publisher = #{bookPublisher},
+		    book_page_count = #{bookPageCount},
+		    book_genre = #{bookGenre}
+		where 
+			book_id = #{bookId}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="del">
+		delete book where book_id=#{bookId}
+	</delete>
+	
+	<!-- 
+		도서 검색 
+		- type, keyword 검색에서 type과 keyword는 할당되는 방식이 달라야 한다
+		- type은 있는 그대로 변형없이 할당(정적 할당)
+		- keyword는 데이터의 형태에 맞게 변형하여 할당(동적 할당)
+	-->
+	<select id="search" resultType="BookDto">
+		select * from book 
+		where instr(${type}, #{keyword}) > 0
+		order by ${type} asc
+	</select>
+	
+</mapper>
