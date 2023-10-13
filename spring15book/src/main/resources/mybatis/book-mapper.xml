@@ -71,4 +71,27 @@
 		order by ${type} asc
 	</select>
 	
+	<!-- 도서에 대한 복합 검색 구현 
+			- 도서 코드(bookId)는 정확하게 일치하는 경우를 검색
+			- 도서 제목(bookTitle)은 유사한 경우를 검색
+			- 도서 저자(bookAuthor)는 유사한 경우를 검색
+			- 출간일은 시작일(bookPublicationBegin)과 종료일(bookPublicationEnd)을 입력하여 구간 검색
+			- 판매가는 최저가(bookPriceMin)와 최고가(bookPriceMax)를 입력하여 구간 검색
+			- 출판사(bookPublisher)는 유사한 경우를 검색
+			- 페이지수는 최소(bookPageMin)와 최대(bookPageMax)를 입력하여 구간 검색
+			- 장르는 주어진 리스트(bookGenreList)에 포함되어 있는지 검색
+	-->
+	<select id="complexSearch" resultType="BookDto">
+		<!-- 메인 조회 구문 -->
+		select * from book
+		<!-- 조건 구문 -->
+		<where>
+			<!-- 번호(일치) -->
+			<if test="bookId != null">
+				and book_id = #{bookId}
+			</if>
+		</where>
+		<!-- 정렬 구문 -->
+	</select>
+	
 </mapper>
