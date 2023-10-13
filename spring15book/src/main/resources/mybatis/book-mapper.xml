@@ -131,24 +131,24 @@
 					- 1월 1일부터 1월 31일까지면 시작일은 00시00분00초, 종료일은 23시59분59초
 			-->
 			<choose>
-				<when test="bookPublicationBegin != null and bookPublicationEnd != null"> <!-- 둘 다 있으면 -->
+				<when test="bookPublicationBegin != null and bookPublicationEnd != null">
 					and to_date(book_publication_date, 'YYYY-MM-DD') 
 						between 
 							to_date(#{bookPublicationBegin} || ' ' || '00:00:00', 'YYYY-MM-DD HH24:MI:SS') 
 							and 
-							to_date(#{bookPublicationEnd} || ' ' || '23:59:59', 'YYYY-MM-DD HH24:MI:SS') 
+							to_date(#{bookPublicationEnd} || ' ' || '23:59:59', 'YYYY-MM-DD HH24:MI:SS')
 				</when>
-				<when test="bookPublicationBegin != null"> <!-- 시작일만 있으면 -->
+				<when test="bookPublicationBegin != null">
 					<![CDATA[
-					and to_date(book_publication_date, 'YYYY-MM-DD') 
-							>= to_date(#{bookPublicationBegin} || ' ' || '00:00:00', 'YYYY-MM-DD HH24:MI:SS') 
+					and to_date(book_publication_date, 'YYYY-MM-DD')
+						 >= to_date(#{bookPublicationBegin} || ' ' || '00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+					]]>  
+				</when>
+				<when test="bookPublicationEnd != null">
+					<![CDATA[
+					and to_date(book_publication_date, 'YYYY-MM-DD')
+						<= to_date(#{bookPublicationEnd} || ' ' || '23:59:59', 'YYYY-MM-DD HH24:MI:SS')
 					]]>
-				</when>
-				<when test="bookPublicationEnd != null"> <!-- 종료일만 있으면 -->
-					<![CDATA[
-					and to_date(book_publication_date, 'YYYY-MM-DD') 
-							<= to_date(#{bookPublicationEnd} || ' ' || '23:59:59', 'YYYY-MM-DD HH24:MI:SS')
-					]]> 
 				</when>
 			</choose>
 			

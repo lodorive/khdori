@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="member">
+ 
+ 	<!-- 
+ 	멤버 아이디(memberId) 유사 검색
+ 	멤버 닉네임(memberNickname) 유사검색
+ 	멤버 이메일(memberEmail) 유사검색
+ 	멤버 생년월일 시작일(memberBirthBegin)과  종료일(memberBithEnd) 입력하여 구간 검색
+ 	멤버 전화번호(memberContact) 유사 검색
+ 	멤버 레벨은 정확하게 일치하는 경우 검색
+ 	멤버 가입일 시작일(memberJoinBegin)과 종료일(memberJoinEnd) 입력하여 구간 검색
+ 	 -->
+ 	
+	<select id="complexSearch" resultType="MemberDto">
+	
+	<!-- 메인 조회 -->
+	select * from member	
+	<where>
+		<if test="memberId != null">
+			and instr(member_id, #{memberId}) > 0
+		</if>
+		
+		<if test="memberNickname != null">
+			and instr(member_nickname, #{memberNickname}) > 0
+		</if>
+		
+		<if test="memberEmail != null">
+			and instr(member_email, #{memberEmail}) > 0
+		</if>
+		
+<!-- 		<choose> -->
+<!-- 			<when test="memberBirthBegin != null and memberBirthEnd != null"> -->
+<!-- 			 and to_date(member_birth, 'YYYY-MM-DD') -->
+<!-- 			 	between  -->
+<!-- 			 		to_date(#{memberBirthBegin} || ' ' || '00:00:00', 'YYYY-MM-DD HH24:MI:SS')  -->
+<!-- 				and -->
+<!-- 					to_date(#{memberBirthEnd} || ' ' || '23:59:59', 'YYYY-MM-DD HH24:MI:SS') -->
+<!-- 			</when> -->
+<!-- 			<when test="memberBirthBegin != null"> -->
+<!-- 				<![CDATA[ -->
+<!-- 					and to_date(member_birth, 'YYYY-MM-DD') -->
+<!-- 						 >= to_date(#{memberBirthBegin} || ' ' || '00:00:00', 'YYYY-MM-DD HH24:MI:SS') -->
+<!-- 				]]> -->
+<!-- 			</when> -->
+<!-- 			<when test="memberBirthEnd != null""> -->
+				
+<!-- 			</when> -->
+<!-- 		</choose> -->
+
+	</where>
+	
+	</select>
+ 
+</mapper>
+ 
