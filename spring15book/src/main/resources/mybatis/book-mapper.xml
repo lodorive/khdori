@@ -86,9 +86,92 @@
 		select * from book
 		<!-- 조건 구문 -->
 		<where>
-			<!-- 번호(일치) -->
+			<!-- 번호(일치) 번호가 있다면-->
 			<if test="bookId != null">
 				and book_id = #{bookId}
+			</if>
+			<!-- 제목(유사) 제목이 있다면-->
+			<if test="bookTitle != null">
+				and instr(book_title, #{bookTitle}) > 0
+			</if>
+			<!-- 저자(유사) -->
+			<if test="bookAuthor != null">
+				and instr(book_author, #{bookAuthor}) > 0
+			</if>
+			<!-- 출판사(유사) -->
+			<if test="bookPublisher != null">
+				and instr(book_publisher, #{bookPublisher}) > 0
+			</if>
+			<!-- 판매가(구간) 
+					- 숫자 비교 등에서는 부등호를 사용할 일이 있는데 이 경우 문제가 발생한다(태그 표시와 헷갈림)
+					- 해결방법은 (1) 부등호 대신 다른 기호를 쓰거나 (2) 부등호를 해석하지 않도록 지시
+					- <![CDATA[]]>
+			-->
+			<choose>
+				<when test="bookPriceMin != null and bookPriceMax != null"> <!-- 둘 다 있으면 -->
+					and book_price between #{bookPriceMin} and #{bookPriceMax}
+				</when>
+				<when test="bookPriceMin != null"> <!-- 최저가가 있으면 -->
+					<![CDATA[
+					and book_price >= #{bookPriceMin}
+					]]>
+				</when>
+				<when test="bookPriceMax != null"> <!-- 최고가가 있으면 -->
+				<![CDATA[
+					and book_price <= #{bookPriceMax}
+					]]>
+				</when>
+			</choose>
+			
+			<!-- 출간일(구간) 
+					- 만약 date 형태일 경우 시간까지 고려해야함
+					- 1월 1일부터 1월 31일까지면 시작일은 00시00분00초, 종료일은 23시59분59초
+			-->
+			<choose>
+				<when test="bookPublicationBegin != null and bookPublicationEnd != null"> <!-- 둘 다 있으면 -->
+					and to_date(book_publication_date, 'YYYY-MM-DD') 
+						between 
+							to_date(#{bookPublicationBegin} || ' ' || '00:00:00', 'YYYY-MM-DD HH24:MI:SS') 
+							and 
+							to_date(#{bookPublicationEnd} || ' ' || '23:59:59', 'YYYY-MM-DD HH24:MI:SS') 
+				</when>
+				<when test="bookPublicationBegin != null"> <!-- 시작일만 있으면 -->
+					<![CDATA[
+					and to_date(book_publication_date, 'YYYY-MM-DD') 
+							>= to_date(#{bookPublicationBegin} || ' ' || '00:00:00', 'YYYY-MM-DD HH24:MI:SS') 
+					]]>
+				</when>
+				<when test="bookPublicationEnd != null"> <!-- 종료일만 있으면 -->
+					<![CDATA[
+					and to_date(book_publication_date, 'YYYY-MM-DD') 
+							<= to_date(#{bookPublicationEnd} || ' ' || '23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+					]]> 
+				</when>
+			</choose>
+			
+			<!-- 페이지(구간) -->
+			<choose>
+				<when test="bookPageMin != null and bookPageMax != null"> <!-- 둘 다 있으면 -->
+					and book_page_count between #{bookPageMin} and #{bookPageMax}
+				</when>
+				<when test="bookPageMin != null"> <!-- 최소가 있으면 -->
+					<![CDATA[
+					and book_page_count >= #{bookPageMin}
+					]]>
+				</when>
+				<when test="bookPageMax != null"> <!-- 최대가 있으면 -->
+					<![CDATA[
+					and book_page_count >= #{bookPageMax}
+					]]>
+				</when>
+			</choose>
+			
+			<!-- 장르 - 목록 포함 검사 -->
+			<if test="bookGenreList != null and bookGenreList.size() > 0">
+			and book_genre in
+			<foreach collection="bookGenreList" open="(" close=")" separator="," item="genre">
+				{genre}
+			</foreach>
 			</if>
 		</where>
 		<!-- 정렬 구문 -->

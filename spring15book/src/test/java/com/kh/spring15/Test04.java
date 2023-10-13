@@ -23,7 +23,7 @@ public class Test04 {
 				.bookAuthor("바꾼작가")
 				.bookPrice(88.88f)
 				.bookPageCount(88)
-				.bookPublicationDate("2033-10-12")
+				.bookPublicationDate("2023-10-13")
 				.bookPublisher("바꾼출판사")
 				.bookGenre("교양")
 				.bookId(3)
