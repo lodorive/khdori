@@ -82,6 +82,9 @@
 			- 장르는 주어진 리스트(bookGenreList)에 포함되어 있는지 검색
 	-->
 	<select id="complexSearch" resultType="BookDto">
+		<!-- Top N Query Header 불러오기 -->
+		<include refid="pagingHeader"></include>
+		
 		<!-- 메인 조회 구문 -->
 		select * from book
 		<!-- 조건 구문 -->
@@ -170,11 +173,32 @@
 			<if test="bookGenreList != null and bookGenreList.size() > 0">
 			and book_genre in
 			<foreach collection="bookGenreList" open="(" close=")" separator="," item="genre">
-				{genre}
+				#{genre}
 			</foreach>
 			</if>
 		</where>
 		<!-- 정렬 구문 -->
+		<if test="orderList != null and orderList.size() >0">
+		order by 
+		<foreach collection="orderList" separator="," item="order">${order}</foreach>
+		</if>
+		
+		<!-- Top N Query Footer 불러오기 -->
+		<include refid="pagingFooter"></include>				
 	</select>
+	
+		<sql id="pagingFooter">
+		<if test="begin != null and end != null">
+			)TMP
+		) where rn between #{begin} and #{end}
+		</if>
+	</sql>
+		
+		<sql id="pagingFooter">
+		<if test="begin != null and end != null">
+			)TMP
+		) where rn between #{begin} and #{end}
+		</if>
+	</sql>
 	
 </mapper>
