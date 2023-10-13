@@ -10,13 +10,14 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class BookComplexSearchVO {
 	private Integer bookId;
-	private String booTitle;
+	private String bookTitle;
 	private String bookAuthor;
+	private String bookPublisher;
 	private Integer bookPriceMin, bookPriceMax;
 	private String bookPublicationBegin, bookPublicationEnd;
 	private Integer bookPageMin, bookPageMax;
 	private List<String> bookGenreList;
 	private List<String> orderList;
 	private Integer begin;
-	private Integer end;
+	private Integer end; 
 }
