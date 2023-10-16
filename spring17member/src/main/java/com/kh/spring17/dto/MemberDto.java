@@ -2,9 +2,12 @@ package com.kh.spring17.dto;
 
 import java.sql.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data
+@Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class MemberDto {
 	private String memberId;
 	private String memberPw;
@@ -16,5 +19,5 @@ public class MemberDto {
 	private String memberContact;
 	private String memberLevel;
 	private int memberPoint;
-	private Date memberJoin;
+	private Date memberJoin, memberLogin, memberChange;
 }

@@ -20,39 +20,105 @@
 	
 	<!-- 메인 조회 -->
 	select * from member	
+	
+	<!-- 조건 -->
 	<where>
+		<!-- 아이디(유사) -->
 		<if test="memberId != null">
 			and instr(member_id, #{memberId}) > 0
 		</if>
 		
+		<!-- 닉네임(유사) -->
 		<if test="memberNickname != null">
 			and instr(member_nickname, #{memberNickname}) > 0
 		</if>
 		
+		<!-- 이메일(유사) -->
 		<if test="memberEmail != null">
 			and instr(member_email, #{memberEmail}) > 0
 		</if>
 		
-<!-- 		<choose> -->
-<!-- 			<when test="memberBirthBegin != null and memberBirthEnd != null"> -->
-<!-- 			 and to_date(member_birth, 'YYYY-MM-DD') -->
-<!-- 			 	between  -->
-<!-- 			 		to_date(#{memberBirthBegin} || ' ' || '00:00:00', 'YYYY-MM-DD HH24:MI:SS')  -->
-<!-- 				and -->
-<!-- 					to_date(#{memberBirthEnd} || ' ' || '23:59:59', 'YYYY-MM-DD HH24:MI:SS') -->
-<!-- 			</when> -->
-<!-- 			<when test="memberBirthBegin != null"> -->
-<!-- 				<![CDATA[ -->
-<!-- 					and to_date(member_birth, 'YYYY-MM-DD') -->
-<!-- 						 >= to_date(#{memberBirthBegin} || ' ' || '00:00:00', 'YYYY-MM-DD HH24:MI:SS') -->
-<!-- 				]]> -->
-<!-- 			</when> -->
-<!-- 			<when test="memberBirthEnd != null""> -->
-				
-<!-- 			</when> -->
-<!-- 		</choose> -->
-
+		<!-- 연락처(일치) -->
+		<if test="memberContact != null">
+			and member_contact = #{memberContact}
+		</if>
+		
+		<!-- 생년월일(일치) -->
+		<if test="memberBirth != null">
+			and member_birth = #{memberBirth}
+		</if>
+		
+		<!-- 등급(목록 포함) -->
+		<if test="memberLevelList != null and memberLevelList.size() > 0">
+			and member_level in
+			<foreach collection="memberLevelList" open="(" item="memberLevel" separator="," close=")">
+			#{memberLevel}
+			</foreach>
+		</if>
+		
+		<!-- 포인트(구간) -->
+		<choose>
+			<when test="memberPointMin != null and memberPointMax != null">
+				and member_point between #{memberPointMin} and #{memberPointMax}
+			</when>
+			<when test="memberPointMin != null">
+			<![CDATA[
+				and member_point >= #{memberPointMin}
+				]]>
+			</when>
+			<when test="memberPointMax != null">
+				<![CDATA[
+				and member_point <= #{memberPointMax}
+				]]>
+			</when>
+		</choose>
+		
+		<!-- 가입 일자(구간) -->
+		<choose>
+			<when test="memberJoinBegin != null and memberJoinEnd != null">
+				and member_join between
+					to_date(#{memberJoinBegin} || ' ' ||'00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+					and 
+					to_date(#{memberJoinEnd} || ' ' ||'23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+			</when>
+			<when test="memberJoinBegin != null">
+				<![CDATA[
+				and member_join >= to_date(#{memberJoinBegin} || ' ' ||'00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+				]]>
+			</when>
+			<when test="memberJoinEnd != null">
+				<![CDATA[
+				and member_join <= to_date(#{memberJoinEnd} || ' ' ||'23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+				]]>
+			</when>
+		</choose>
+		
+		<!-- 로그인 일자(구간) -->
+		<choose>
+			<when test="memberLoginBegin != null and memberLoginEnd != null">
+				and member_join between
+					to_date(#{memberLoginBegin} || ' ' ||'00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+					and 
+					to_date(#{memberLoginEnd} || ' ' ||'23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+			</when>
+			<when test="memberLoginBegin != null">
+				<![CDATA[
+				and member_join >= to_date(#{memberLoginBegin} || ' ' ||'00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+				]]>
+			</when>
+			<when test="memberLoginEnd != null">
+				<![CDATA[
+				and member_join <= to_date(#{memberLoginEnd} || ' ' ||'23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+				]]>
+			</when>
+		</choose>		
+		
 	</where>
+		<!-- 정렬 -->
+		<if test="orderList != null and orderList.size() > 0">
+			order by
+			<foreach collection="orderList" item="order" separator=",">${order}</foreach>
+		</if>		
 	
 	</select>
  

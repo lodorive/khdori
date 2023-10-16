@@ -5,6 +5,13 @@
  <form>
  	<div>아이디 <input type="text" name="memberId" value="${vo.memberId}"></div>
  	<div>닉네임 <input type="text" name="memberNickname" value="${vo.memberNickname}"></div>
+ 	<div>전화번호 <input type="tel" name="memberContact" value="${vo.memberContact}"></div>
+ 	<div>이메일 <input type="email" name="memberEmail" value="${vo.memberEmail}"></div>
+ 	<div>생일 </div>
+ 	<div>등급</div>
+ 	<div>포인트</div>
+ 	<div>가입 일자</div>
+ 	<div>로그인 일자</div>
  	<button type="submit">검색</button>
  </form>   
     
