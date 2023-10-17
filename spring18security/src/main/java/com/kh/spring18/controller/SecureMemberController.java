@@ -16,10 +16,12 @@ public class SecureMemberController {
 
 	@Autowired
 	private SecureMemberDao dao;
-
+	
+	//회원가입
 	@GetMapping("/join")
 	public String join() {
-		return "/WEB-INF/views/secure/join.jsp";
+//		return "/WEB-INF/views/secure/join.jsp";
+		return "secure/join";
 	}
 	
 	@PostMapping("/join")
@@ -30,6 +32,25 @@ public class SecureMemberController {
 	
 	@GetMapping("/joinFinish")
 	public String joinFinish() {
-		return "/WEB-INF/views/secure/joinFinish.jsp";
+//		return "/WEB-INF/views/secure/joinFinish.jsp";		
+		return "secure/joinFinish";
+	}
+	
+	//로그인
+	@GetMapping("/login")
+	public String login() {
+		return "secure/login";
+	}
+	
+	@PostMapping("/login")
+	public String login(@ModelAttribute SecureMemberDto dto) {
+		SecureMemberDto target = dao.login(dto);
+		if(target == null) {
+			return "redirect:login?error";
+		}
+		else{
+			//세션 정보 설정 ... 후 메인 페이지 혹은 기존페이지로 이동하도록 처리
+			return "redirect:login?success";
+		}
 	}
 }
