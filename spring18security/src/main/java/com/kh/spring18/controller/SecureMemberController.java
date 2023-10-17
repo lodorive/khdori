@@ -1,5 +1,9 @@
 package com.kh.spring18.controller;
 
+import java.io.IOException;
+
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.spring18.dao.SecureMemberDao;
 import com.kh.spring18.dto.SecureMemberDto;
+import com.kh.spring18.service.EmailService;
 
 @Controller
 @RequestMapping("/secure")
@@ -16,6 +21,9 @@ public class SecureMemberController {
 
 	@Autowired
 	private SecureMemberDao dao;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	//회원가입
 	@GetMapping("/join")
@@ -25,8 +33,9 @@ public class SecureMemberController {
 	}
 	
 	@PostMapping("/join")
-	public String join(@ModelAttribute SecureMemberDto dto) {
+	public String join(@ModelAttribute SecureMemberDto dto) throws MessagingException, IOException {
 		dao.insert(dto);
+		emailService.sendCelebration(dto.getMemberId());
 		return "redirect:joinFinish";
 	}
 	
