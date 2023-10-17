@@ -34,7 +34,7 @@ public class Test07 {
 		
 		//첨부파일을 찾아서 메일에 추가
 		ClassPathResource resource = new ClassPathResource("static/images/man.png");
-//		helper.addAttachment("마임맨", resource); //내가 파일명 설정
+//		helper.addAttachment("마임맨.png", resource); //내가 파일명 설정
 		helper.addAttachment(resource.getFilename(), resource); //파일명으로 보냄
 		
 		sender.send(message);
