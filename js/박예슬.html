@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/test.css"> -->
+    <style>
+    .btn.w-100{
+        border: none;
+        background-color: rgb(223, 230, 233);
+        height: 50px;
+    }
+    .input-target{
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        font-size: 24px;
+    }   
+    </style>
+    
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        window.addEventListener("load", function(){
+        var btnList = document.querySelectorAll(".keypad");
+        var inputTarget = document.querySelector(".form-input");
+        var pwCheck = document.querySelector("input[type=checkbox]");
+
+        for(var i=0; i<btnList.length; i++){
+            btnList[i].addEventListener("click", function(){
+                inputTarget.value += this.textContent;
+            });
+        };
+
+        var deleteBtn = document.querySelector(".delete");
+        deleteBtn.addEventListener("click", function(){
+            inputTarget.value = inputTarget.value.slice(0, -1);
+        });
+
+        var clearBtn = document.querySelector(".clear");
+        clearBtn.addEventListener("click", function(){
+            inputTarget.value = ""; 
+        });
+
+        pwCheck.addEventListener("change", function() {
+            inputTarget.type = this.checked ? "text" : "password";
+        });
+    }); 
+    </script>
+</head>
+<body>
+    <div class="container w-300">
+
+        <div class="row mt-50">
+        <h1>비밀번호 입력</h1>
+        </div>
+
+        <div class="row left">
+            <div class="input-target">
+                <input type="password" class="form-input w-100" readonly>
+            </div>
+        </div>
+
+        <div class="row left">
+            <input type="checkbox"> 비밀번호 표시
+        </div>
+        <div class="row float-container">
+            <div class="col-3"><button class="btn w-100 keypad">1</button></div>
+            <div class="col-3"><button class="btn w-100 keypad">2</button></div>
+            <div class="col-3"><button class="btn w-100 keypad">3</button></div>
+            <div class="col-3"><button class="btn w-100 keypad">4</button></div>
+            <div class="col-3"><button class="btn w-100 keypad">5</button></div>
+            <div class="col-3"><button class="btn w-100 keypad">6</button></div>
+            <div class="col-3"><button class="btn w-100 keypad">7</button></div>
+            <div class="col-3"><button class="btn w-100 keypad">8</button></div>
+            <div class="col-3"><button class="btn w-100 keypad">9</button></div>
+            <div class="col-3"><button class="btn w-100 delete"><i class="fa-solid fa-delete-left"></i></button></div>
+            <div class="col-3"><button class="btn w-100 keypad">0</button></div>
+            <div class="col-3"><button class="btn w-100 clear"><i class="fa-solid fa-eraser"></i></button></div>
+        </div>
+</body>
+</html>

@@ -48,12 +48,17 @@
 .col-3 {
     width: 33.3333%;
 }
+.w-30 {
+    width: 30%;
+}
 
 .w-50,
 .col-2 {
     width: 50%;
 }
-
+.w-70 {
+    width: 70%;
+}
 .w-75 {
     width: 75%;
 }
@@ -999,7 +1004,7 @@ nav ul.menu li a i {
     .font{
         font-weight: bold;
         font-size: 18px;
-        color: #838383;
+        color: #ffffff;
     }
     
    .float-container{

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 실습</title>
+    <!-- 외부에 만들어진 css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+table {
+	border-collapse: collapse;
+}
+
+table th {
+	border-top: #62676C 3px solid;
+	border-bottom: #62676C 2px solid;
+	border-right: #D1CFCF 2px solid;
+	background-color: #f1f1f1;
+	font-weight: bold;
+    width: 150px;
+	height: 40px;
+	padding-top: 0.5em;
+	font-size: 16px;
+	color: #62676C;
+	font-weight: bold;
+}
+
+table td {
+	border-top: #D1CFCF 2px solid;
+	border-bottom: #D1CFCF 2px solid;
+	border-right: #D1CFCF 3px solid;
+    width: 300px;
+	height: 35px;
+	padding-top: 0.4em;
+    padding-left: 1em;
+}
+
+td:nth-last-child(1), th:nth-last-child(1) {
+	border-right: none;
+}
+    </style>
+    
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        
+    </script>
+</head>
+<body>
+    <div class="row">
+        <h1>${memberDto.memberId} 님의 회원 정보</h1>
+     </div>
+    <table>
+            <tr>
+                <th>
+                    닉네임
+                </th>
+                <td>${memberDto.memberNick}</td>
+            </tr>
+            <tr>
+                <th>
+                    이메일
+                </th>
+                <td>${memberDto.memberEmail}</td>
+            </tr>
+            <tr>
+                <th>
+                    연락처
+                </th>
+                <td>${memberDto.memberTel}</td>
+            </tr>
+            <tr>
+                <th>
+                    생년월일
+                </th>
+                <td>${memberDto.memberBirth}</td>
+            </tr>
+            <tr>
+                <th>
+                    주소
+                </th>
+                <td>
+                    [${memberDto.memberPost}]
+                    ${memberDto.memberAddr1}
+                    ${memberDto.memberAddr2}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    등급
+                </th>
+                <td>${memberDto.memberLevel}</td>
+            </tr>
+            <tr>
+                <th>
+                    가입일
+                </th>
+                <td><fmt:formatDate value="${memberDto.memberJoin}" 
+                    pattern="y년 M월 d일 E a h시 m분 s초"/></td>
+            </tr>
+            <tr>
+                <th>
+                    마지막로그인
+                </th>
+                <td><fmt:formatDate value="${memberDto.memberLastLogin}" 
+                    pattern="y년 M월 d일 E a h시 m분 s초"/></td>
+            </tr>
+            <tr>
+                <th>
+                    마지막변경일
+                </th>
+                <td> <fmt:formatDate value="${memberDto.memberLastUpdate}" 
+                    pattern="y년 M월 d일 E a h시 m분 s초"/></td>
+            </tr>
+    </table>
+</body>
+</html>
