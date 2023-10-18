@@ -19,7 +19,7 @@ $(function(){
 		form.append("attach", input.files[0]);
 		
 		$.ajax({
-			url:"/rest/member/upload",
+			url:window.contextPath+"/rest/member/upload",
 			method:"post",
 			processData:false,
 			contentType:false,
@@ -44,7 +44,7 @@ $(function(){
 		
 		//삭제요청
 		$.ajax({
-			url:"/rest/member/delete",
+			url:window.contextPath+"/rest/member/delete",
 			method:"post",
 			success:function(response){
 				$(".profile-image").attr("src", "/images/user.png");
@@ -64,12 +64,12 @@ $(function(){
 	<div class="row mv-30">
 	<c:choose>
 		<c:when test="${profile == null}">
-		<img src="/images/user.png" width="150" height="150" 
+		<img src="${pageContext.request.contextPath}/images/user.png" width="150" height="150" 
 		class="image image-circle image-border profile-image">
 		</c:when>
 		
 		<c:otherwise>
-		<img src="/rest/member/download?attachNo=${profile}" 
+		<img src="${pageContext.request.contextPath}/rest/member/download?attachNo=${profile}" 
 		width="150" height="150" 
 		class="image image-circle image-border profile-image">
 		</c:otherwise>

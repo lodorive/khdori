@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+ <mapper namespace="pocketmon">
+ 
+ 	<!--  목록 구문 -->
+ 	<select id="list" resultType="PocketmonDto">
+ 		select * from pocketmon
+ 	</select>
+ 	
+ 	<!-- 상세 구문 : 마이바티스는 ? 홀더가 아니라 네이밍 홀더 사용 -->
+ 	<select id="find" resultType="PocketmonDto">
+ 		select * from pocketmon where no = #{no}
+ 	</select>
+ 	
+ 	<!-- 등록 구문 : resultType은 select에만 있다. 마찬가지로 네이밍 홀더를 사용
+ 			- #{name}은 전달되는 데이터(객체)의 name 필드를 의미
+ 			- #{type}은 전달되는 데이터(객체)의 type 필드를 의미
+ 	-->
+ 	<insert id="add">
+ 		insert into pocketmon(no, name, type) values(pocketmon_seq.nextval, #{name}, #{type})
+ 	</insert>
+ 	
+ 	<!-- 수정 구문  -->
+ 	<update id="edit">
+ 		update pocketmon set name=#{name}, type=#{type} where no=#{no}
+ 	</update>
+ 	
+ 	<!-- 삭제 구문 -->
+ 	<delete id="del">
+ 		delete pocketmon where no=#{no}
+ 	</delete>
+ 	
+ 	<!-- 복합 검색 구문(complex search) 
+ 			- 다양한 형태의 검색을 한 번에 처리하기 위한 구문
+ 			- 값의 유무에 따라서 구문이 달라져야 함
+ 			- mybatis에서 제공하는 구문 태그를 이용하여 조건 또는 반복 처리(JSTL과 비슷)
+ 	-->
+ 	
+ 	<!-- 1단계 : type, keyword 유무에 따라 목록 또는 검색을 처리 -->
+ 	<select id="complex1" resultType="PocketmonDto">
+ 	 	select * from pocketmon 
+ 	 	<if test="type != null and keyword != null"> <!-- type과 keyword가 모두 있다면 아래 구문을 처리 -->
+ 	 	where instr(${type}, #{keyword}) >0
+ 	 	</if>
+ 	</select>
+ 	
+ 	<!-- 2단계 : 개별 항목 유무에 따라 검색 결과를 다르게 생성(type, keyword 아님) -->
+ 	<select id="complex2" resultType="PocketmonDto">
+ 		select * from pocketmon
+ 		where 1=1
+ 		<if test="no != null">and no = #{no}</if> <!-- 번호가 있으면 -->
+ 		<if test="name != null">and instr(name, #{name}) > 0</if> <!-- 이름이 있으면 -->
+ 		<if test="type != null">and type = #{type}</if> <!-- 속성이 있으면 -->
+ 	</select>
+ 	
+ 	<!-- 3단계 : 2단계를 개선 -->
+ 	<select id="complex3" resultType="PocketmonDto">
+ 		select * from pocketmon
+ 		<where> <!-- 이부분만 변경(있으면 where을 만들고 없으면 만들지마) -->
+ 		<if test="no != null">and no = #{no}</if> <!-- 번호가 있으면 -->
+ 		<if test="name != null">and instr(name, #{name}) > 0</if> <!-- 이름이 있으면 -->
+ 		<if test="type != null">and type = #{type}</if> <!-- 속성이 있으면 -->
+ 		</where>
+ 	</select>
+ 	
+ </mapper>

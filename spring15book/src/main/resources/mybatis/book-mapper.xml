@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="book">
+
+	<!-- 등록 -->
+	<insert id="add">
+		insert into book (
+			book_id, 
+			book_title, 
+			book_author, 
+			book_publication_date, 
+			book_price, 
+			book_publisher, 
+			book_page_count, 
+			book_genre
+		) 
+		values (
+			book_seq.nextval, 
+			#{bookTitle}, 
+			#{bookAuthor}, 
+			#{bookPublicationDate}, 
+			#{bookPrice}, 
+			#{bookPublisher}, 
+			#{bookPageCount}, 
+			#{bookGenre}
+		)
+	</insert>
+	
+	<!-- 조회 -->
+	<select id="list" resultType="BookDto">
+		select * from book order by book_id asc
+	</select>
+	
+	<!-- 상세 : 이 구문은 실행을 위해 int 하나만 필요하므로 사실상 이름이 의미가 없다 -->
+	<select id="find" resultType="BookDto">
+		select * from book where book_id = #{bookId}
+	</select>
+	
+	<!-- 수정 -->
+	<update id="edit">
+		update book set
+			book_title = #{bookTitle},
+		    book_author = #{bookAuthor},
+		    book_publication_date = #{bookPublicationDate},
+		    book_price = #{bookPrice},
+		    book_publisher = #{bookPublisher},
+		    book_page_count = #{bookPageCount},
+		    book_genre = #{bookGenre}
+		where 
+			book_id = #{bookId}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="del">
+		delete book where book_id=#{bookId}
+	</delete>
+	
+	<!-- 
+		도서 검색 
+		- type, keyword 검색에서 type과 keyword는 할당되는 방식이 달라야 한다
+		- type은 있는 그대로 변형없이 할당(정적 할당)
+		- keyword는 데이터의 형태에 맞게 변형하여 할당(동적 할당)
+	-->
+	<select id="search" resultType="BookDto">
+		select * from book 
+		where instr(${type}, #{keyword}) > 0
+		order by ${type} asc
+	</select>
+	
+	<!-- 도서에 대한 복합 검색 구현 
+			- 도서 코드(bookId)는 정확하게 일치하는 경우를 검색
+			- 도서 제목(bookTitle)은 유사한 경우를 검색
+			- 도서 저자(bookAuthor)는 유사한 경우를 검색
+			- 출간일은 시작일(bookPublicationBegin)과 종료일(bookPublicationEnd)을 입력하여 구간 검색
+			- 판매가는 최저가(bookPriceMin)와 최고가(bookPriceMax)를 입력하여 구간 검색
+			- 출판사(bookPublisher)는 유사한 경우를 검색
+			- 페이지수는 최소(bookPageMin)와 최대(bookPageMax)를 입력하여 구간 검색
+			- 장르는 주어진 리스트(bookGenreList)에 포함되어 있는지 검색
+	-->
+	<select id="complexSearch" resultType="BookDto">
+		<!-- Top N Query Header 불러오기 -->
+		<include refid="pagingHeader"></include>
+		
+		<!-- 메인 조회 구문 -->
+		select * from book
+		<!-- 조건 구문 -->
+		<where>
+			<!-- 번호(일치) 번호가 있다면-->
+			<if test="bookId != null">
+				and book_id = #{bookId}
+			</if>
+			<!-- 제목(유사) 제목이 있다면-->
+			<if test="bookTitle != null">
+				and instr(book_title, #{bookTitle}) > 0
+			</if>
+			<!-- 저자(유사) -->
+			<if test="bookAuthor != null">
+				and instr(book_author, #{bookAuthor}) > 0
+			</if>
+			<!-- 출판사(유사) -->
+			<if test="bookPublisher != null">
+				and instr(book_publisher, #{bookPublisher}) > 0
+			</if>
+			<!-- 판매가(구간) 
+					- 숫자 비교 등에서는 부등호를 사용할 일이 있는데 이 경우 문제가 발생한다(태그 표시와 헷갈림)
+					- 해결방법은 (1) 부등호 대신 다른 기호를 쓰거나 (2) 부등호를 해석하지 않도록 지시
+					- <![CDATA[]]>
+			-->
+			<choose>
+				<when test="bookPriceMin != null and bookPriceMax != null"> <!-- 둘 다 있으면 -->
+					and book_price between #{bookPriceMin} and #{bookPriceMax}
+				</when>
+				<when test="bookPriceMin != null"> <!-- 최저가가 있으면 -->
+					<![CDATA[
+					and book_price >= #{bookPriceMin}
+					]]>
+				</when>
+				<when test="bookPriceMax != null"> <!-- 최고가가 있으면 -->
+				<![CDATA[
+					and book_price <= #{bookPriceMax}
+					]]>
+				</when>
+			</choose>
+			
+			<!-- 출간일(구간) 
+					- 만약 date 형태일 경우 시간까지 고려해야함
+					- 1월 1일부터 1월 31일까지면 시작일은 00시00분00초, 종료일은 23시59분59초
+			-->
+			<choose>
+				<when test="bookPublicationBegin != null and bookPublicationEnd != null">
+					and to_date(book_publication_date, 'YYYY-MM-DD') 
+						between 
+							to_date(#{bookPublicationBegin} || ' ' || '00:00:00', 'YYYY-MM-DD HH24:MI:SS') 
+							and 
+							to_date(#{bookPublicationEnd} || ' ' || '23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+				</when>
+				<when test="bookPublicationBegin != null">
+					<![CDATA[
+					and to_date(book_publication_date, 'YYYY-MM-DD')
+						 >= to_date(#{bookPublicationBegin} || ' ' || '00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+					]]>  
+				</when>
+				<when test="bookPublicationEnd != null">
+					<![CDATA[
+					and to_date(book_publication_date, 'YYYY-MM-DD')
+						<= to_date(#{bookPublicationEnd} || ' ' || '23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+					]]>
+				</when>
+			</choose>
+			
+			<!-- 페이지(구간) -->
+			<choose>
+				<when test="bookPageMin != null and bookPageMax != null"> <!-- 둘 다 있으면 -->
+					and book_page_count between #{bookPageMin} and #{bookPageMax}
+				</when>
+				<when test="bookPageMin != null"> <!-- 최소가 있으면 -->
+					<![CDATA[
+					and book_page_count >= #{bookPageMin}
+					]]>
+				</when>
+				<when test="bookPageMax != null"> <!-- 최대가 있으면 -->
+					<![CDATA[
+					and book_page_count >= #{bookPageMax}
+					]]>
+				</when>
+			</choose>
+			
+			<!-- 장르 - 목록 포함 검사 -->
+			<if test="bookGenreList != null and bookGenreList.size() > 0">
+			and book_genre in
+			<foreach collection="bookGenreList" open="(" close=")" separator="," item="genre">
+				#{genre}
+			</foreach>
+			</if>
+		</where>
+		<!-- 정렬 구문 -->
+		<if test="orderList != null and orderList.size() >0">
+		order by 
+		<foreach collection="orderList" separator="," item="order">${order}</foreach>
+		</if>
+		
+		<!-- Top N Query Footer 불러오기 -->
+		<include refid="pagingFooter"></include>				
+	</select>
+	
+		<!-- Top N Query를 위한 코드 조각 생성(상/하) -->
+	<sql id="pagingHeader">
+		<if test="begin != null and end != null">
+		select * from (
+			select rownum rn, TMP.* from(
+		</if>
+	</sql>
+	
+	<sql id="pagingFooter">
+		<if test="begin != null and end != null">
+			)TMP
+		) where rn between #{begin} and #{end}
+		</if>
+	</sql>
+		
+</mapper>

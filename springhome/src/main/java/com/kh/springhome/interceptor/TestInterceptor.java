@@ -3,6 +3,8 @@ package com.kh.springhome.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -36,17 +38,20 @@ public class TestInterceptor implements HandlerInterceptor{
 	 * - 유일하게 Model의 정보와 들어있는 데이터를 확인할 수 있다
 	 */
 	
+	//로거(Logger)를 생성하여 로깅을 처리할 수 있도록 구현
+		private Logger log = LoggerFactory.getLogger(TestInterceptor.class);
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse sresponse, Object handler)
 			throws Exception {
-		System.out.println("preHandle 실행");
+		log.debug("preHandle 실행");
 		return true;
 	}
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 				ModelAndView modelAndView) throws Exception {
-		System.out.println("postHandle 실행");
-		System.out.println(modelAndView);
+		log.debug("postHandle 실행");
+//		System.out.println(modelAndView);
 	}
 	/**
 	 * afterCompletion은 화면 생성 후(모든 처리가 끝난 후) 시점을 간섭하는 메소드 
@@ -57,7 +62,7 @@ public class TestInterceptor implements HandlerInterceptor{
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 				throws Exception {
-		System.out.println("afterCompletion 실행");
-		System.out.println(ex);
+		log.debug("afterCompletion 실행");
+//		System.out.println(ex);
 	}
 }
