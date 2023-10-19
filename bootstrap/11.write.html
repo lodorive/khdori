@@ -9,9 +9,26 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.2/zephyr/bootstrap.min.css" rel="stylesheet">
     <!-- <link href="test.css" rel="stylesheet"> -->
 
-      <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
+
+<style>
+ /* 
+ 변수를 저장하고 사용하는 최상위 영역
+  :root{--bs-body-color:}
+  색상 전체적으로 변경하고 싶을 때 사용
+ */
+
+.form-control:focus {
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: #d5f0e6;
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem #d5f0e6;
+}
+
+</style>
 
 <body>
     <div class="container-fluid">
@@ -65,8 +82,52 @@
 
                 <!-- 내용(배너, 컨텐츠 등)을 배치할 때는 margin top을 줘서 메뉴가 표시될 자리만큼 띄워야 한다 -->
                 <div class="row mt-5 pt-5" style="min-height: 400px;">
-                    <div class="col"> <!-- header.jsp -->
-                        <h1>내용샘플</h1>
+                    <div class="col-sm-10 offset-sm-1"> <!-- header.jsp -->
+
+                        <div class="row mt-3 mb-3">
+                            <div class="col text-center">
+                                <h4>게시글 작성</h4>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                          <div class="col">
+                            <div class="form-floating">
+                                <input type="text" name="boardTitle" class="form-control" placeholder="이글자는안보임">
+                                <label>제목
+                                    <i class="fa-solid fa-asterisk text-danger"></i>
+                                </label>
+                            </div>
+                          </div>
+                      </div>
+
+                        <div class="row mt-3">
+                          <div class="col">
+                            <div class="form-floating">
+                              <textarea class="form-control"
+                              placeholder="내용을 입력하세요" name="boardContent" style="min-height: 250px;"></textarea>
+                              <label>내용을 입력하세요
+                                <i class="fa-solid fa-asterisk text-danger"></i>
+                            </label>
+                            </div>
+                            </div>
+                      </div>
+      
+                      <div class="row text-end mt-1">
+                        <div class="col">
+                            0/1000
+                        </div>
+                      </div>
+
+                      <div class="row mt-1 text-end mb-5">
+                        <div class="col">
+                            <a href="#" class="btn btn-secondary">목록으로</a>
+                            <button type="submit" class="btn btn-success">작성하기</button>
+                        </div>
+                    </div>
+
+
+                    
                     </div> <!-- footer.jsp -->
                 </div>
 

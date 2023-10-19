@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.2/zephyr/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="test.css" rel="stylesheet"> -->
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+
+                <!-- 메뉴바 -->
+                <nav class="navbar navbar-expand-lg bg-success fixed-top" data-bs-theme="light">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">dori-house</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false"
+                            aria-label="Toggle navigation"> <!-- 이 버튼을 누르면 메뉴를 아래로 떨어뜨림 target이 대상 -->
+                            <span class="navbar-toggler-icon"></span> <!-- 메뉴 아이콘(크기 줄였을 때 메뉴바)-->
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarColor03"> <!-- 위 타겟이랑 연결 -->
+                            <ul class="navbar-nav me-auto"> <!-- 실제 메뉴 -->
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">Home <!-- active는 활성화 메뉴(기본 선택되어 있는) --> 
+                                        <span class="visually-hidden">(current)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Features</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Pricing</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">About</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                                        aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <form class="d-flex"> <!-- display:flex -->
+                                <input class="form-control me-sm-2" type="search" placeholder="Search">
+                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                            </form>             
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- 내용(배너, 컨텐츠 등)을 배치할 때는 margin top을 줘서 메뉴가 표시될 자리만큼 띄워야 한다 -->
+                <div class="row mt-5 pt-5">
+                    <div class="col"> <!-- header.jsp -->
+
+                        <div class="row mt-3 mb-3">
+                            <div class="col text-center">
+                                <h4>게시글 목록</h4>
+                            </div>
+                        </div>
+
+                        <table class="table table-hover">
+                            <thead>
+                              <tr class="table-success">
+                                <th scope="col">번호</th>
+                                <th scope="col">제목</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">조회수</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">Active</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Default</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Default</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Default</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Default</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Default</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Default</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Default</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Default</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Default</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <div>
+                            <ul class="pagination pagination-md justify-content-center">
+                              <li class="page-item disabled">
+                                <a class="page-link" href="#">&laquo;</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">1</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">2</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">4</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">5</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">6</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">7</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">8</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">9</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">10</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">&raquo;</a>
+                              </li>
+                            </ul>
+                          </div>
+                        
+                          <form id="search-form">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row no-gutters">
+                                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                            <select class="form-control" id="exampleFormControlSelect1">
+                                                <option>Location</option>
+                                                <option>London</option>
+                                                <option>Boston</option>
+                                                <option>Mumbai</option>
+                                                <option>New York</option>
+                                                <option>Toronto</option>
+                                                <option>Paris</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-8 col-md-6 col-sm-12 p-0">
+                                            <input type="text" placeholder="Search..." class="form-control" id="search" name="search">
+                                        </div>
+                                        <div class="col-lg-1 col-md-3 col-sm-12 p-0">
+                                            <button type="submit" class="btn btn-base">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        
+                    </div> <!-- footer.jsp -->
+                </div>
+
+                <!-- 푸터 -->
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <h7>
+                        <span class="badge bg-success">DORI</span>
+                        &copy; dori-house Inst
+                         </h7>
+                    </div>
+                    <div class="col-2">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Blog</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">About</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Shop</a>
+                          </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">API</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Training</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Status</a>
+                          </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Terms</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Privacy</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Docs</a>
+                          </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
