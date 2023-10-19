@@ -8,16 +8,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.2/zephyr/bootstrap.min.css" rel="stylesheet">
     <!-- <link href="test.css" rel="stylesheet"> -->
+
+     <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <style>
     .form-control:focus {
-  color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
-  border-color: #d5f0e6;
-  outline: 0;
-  box-shadow: 0 0 0 0.1rem #d5f0e6;
-}
+        color: var(--bs-body-color);
+        background-color: var(--bs-body-bg);
+        border-color: #d5f0e6;
+        outline: 0;
+        box-shadow: 0 0 0 0.1rem #d5f0e6;
+    }
 </style>
 
 <body>
@@ -71,89 +74,120 @@
                 </nav>
 
                 <!-- 내용(배너, 컨텐츠 등)을 배치할 때는 margin top을 줘서 메뉴가 표시될 자리만큼 띄워야 한다 -->
-                <div class="row mt-5 pt-5">
-                    <div class="col"> <!-- header.jsp -->
+                <div class="row mt-5 pt-5" style="min-height: 400px;">
+                    <div class="col-sm-10 offset-sm-1"> <!-- header.jsp -->
 
-                        <div class="row mt-3 mb-3">
+                        <!-- 제목 -->
+                        <div class="row mt-3">
                             <div class="col text-center">
-                                <h4>게시글 목록</h4>
+                                <h4>자유 게시판</h4>
+                                <p class="text-danger">타인에 대한 비방은 경고 없이 삭제될 수 있습니다</p>
                             </div>
                         </div>
 
-                        <table class="table table-hover">
+                        <!-- 글쓰기 버튼 -->
+                        <div class="row">
+                            <div class="col text-end">
+                                <a href="#" class="btn btn-success">글쓰기</a>
+                            </div>
+                        </div>
+
+                        <!-- 테이블 -->
+                        <table class="table table-hover mt-3">
                             <thead>
-                                <tr class="table-success">
-                                    <th scope="col">번호</th>
-                                    <th scope="col">제목</th>
-                                    <th scope="col">작성자</th>
-                                    <th scope="col">조회수</th>
+                                <tr class="table-success text-center">
+                                    <th>번호</th>
+                                    <th class="text-start w-40">제목</th>
+                                    <th>작성자</th>
+                                    <th>작성일</th>
+                                    <th>조회수</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">Active</th>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
+                                <tr class="text-center">
+                                    <th>Active</th>
+                                    <td class="text-start">테스트제목</td>
+                                    <td>테스트작성자</td>
+                                    <td>YYYY-MM-DD</td>
+                                    <td>1</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Default</th>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
+                                <tr class="text-center">
+                                    <th>Active</th>
+                                    <td class="text-start">테스트제목</td>
+                                    <td>테스트작성자</td>
+                                    <td>YYYY-MM-DD</td>
+                                    <td>1</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Default</th>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
+                                <tr class="text-center">
+                                    <th>Active</th>
+                                    <td class="text-start">테스트제목</td>
+                                    <td>테스트작성자</td>
+                                    <td>YYYY-MM-DD</td>
+                                    <td>1</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Default</th>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
+                                <tr class="text-center">
+                                    <th>Active</th>
+                                    <td class="text-start">테스트제목</td>
+                                    <td>테스트작성자</td>
+                                    <td>YYYY-MM-DD</td>
+                                    <td>1</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Default</th>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
+                                <tr class="text-center">
+                                    <th>Active</th>
+                                    <td class="text-start">테스트제목</td>
+                                    <td>테스트작성자</td>
+                                    <td>YYYY-MM-DD</td>
+                                    <td>1</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Default</th>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
+                                <tr class="text-center">
+                                    <th>Active</th>
+                                    <td class="text-start">테스트제목</td>
+                                    <td>테스트작성자</td>
+                                    <td>YYYY-MM-DD</td>
+                                    <td>1</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Default</th>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
+                                <tr class="text-center">
+                                    <th>Active</th>
+                                    <td class="text-start">테스트제목</td>
+                                    <td>테스트작성자</td>
+                                    <td>YYYY-MM-DD</td>
+                                    <td>1</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Default</th>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
+                                <tr class="text-center">
+                                    <th>Active</th>
+                                    <td class="text-start">테스트제목</td>
+                                    <td>테스트작성자</td>
+                                    <td>YYYY-MM-DD</td>
+                                    <td>1</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Default</th>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
+                                <tr class="text-center">
+                                    <th>Active</th>
+                                    <td class="text-start">테스트제목</td>
+                                    <td>테스트작성자</td>
+                                    <td>YYYY-MM-DD</td>
+                                    <td>1</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Default</th>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
+                                <tr class="text-center">
+                                    <th>Active</th>
+                                    <td class="text-start">테스트제목</td>
+                                    <td>테스트작성자</td>
+                                    <td>YYYY-MM-DD</td>
+                                    <td>1</td>
                                 </tr>
+
+
                             </tbody>
                         </table>
 
-                        <div>
+                        <!-- 글쓰기 버튼 -->
+                        <div class="row">
+                            <div class="col text-end">
+                                <a href="#" class="btn btn-success">글쓰기</a>
+                            </div>
+                        </div>
+
+                        <!-- 페이지 네이션 -->
+                        <div class="row mt-3">
                             <ul class="pagination pagination-md justify-content-center">
                                 <li class="page-item disabled">
                                     <a class="page-link" href="#">&laquo;</a>
@@ -194,21 +228,25 @@
                             </ul>
                         </div>
 
-                        <div class="row justify-content-center">
-                            <div class="col-8">
-                            <form class="d-flex"> <!-- display:flex -->
-                                <select class="form-control me-sm-2" id="exampleFormControlSelect1">
-                                    <option value="">선택</option>
-                                    <option>아이디</option>
-                                    <option>닉네임</option>
-                                    <option>제목</option>
-                                </select>
+                        <!-- 키워드 검색창 -->
 
-                                <input class="form-control me-sm-2" type="search" placeholder="Search">
-                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                            </form>
+                        <form>
+                            <div class="row mt-2 mb-5 me-0">
+                                <div class="col-2 offset-2">
+                                    <select name="type" class="form-control">
+                                        <option value="borad_title">제목</option>
+                                        <option value="board_write">작성자</option>
+                                    </select>
+                                </div>
+                                    <div class="col-6 d-flex">
+                                        <input type="search" name="keyword" placeholder="검색어를 입력하세요" class="form-control me-sm-2">
+                                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
                             </div>
-                        </div>
+                        </form>
+
 
                     </div> <!-- footer.jsp -->
                 </div>
