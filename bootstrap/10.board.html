@@ -10,6 +10,16 @@
     <!-- <link href="test.css" rel="stylesheet"> -->
 </head>
 
+<style>
+    .form-control:focus {
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: #d5f0e6;
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem #d5f0e6;
+}
+</style>
+
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -27,7 +37,7 @@
                         <div class="collapse navbar-collapse" id="navbarColor03"> <!-- 위 타겟이랑 연결 -->
                             <ul class="navbar-nav me-auto"> <!-- 실제 메뉴 -->
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#">Home <!-- active는 활성화 메뉴(기본 선택되어 있는) --> 
+                                    <a class="nav-link active" href="#">Home <!-- active는 활성화 메뉴(기본 선택되어 있는) -->
                                         <span class="visually-hidden">(current)</span>
                                     </a>
                                 </li>
@@ -55,7 +65,7 @@
                             <form class="d-flex"> <!-- display:flex -->
                                 <input class="form-control me-sm-2" type="search" placeholder="Search">
                                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                            </form>             
+                            </form>
                         </div>
                     </div>
                 </nav>
@@ -72,146 +82,134 @@
 
                         <table class="table table-hover">
                             <thead>
-                              <tr class="table-success">
-                                <th scope="col">번호</th>
-                                <th scope="col">제목</th>
-                                <th scope="col">작성자</th>
-                                <th scope="col">조회수</th>
-                              </tr>
+                                <tr class="table-success">
+                                    <th scope="col">번호</th>
+                                    <th scope="col">제목</th>
+                                    <th scope="col">작성자</th>
+                                    <th scope="col">조회수</th>
+                                </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <th scope="row">Active</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Default</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Default</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Default</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Default</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Default</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Default</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Default</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Default</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Default</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                              </tr>
+                                <tr>
+                                    <th scope="row">Active</th>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Default</th>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Default</th>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Default</th>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Default</th>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Default</th>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Default</th>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Default</th>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Default</th>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Default</th>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                    <td>Column content</td>
+                                </tr>
                             </tbody>
-                          </table>
+                        </table>
 
-                          <div>
+                        <div>
                             <ul class="pagination pagination-md justify-content-center">
-                              <li class="page-item disabled">
-                                <a class="page-link" href="#">&laquo;</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="#">1</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="#">4</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="#">5</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="#">6</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="#">7</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="#">8</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="#">9</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="#">10</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="#">&raquo;</a>
-                              </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">&laquo;</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">4</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">5</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">6</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">7</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">8</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">9</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">10</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&raquo;</a>
+                                </li>
                             </ul>
-                          </div>
-                        
-                          <form id="search-form">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="row no-gutters">
-                                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>Location</option>
-                                                <option>London</option>
-                                                <option>Boston</option>
-                                                <option>Mumbai</option>
-                                                <option>New York</option>
-                                                <option>Toronto</option>
-                                                <option>Paris</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-8 col-md-6 col-sm-12 p-0">
-                                            <input type="text" placeholder="Search..." class="form-control" id="search" name="search">
-                                        </div>
-                                        <div class="col-lg-1 col-md-3 col-sm-12 p-0">
-                                            <button type="submit" class="btn btn-base">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-8">
+                            <form class="d-flex"> <!-- display:flex -->
+                                <select class="form-control me-sm-2" id="exampleFormControlSelect1">
+                                    <option value="">선택</option>
+                                    <option>아이디</option>
+                                    <option>닉네임</option>
+                                    <option>제목</option>
+                                </select>
+
+                                <input class="form-control me-sm-2" type="search" placeholder="Search">
+                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                            </form>
                             </div>
-                        </form>
-                        
+                        </div>
+
                     </div> <!-- footer.jsp -->
                 </div>
 
@@ -220,30 +218,35 @@
                 <div class="row">
                     <div class="col-6">
                         <h7>
-                        <span class="badge bg-success">DORI</span>
-                        &copy; dori-house Inst
-                         </h7>
+                            <span class="badge bg-success">DORI</span>
+                            &copy; dori-house Inst
+                        </h7>
                     </div>
                     <div class="col-2">
                         <div class="list-group">
                             <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Blog</a>
-                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">About</a>
+                            <a href="#"
+                                class="list-group-item list-group-item-action border-0 p-0 text-center">About</a>
                             <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Shop</a>
-                          </div>
+                        </div>
                     </div>
                     <div class="col-2">
                         <div class="list-group">
                             <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">API</a>
-                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Training</a>
-                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Status</a>
-                          </div>
+                            <a href="#"
+                                class="list-group-item list-group-item-action border-0 p-0 text-center">Training</a>
+                            <a href="#"
+                                class="list-group-item list-group-item-action border-0 p-0 text-center">Status</a>
+                        </div>
                     </div>
                     <div class="col-2">
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Terms</a>
-                            <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Privacy</a>
+                            <a href="#"
+                                class="list-group-item list-group-item-action border-0 p-0 text-center">Terms</a>
+                            <a href="#"
+                                class="list-group-item list-group-item-action border-0 p-0 text-center">Privacy</a>
                             <a href="#" class="list-group-item list-group-item-action border-0 p-0 text-center">Docs</a>
-                          </div>
+                        </div>
                     </div>
                 </div>
 
