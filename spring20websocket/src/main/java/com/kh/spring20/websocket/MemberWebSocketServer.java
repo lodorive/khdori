@@ -50,8 +50,11 @@ public class MemberWebSocketServer extends TextWebSocketHandler{
 			return;
 		}
 		
+		//메세지에 송신자의 ID를 추가하여 전송
+		TextMessage tm = new TextMessage("["+memberId+"] " + message.getPayload()); 
+		
 		for(WebSocketSession client : clients) {
-			client.sendMessage(message);
+			client.sendMessage(tm);
 		}
 	}
 }
