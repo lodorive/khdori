@@ -17,7 +17,12 @@ public class WebSocketViewController {
 	}
 	
 	@RequestMapping("/time")
-	public String timeServer() {
+	public String time() {
 		return "time";
+	}
+	
+	@RequestMapping("/group")
+	public String group() {
+		return "group";
 	}
 }
