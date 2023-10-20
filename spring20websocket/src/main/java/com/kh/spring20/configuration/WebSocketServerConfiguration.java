@@ -9,6 +9,7 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 
 import com.kh.spring20.websocket.DefaultWebSocketServer;
 import com.kh.spring20.websocket.GroupWebSocketServer;
+import com.kh.spring20.websocket.JsonWebSocketServer;
 import com.kh.spring20.websocket.MemberWebSocketServer;
 import com.kh.spring20.websocket.TimeWebSocketServer;
 
@@ -29,16 +30,20 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer{
 	@Autowired
 	private MemberWebSocketServer memberWebSocketServer;
 	
+	@Autowired
+	private JsonWebSocketServer jsonWebSocketServer;
+	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		//등록할 때는 주소와 도구를 연결해야 한다(필요하다면 추가 옵션 설정)
 		//(주의) 절대로 화면의 주소와 겹치면 안된다
-		registry.addHandler(defaultWebSocketServer, "/ws/default");
-		registry.addHandler(timeWebSocketServer, "/ws/time");
-		registry.addHandler(groupWebSocketServer, "/ws/group");
+		registry.addHandler(defaultWebSocketServer, "/ws/default")
+					.addHandler(timeWebSocketServer, "/ws/time")
+						.addHandler(groupWebSocketServer, "/ws/group");
 		
 		//아래와 같이 등록하면 HttpSession 정보를 WebSocketSession으로 옮겨준다
 		registry.addHandler(memberWebSocketServer, "/ws/member")
-		.addInterceptors(new HttpSessionHandshakeInterceptor());
+					.addHandler(jsonWebSocketServer, "/ws/json")
+						.addInterceptors(new HttpSessionHandshakeInterceptor());
 	}
 }
