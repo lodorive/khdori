@@ -5,6 +5,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
@@ -30,5 +31,15 @@ public class GroupWebSocketServer extends TextWebSocketHandler{
 		//사용자를 저장소에서 제거하는 코드
 		clients.remove(session);
 		log.debug("사용자 접속 종료! 현재 {}명", clients.size());
+	}
+	
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		//사용자가 보낸 메세지를 처리하는 메소드
+		//- 접속한 모든 사용자에게 메세지를 전달(브로드캐스트, broadcast)
+		
+		for(WebSocketSession clients : clients) {
+			clients.sendMessage(message);;
+		}
 	}
 }
