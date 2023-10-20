@@ -5,9 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
 import com.kh.spring20.websocket.DefaultWebSocketServer;
 import com.kh.spring20.websocket.GroupWebSocketServer;
+import com.kh.spring20.websocket.MemberWebSocketServer;
 import com.kh.spring20.websocket.TimeWebSocketServer;
 
 //이 클래스는 생성한 웹소켓 서버를 어떤 주소에 할당하도록 설정하는 역할을 한다
@@ -24,6 +26,9 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer{
 	@Autowired
 	private GroupWebSocketServer groupWebSocketServer;
 	
+	@Autowired
+	private MemberWebSocketServer memberWebSocketServer;
+	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		//등록할 때는 주소와 도구를 연결해야 한다(필요하다면 추가 옵션 설정)
@@ -31,5 +36,9 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer{
 		registry.addHandler(defaultWebSocketServer, "/ws/default");
 		registry.addHandler(timeWebSocketServer, "/ws/time");
 		registry.addHandler(groupWebSocketServer, "/ws/group");
+		
+		//아래와 같이 등록하면 HttpSession 정보를 WebSocketSession으로 옮겨준다
+		registry.addHandler(memberWebSocketServer, "/ws/member")
+		.addInterceptors(new HttpSessionHandshakeInterceptor());
 	}
 }
