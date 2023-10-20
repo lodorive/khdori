@@ -57,4 +57,9 @@ public class WebSocketViewController {
 		session.removeAttribute("level");
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/member")
+	public String member() {
+		return "member";
+	}
 }
