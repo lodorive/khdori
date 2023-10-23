@@ -121,6 +121,14 @@ public class SockJsWebSocketServer extends TextWebSocketHandler{
 			tm = new TextMessage(messageJson);
 			
 			client.send(tm); //작성자에게 메세지 전송
+			
+			//DB insert (DM일 경우 내용, 발신자, 발신자 등급, 수신자를 저장)
+			chatDao.insert(ChatDto.builder()
+					.chatContent((String) params.get("content"))
+					.chatSender(client.getMemberId()) //발신자
+					.chatSenderLevel(client.getMemberLevel())
+					.chatReceiver((String) params.get("target")) //수신자
+					.build());
 		}
 		
 		else{ //전체 채팅일 경우
@@ -141,7 +149,6 @@ public class SockJsWebSocketServer extends TextWebSocketHandler{
 			}
 			
 			//DB insert (전체 메세지일 경우 내용, 발신자, 발신자 등급까지만 저장)
-			
 			chatDao.insert(ChatDto.builder()
 					.chatContent((String) params.get("content"))
 					.chatSender(client.getMemberId())
