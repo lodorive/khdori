@@ -15,6 +15,35 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.2/zephyr/bootstrap.min.css" rel="stylesheet">
     <link href="test.css" rel="stylesheet">
+ 
+ <style>
+ 	.btn-userlist{
+ 		display:none;
+ 	}
+ 
+ 	@media screen and (max-width:768px){
+ 		.client-list{
+ 			position:fixed;
+ 			top:0;
+ 			left:-250px;
+ 			bottom:0;
+ 			width:250px;
+ 			z-index:9999999;
+ 			padding-top:93px;
+ 			transition:left 0.2s ease-out;
+ 		}
+ 		.client-list.active{
+ 			left:0;
+ 		}
+ 		.btn-userlist{
+ 			display:block;
+ 			position:fixed;
+ 			top:1em;
+ 			right:1em;
+ 		}
+ 	}
+ </style>   
+    
 </head>
 
 	
@@ -26,13 +55,17 @@
 				
 				<div class="row mt-4">
 					<div class="col">
-						<h1>전체 채팅</h1>
+						<h1>전체 채팅
+						<button class="btn btn-secondary btn-userlist">
+						<i class="fa-solid fa-users"></i>
+						</button>
+						</h1>
 					</div>
 				</div>
 				
 				<div class="row mt-4">
-					<div class="col-4 client-list"></div>
-					<div class="col-8">
+					<div class="col-md-4 client-list"></div>
+					<div class="col-md-8">
 						
 						<div class="row">
 							<div class="col">
@@ -83,7 +116,7 @@
 						.addClass("list-group-item d-flex justify-content-between align-items-center")
 						.text(data.clients[i].memberId)
 						.append(
-							$("<span>").addClass("badge bg-success badge-pill")
+							$("<span>").addClass("badge rounded-pill bg-success")
 											.text(data.clients[i].memberLevel)		
 						)
 						.appendTo(ul);
@@ -93,7 +126,7 @@
 		else if(data.content){ //메세지 처리
 			var memberId = $("<strong>").text(data.memberId);
 			var memberLevel = $("<span>").text(data.memberLevel)
-														.addClass("badge bg-success badge-pill ms-2");
+														.addClass("badge rounded-pill bg-success ms-2");
 			var content = $("<div>").text(data.content);
 			
 			$("<div>").addClass("alert alert-dismissible alert-success p-2 mt-2")
@@ -111,6 +144,11 @@
 		
 		window.socket.send(text);
 		$(".message-input").val("");
+	});
+	
+	//.btn-userlist를 누르면 사용자 목록에 active를 붙였다 떼었다 하도록 처리
+	$(".btn-userlist").click(function(){
+		$(".client-list").toggleClass("active");
 	});
 	</script>
 </body>
