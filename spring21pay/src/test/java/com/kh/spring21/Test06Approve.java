@@ -47,6 +47,6 @@ public class Test06Approve {
 		HttpEntity entity = new HttpEntity(body, headers);
 		
 		Map response = template.postForObject(uri, entity, Map.class);
-		log.debug("response = {}");
+		log.debug("response = {}", response);
 	}
 }
