@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.kh.spring21.configuration.KakaoPayProperties;
 import com.kh.spring21.vo.KakaoPayReadyRequestVO;
@@ -43,9 +44,13 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 		body.add("quantity", "1"); //무조건 1, 수량은 DB에서 관리할거임
 		body.add("total_amount", String.valueOf(request.getItemPrice())); //결제금액 개발자용은 100만원이 최대 
 		body.add("tax_free_amount", "0"); //면세
-		body.add("approval_url", "http://localhost:8080/pay/success");
-		body.add("cancel_url", "http://localhost:8080/pay/cancel");
-		body.add("fail_url", "http://localhost:8080/pay/fail");
+		
+		//현재 페이지 주소 계산
+		String path = ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString();
+				
+		body.add("approval_url", path+"/success");
+		body.add("cancel_url", path+"/cancel");
+		body.add("fail_url", path+"/fail");
 		
 		//요청 발송
 		HttpEntity entity = new HttpEntity<>(body, headers); //바디+헤더
