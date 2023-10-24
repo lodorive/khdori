@@ -40,13 +40,11 @@ public class Test03Ready {
 		RestTemplate template = new RestTemplate();
 		
 		//(+ 추가) SNAKE_CASE를 CAMEL_CASE로 처리하도록 추가 도구를 절
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
-		
-		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		converter.setObjectMapper(mapper);
-		
-		template.getMessageConverters().add(0, converter); 
+//		ObjectMapper mapper = new ObjectMapper();
+//		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);	
+//		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+//		converter.setObjectMapper(mapper);		
+//		template.getMessageConverters().add(0, converter); 
 		
 		//주소 설정
 		URI uri = new URI("https://kapi.kakao.com/v1/payment/ready");
