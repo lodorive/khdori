@@ -30,6 +30,6 @@ public class Test05Ready {
 				.build();
 		
 		KakaoPayReadyResponseVO response = kakaoPayService.ready(request);
-		log.debug("response = {}", response);
+//		log.debug("response = {}", response);		
 	}
 }
