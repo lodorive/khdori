@@ -17,13 +17,17 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
 @Slf4j
-public class Test01Ready {
+public class Test02Ready {
 
 	@Test
 	public void test() throws URISyntaxException {
-		//웹 서버에서 PG사(제3의 서버)로 요청을 보내기 위하여 다음 둘 중 하나가 필요
-		//[1] RestTemplate
-		//[2] WebClient
+		//변하는 정보와 중요한 정보들을 분리하여 모듈로 개발
+		
+		//결제시마다 변하는 정보 - 상품명, 상품가격, 주문번호, 구매자ID
+		String partnerOrderId = UUID.randomUUID().toString();
+		String partnerUserId = "testuser1";		
+		String itemName = "아이맥";
+		int itemPrice = 999990;
 		
 		//전송 도구 생성
 		RestTemplate template = new RestTemplate();
@@ -39,13 +43,13 @@ public class Test01Ready {
 		//바디 설정
 		//같은 이름도 처리 가능함 이런 값을 처리하기 위한 Map
 		MultiValueMap<String, String> body = new LinkedMultiValueMap<>(); 
-		body.add("cid", "TC0ONETIME");
-		body.add("partner_order_id", UUID.randomUUID().toString()); //시리얼 번호가 랜덤으로 나옴(자바 클래스)
-		body.add("partner_user_id", "testuser1");
-		body.add("item_name", "아이스 카페라떼 T"); //2개 이상시 외 ?개
+		body.add("cid", "TC0ONETIME"); //가맹점번호
+		body.add("partner_order_id", partnerOrderId); //시리얼 번호가 랜덤으로 나옴(자바 클래스)
+		body.add("partner_user_id", partnerUserId); //구매자 아이디
+		body.add("item_name", itemName); //구매자 상품명 2개 이상시 외 ?개
 		body.add("quantity", "1"); //무조건 1, 수량은 DB에서 관리할거임
-		body.add("total_amount", "4000"); //개발자용은 100만원이 최대 
-		body.add("tax_free_amount", "0");
+		body.add("total_amount", String.valueOf(itemPrice)); //결제금액 개발자용은 100만원이 최대 
+		body.add("tax_free_amount", "0"); //면세
 		body.add("approval_url", "http://localhost:8080/pay/success");
 		body.add("cancel_url", "http://localhost:8080/pay/cancel");
 		body.add("fail_url", "http://localhost:8080/pay/fail");
