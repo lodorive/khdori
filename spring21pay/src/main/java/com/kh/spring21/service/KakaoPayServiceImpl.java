@@ -94,6 +94,7 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 		return response;
 	};
 	
+	//주문 조회
 	@Override
 	public KakaoPayDetailResponseVO detail(KakaoPayDetailRequestVO request) throws URISyntaxException {
 		//조회 주소
