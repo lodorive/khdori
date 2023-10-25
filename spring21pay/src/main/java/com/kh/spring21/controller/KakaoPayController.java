@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.spring21.dao.PaymentDao;
 import com.kh.spring21.dao.ProductDao;
+import com.kh.spring21.dto.PaymentDto;
 import com.kh.spring21.dto.ProductDto;
 import com.kh.spring21.service.KakaoPayService;
 import com.kh.spring21.vo.KakaoPayApproveRequestVO;
@@ -32,6 +34,9 @@ public class KakaoPayController {
 	
 	@Autowired
 	private KakaoPayService kakaoPayService;
+	
+	@Autowired
+	private PaymentDao paymentDao;
 
 	@GetMapping("/test1")
 	public String test1() {
@@ -128,10 +133,11 @@ public class KakaoPayController {
 						
 		//세션은 아무거나 넣는거 가능
 		session.setAttribute("approve", KakaoPayApproveRequestVO.builder()
-		.partnerOrderId(request.getPartnerOrderId())
-		.partnerUserId(request.getPartnerUserId())
-		.tid(response.getTid())
-		.build()); 
+				.partnerOrderId(request.getPartnerOrderId())
+				.partnerUserId(request.getPartnerUserId())
+				.tid(response.getTid())
+			.build()); 
+		session.setAttribute("productNo", productNo);
 		
 		//결제페이지를 사용자에게 안내
 		return "redirect:"+response.getNextRedirectPcUrl();
@@ -143,12 +149,27 @@ public class KakaoPayController {
 		//session에 저장되어 있는 flash value를 꺼내에 pg_token을 추가할 뒤 승인 요청
 		KakaoPayApproveRequestVO request = 
 				(KakaoPayApproveRequestVO) session.getAttribute("approve"); //p.o.id, p.u.id, tid 가져옴
+		
+		int productNo = (int) session.getAttribute("productNo");
 		session.removeAttribute("approve"); //사용 했으니 지워라 
+		session.removeAttribute("productNo");
 		
 		request.setPgToken(pg_token); //토큰 추가
 		
 		//결제 승인 요청
 		KakaoPayApproveResponseVO response = kakaoPayService.approve(request);
+		
+		//결제 승인이 완료되었다면 DB에 결제 정보를 저장
+		int paymentNo = paymentDao.sequence();
+		paymentDao.insert(PaymentDto.builder()
+					.paymentNo(paymentNo)
+					.paymentMember(response.getPartnerUserId())
+					.paymentProduct(productNo)
+					.paymentTid(response.getTid())
+					.paymentName(response.getItemName())
+					.paymentPrice(response.getAmount().getTotal())
+				.build());
+		
 		return "redirect:successResult";
 	}
 	
