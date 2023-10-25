@@ -1,6 +1,7 @@
 package com.kh.spring21.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -23,5 +24,5 @@ public class KakaoPayDetailResponseVO {
 	private int quantity; //수량
 	private Date createdAt, approvedAt, canceledAt; //결제준비요청시각/승인시각/취소시각
 	private KakaoPaySelectedCardInfoVO selectedCardInfo; //결제카드정보
-	private KakaoPaymentActionDetailsVO paymentActionDetails; //결제or취소 상세
+	private List<KakaoPaymentActionDetailVO> paymentActionDetails; //결제or취소 상세
 }

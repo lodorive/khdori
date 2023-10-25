@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonIgnoreProperties(ignoreUnknown = true) //모르는 항목은 무시하도록 지정
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class KakaoPaymentActionDetailsVO {
+public class KakaoPaymentActionDetailVO {
 	
 	private String aid, approvedAt; //고유번호/거래시간
 	private int amount, pointAmount, discountAmount, greenDeposit; //결제or취소금액/결제or취소포인트/할인금액/컵보증금
