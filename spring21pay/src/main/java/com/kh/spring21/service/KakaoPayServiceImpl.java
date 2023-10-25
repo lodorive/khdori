@@ -16,6 +16,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.kh.spring21.configuration.KakaoPayProperties;
 import com.kh.spring21.vo.KakaoPayApproveRequestVO;
 import com.kh.spring21.vo.KakaoPayApproveResponseVO;
+import com.kh.spring21.vo.KakaoPayCancleRequestVO;
+import com.kh.spring21.vo.KakaoPayCancleResponseVO;
 import com.kh.spring21.vo.KakaoPayDetailRequestVO;
 import com.kh.spring21.vo.KakaoPayDetailResponseVO;
 import com.kh.spring21.vo.KakaoPayReadyRequestVO;
@@ -110,6 +112,27 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 		
 		KakaoPayDetailResponseVO response = 
 				template.postForObject(uri, entity, KakaoPayDetailResponseVO.class);
+		return response;
+	}
+	
+	@Override
+	public KakaoPayCancleResponseVO cancle(KakaoPayCancleRequestVO request) throws URISyntaxException {
+		//조회 주소
+		URI uri = new URI("https://kapi.kakao.com/v1/payment/cancel");
+		
+		//바디
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+		body.add("cid", kakaoPayProperties.getCid());
+		body.add("tid", request.getTid());
+		body.add("cancel_amount", String.valueOf(request.getCancelAmount()));
+		body.add("cancel_tax_free_amount", "0");
+		
+		//요청
+		HttpEntity entity = new HttpEntity(body, headers);
+		
+		KakaoPayCancleResponseVO response = 
+				template.postForObject(uri, entity, KakaoPayCancleResponseVO.class);
+		
 		return response;
 	}
 }

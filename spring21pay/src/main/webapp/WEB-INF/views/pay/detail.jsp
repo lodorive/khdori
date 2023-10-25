@@ -3,7 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
  
- <h1>결제 상세 내역</h1>
+ <h1>결제 상세 내역
+ <c:if test="${vo.status != 'CANCEL_PAYMENT'}">
+ <a href="cancel?tid=${vo.tid}&cancelAmount=${vo.cancelAvailableAmount.total}">취소</a>
+ </c:if>
+ </h1>
  
  <ul>
  	<li>거래번호 : ${vo.tid}</li>
@@ -70,6 +74,7 @@
  	<li>${paymentActionDetailVO}</li>
  	<li>고유번호 : ${paymentActionDetailVO.aid}</li>
  	<li>거래시간 : ${paymentActionDetailVO.approvedAt}</li>
+ 	<li>취소금액 : ${paymentActionDetailVO.amount}원</li>
  </c:forEach>
 </ul>
  
