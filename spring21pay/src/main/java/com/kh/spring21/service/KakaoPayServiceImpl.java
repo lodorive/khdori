@@ -18,6 +18,10 @@ import com.kh.spring21.vo.KakaoPayApproveResponseVO;
 import com.kh.spring21.vo.KakaoPayReadyRequestVO;
 import com.kh.spring21.vo.KakaoPayReadyResponseVO;
 
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class KakaoPayServiceImpl implements KakaoPayService{
 
@@ -81,6 +85,8 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 		
 		KakaoPayApproveResponseVO response = 
 				template.postForObject(uri, entity, KakaoPayApproveResponseVO.class);
+		
+		log.debug("결제 승인 완료 = {}", response.getTid());
 		
 		return response;
 	};
