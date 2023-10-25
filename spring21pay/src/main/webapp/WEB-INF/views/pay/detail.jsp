@@ -47,4 +47,29 @@
  	<li>실상품가 : 
  	<fmt:formatNumber value="${vo.amount.total - vo.amount.vat}" pattern="#,##0"/>
  	원</li>
+ 	
+ 	<c:if test="${vo.selectedCardInfo != null}">
+ 	<li>
+ 	카드정보
+ 		<ul>
+ 			<li>카드번호 : ${vo.selectedCardInfo.cardBin}</li>
+ 			<li>할부개월수 : ${vo.selectedCardInfo.installMonth}</li>
+ 			<li>카드사명 : ${vo.selectedCardInfo.cardCorpName}</li>
+ 			<li>무이자할부 : ${vo.selectedCardInfo.interestFreeInstall}</li>
+ 		</ul>
+ 	</li>
+ 	</c:if>
  </ul>
+ 
+ <hr>
+ 
+ <h1>결제 진행내역</h1>
+ 
+ <ul> 
+ <c:forEach var="paymentActionDetailVO" items="${vo.paymentActionDetails}">
+ 	<li>${paymentActionDetailVO}</li>
+ 	<li>고유번호 : ${paymentActionDetailVO.aid}</li>
+ 	<li>거래시간 : ${paymentActionDetailVO.approvedAt}</li>
+ </c:forEach>
+</ul>
+ 
