@@ -30,6 +30,7 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 	@Autowired
 	private HttpHeaders headers;
 	
+	//준비 요청
 	@Override
 	public KakaoPayReadyResponseVO ready(KakaoPayReadyRequestVO request) throws URISyntaxException {
 		
@@ -63,8 +64,24 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 		return response;
 	}
 	
+	//승인 요청
 	public KakaoPayApproveResponseVO approve(KakaoPayApproveRequestVO request) throws URISyntaxException {
-		return null;
-	
+		//주소
+		URI uri = new URI("https://kapi.kakao.com/v1/payment/approve");
+		
+		//바디
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+		body.add("cid",kakaoPayProperties.getCid()); //가맹점 번호
+		body.add("tid", request.getTid()); //거래번호
+		body.add("partner_order_id", request.getPartnerOrderId()); //가맹점 주문번호
+		body.add("partner_user_id", request.getPartnerUserId()); //가맹점 회원id
+		body.add("pg_token", request.getPgToken()); //결제승인 요청을 인증하는 토큰
+		
+		HttpEntity entity = new HttpEntity(body, headers);
+		
+		KakaoPayApproveResponseVO response = 
+				template.postForObject(uri, entity, KakaoPayApproveResponseVO.class);
+		
+		return response;
 	};
 }
