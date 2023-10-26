@@ -293,4 +293,49 @@ public class KakaoPayController {
 	public String test3SuccessResult() {
 		return "pay3/successResult";
 	}
+	
+	@RequestMapping("/test3/list")
+	public String test3list(Model model) {
+		model.addAttribute("list", paymentDao.selectList());
+		return "pay3/list";
+	}
+	
+	@RequestMapping("/test3/list2")
+	public String test3list2(Model model) {
+		model.addAttribute("list", paymentDao.selectTotalList());
+		return "pay3/list2";
+	}
+	
+	//[1] 결제 상세 번호로 PaymentDetailDto( 상세 정보 객체)를 조회
+	//[2] 1번에서 조회한 PaymentDetailDto의 정보로 PaymentDto를 조회
+	//[3] 1번에서 취소금액을 알 수 있고, 2번에서 거래번호를(tid)를 알 수 있다
+	//[4] 3번의 정보로 카카오페이 취소 요청을 보낸다
+	//[5] DB의 정보를 업데이트
+	// - 현재 항목에 대한 상태를 취소로 변경해야 한다(payment_detail)
+	// - 결제 대표 정보의 잔여 금액을 차감해야 한다(payment)
+	@RequestMapping("/test/cancel")
+	public String test3cancel(@RequestParam int paymentDetailNo) throws URISyntaxException {
+		
+		PaymentDetailDto paymentDetailDto = paymentDao.selectDetail(paymentDetailNo); //[1]번
+		PaymentDto paymentDto = 
+				paymentDao.selectOne(paymentDetailDto.getPaymentDetailOrigin()); //[2]번
+		//[3]번
+		KakaoPayCancleRequestVO request = KakaoPayCancleRequestVO.builder()
+					.tid(paymentDto.getPaymentTid())
+					.cancelAmount(paymentDetailDto.getPaymentDetailProductPrice() //상품 판매가 
+							* paymentDetailDto.getPaymentDetailProductQty()) // 구매 수량
+				.build();
+		
+		//[4]번
+		KakaoPayCancleResponseVO response = kakaoPayService.cancle(request);
+		
+		//[5]번
+		paymentDao.cancelDetail(paymentDetailNo);
+		paymentDao.cancel(PaymentDto.builder()
+					.paymentNo(paymentDto.getPaymentNo()) //결제 대표 번호
+					.paymentRemain(response.getCancelAvailableAmount().getTotal()) //잔여금액
+				.build());
+		
+		return "redirect:list2";
+	}
 }
