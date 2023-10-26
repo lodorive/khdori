@@ -21,7 +21,7 @@
 $(function(){
 	//버튼 누르면 폼을 만들어서 체크된 항목의 "상품번호"와 "구매수량"을 입력창으로 만들어 추가
 	$(".purchase-btn").click(function(){
-		var form = $("<form>").attr("action", "test3/purchase").attr("method", "post");
+		var form = $("<form>").attr("action", "test3/purchase").attr("method", "get");
 		
 		var count = 0;
 		

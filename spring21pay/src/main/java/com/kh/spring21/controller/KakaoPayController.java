@@ -1,6 +1,8 @@
 package com.kh.spring21.controller;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.spring21.dao.PaymentDao;
 import com.kh.spring21.dao.ProductDao;
+import com.kh.spring21.dto.PaymentDetailDto;
 import com.kh.spring21.dto.PaymentDto;
 import com.kh.spring21.dto.ProductDto;
 import com.kh.spring21.service.KakaoPayService;
@@ -27,7 +30,9 @@ import com.kh.spring21.vo.KakaoPayDetailRequestVO;
 import com.kh.spring21.vo.KakaoPayDetailResponseVO;
 import com.kh.spring21.vo.KakaoPayReadyRequestVO;
 import com.kh.spring21.vo.KakaoPayReadyResponseVO;
+import com.kh.spring21.vo.PurchaseConfirmVO;
 import com.kh.spring21.vo.PurchaseListVO;
+import com.kh.spring21.vo.PurchaseVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -168,10 +173,10 @@ public class KakaoPayController {
 		paymentDao.insert(PaymentDto.builder()
 					.paymentNo(paymentNo)
 					.paymentMember(response.getPartnerUserId())
-					.paymentProduct(productNo)
 					.paymentTid(response.getTid())
 					.paymentName(response.getItemName())
 					.paymentPrice(response.getAmount().getTotal())
+					.paymentRemain(response.getAmount().getTotal())
 				.build());
 		
 		return "redirect:successResult";
@@ -190,6 +195,31 @@ public class KakaoPayController {
 		return "pay3/home";
 	}
 	
+	//결제 확인 화면
+	@GetMapping("/test3/purchase")
+	public String test3Purchase(@ModelAttribute PurchaseListVO listVO, Model model) {
+		List<PurchaseVO> purchaseList = listVO.getProduct();
+		
+		List<PurchaseConfirmVO> confirmList = new ArrayList<>(); //옮겨 담을 리스트
+		int total = 0;
+		for(PurchaseVO vo : purchaseList) { //사용자가 선택한 번호와 수량의 목록을 반복하며
+			ProductDto productDto = productDao.selectOne(vo.getProductNo()); //상품 정보를 구한다
+			
+			//vo와 dto를 신규객체로 만들어 추가
+			PurchaseConfirmVO confirmVO = PurchaseConfirmVO.builder()
+						.purchaseVO(vo)
+						.productDto(productDto)
+					.build();
+			confirmList.add(confirmVO); //화면에 출력할 데이터 추가
+			total += confirmVO.getTotal(); //총 구매금액 합산
+		}
+		
+		model.addAttribute("list", confirmList);
+		model.addAttribute("total", total);
+		return "pay3/purchase";
+	}
+	
+	//결제 처리 화면
 	@PostMapping("/test3/purchase")
 	public String test3Purchase(HttpSession session, @ModelAttribute PurchaseListVO listVO) throws URISyntaxException {
 		log.debug("listVO = {}", listVO);
@@ -230,7 +260,37 @@ public class KakaoPayController {
 		KakaoPayApproveResponseVO response = kakaoPayService.approve(request); //승인 요청
 		
 		//DB 작업
+		//- 상품을 3개 구매했다면 payment 1회, payment_detail 3회의 insert가 필요(N+1)
+		
+		//[1] 결제번호를 생성
+		int paymentNo = paymentDao.sequence();
+		//[2] 결제정보 등록
+		paymentDao.insert(PaymentDto.builder()
+				 	.paymentNo(paymentNo) //결제 고유번호
+					.paymentMember(response.getPartnerUserId()) // 결제자ID
+					.paymentTid(response.getTid()) //PG사 거래번호
+					.paymentName(response.getItemName()) //PG사 결제상품명
+					.paymentPrice(response.getAmount().getTotal()) //총 결제액
+					.paymentRemain(response.getAmount().getTotal()) //총 취소 가능액
+				.build());		
+		//[3] 상품 개수만큼 결제 상세 정보를 등록
+		List<PurchaseVO> list = listVO.getProduct();
+		for(PurchaseVO vo : list) {
+			ProductDto productDto = productDao.selectOne(vo.getProductNo()); //상품정보 조회
+			paymentDao.insertDetail(PaymentDetailDto.builder()
+						.paymentDetailOrigin(paymentNo) //상위 결제 번호
+						.paymentDetailProduct(vo.getProductNo()) //상품 번호
+						.paymentDetailProductName(productDto.getProductName()) //상품명
+						.paymentDetailProductPrice(productDto.getProductPrice()) //상품 가격
+						.paymentDetailProductQty(vo.getQty()) //수량
+					.build());
+		}
 		
 		return "redirect:successResult";
+	}
+	
+	@RequestMapping("/test3/purchase/successResult")
+	public String test3SuccessResult() {
+		return "pay3/successResult";
 	}
 }
