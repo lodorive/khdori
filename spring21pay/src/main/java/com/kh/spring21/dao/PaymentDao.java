@@ -15,6 +15,8 @@ public interface PaymentDao {
 	void insertDetail(PaymentDetailDto paymentDetailDto);
 	
 	List<PaymentListVO> selectTotalList();
+	List<PaymentListVO> selectTotalListByMember(String paymentMember);
+	
 	PaymentDetailDto selectDetail(int paymentDetailNo);
 	void cancelDetail(int paymentDetailNo);
 	void cancel(PaymentDto paymentDto);

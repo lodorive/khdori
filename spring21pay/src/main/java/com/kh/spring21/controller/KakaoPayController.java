@@ -307,8 +307,11 @@ public class KakaoPayController {
 	}
 	
 	@RequestMapping("/test3/list2")
-	public String test3list2(Model model) {
-		model.addAttribute("list", paymentDao.selectTotalList());
+	public String test3list2(HttpSession session, Model model) {
+		String memberId = (String) session.getAttribute("name");
+		
+//		model.addAttribute("list", paymentDao.selectTotalList()); //전체내역
+		model.addAttribute("list", paymentDao.selectTotalListByMember(memberId)); //나의내역
 		return "pay3/list2";
 	}
 	

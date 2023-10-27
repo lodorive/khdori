@@ -52,4 +52,4 @@ $(function(){
 		form.submit();//form 전송해라!
 	});
 });
-</script>s
+</script>

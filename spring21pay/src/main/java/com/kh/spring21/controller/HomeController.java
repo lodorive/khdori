@@ -16,7 +16,7 @@ public class HomeController {
 	@RequestMapping("/login")
 	public String login(HttpSession session, @RequestParam String memberId, 
 			@RequestParam String memberPw) {
-		if(memberId.equals("testuser1") && memberPw.equals("Testuser1!")) {
+		if(memberId.equals("testuser100") && memberPw.equals("Testuser100!")) {
 			session.setAttribute("name", memberId);
 			session.setAttribute("level", "VIP");
 		}

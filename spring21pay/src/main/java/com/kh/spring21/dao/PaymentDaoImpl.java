@@ -65,4 +65,9 @@ public class PaymentDaoImpl implements PaymentDao{
 	public void cancelDetailGroup(int paymentDetailOrigin) {
 		sqlSession.update("payment.cancelDetailGroup", paymentDetailOrigin);
 	}
+	
+	@Override
+	public List<PaymentListVO> selectTotalListByMember(String paymentMember) {
+		return sqlSession.selectList("payment.listAll", paymentMember);
+	}
 }

@@ -83,7 +83,13 @@
  	 </resultMap>
  	 
  	<select id="listAll" resultMap="paymentListVO">
- 		select * from payment order by payment_no asc
+ 		select * from payment 
+ 		
+ 		<if test="paymentMember != null">
+ 		where payment_member = #{paymentMember}
+ 		</if>
+ 		
+ 		order by payment_no asc
  	</select>
  	
  	 <!-- 결제 상세정보를 조회(결제 대표번호별) -->
