@@ -3,7 +3,6 @@ package com.kh.spring21.service;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -15,12 +14,13 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.kh.spring21.configuration.KakaoPayProperties;
+import com.kh.spring21.dao.PaymentDao;
 import com.kh.spring21.dao.ProductDao;
 import com.kh.spring21.dto.ProductDto;
 import com.kh.spring21.vo.KakaoPayApproveRequestVO;
 import com.kh.spring21.vo.KakaoPayApproveResponseVO;
-import com.kh.spring21.vo.KakaoPayCancleRequestVO;
-import com.kh.spring21.vo.KakaoPayCancleResponseVO;
+import com.kh.spring21.vo.KakaoPayCancelRequestVO;
+import com.kh.spring21.vo.KakaoPayCancelResponseVO;
 import com.kh.spring21.vo.KakaoPayDetailRequestVO;
 import com.kh.spring21.vo.KakaoPayDetailResponseVO;
 import com.kh.spring21.vo.KakaoPayReadyRequestVO;
@@ -45,6 +45,9 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 	
 	@Autowired
 	private ProductDao productDao;
+	
+	@Autowired
+	private PaymentDao paymentDao;
 	
 	//준비 요청
 	@Override
@@ -123,7 +126,7 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 	}
 	
 	@Override
-	public KakaoPayCancleResponseVO cancle(KakaoPayCancleRequestVO request) throws URISyntaxException {
+	public KakaoPayCancelResponseVO cancel(KakaoPayCancelRequestVO request) throws URISyntaxException {
 		//조회 주소
 		URI uri = new URI("https://kapi.kakao.com/v1/payment/cancel");
 		
@@ -137,8 +140,8 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 		//요청
 		HttpEntity entity = new HttpEntity(body, headers);
 		
-		KakaoPayCancleResponseVO response = 
-				template.postForObject(uri, entity, KakaoPayCancleResponseVO.class);
+		KakaoPayCancelResponseVO response = 
+				template.postForObject(uri, entity, KakaoPayCancelResponseVO.class);
 		
 		return response;
 	}
@@ -167,8 +170,12 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 			name += " 외 "+(list.size()-1)+"건"; //총 개수에서 1개를 빼준다
 		}
 		
+		//partner_order_id에 결제번호를 집어넣으면 충돌도 없고 좋지 않을까
+		int paymentNo = paymentDao.sequence();
+		
 		return KakaoPayReadyRequestVO.builder()
-					.partnerOrderId(UUID.randomUUID().toString())
+//					.partnerOrderId(UUID.randomUUID().toString())
+					.partnerOrderId(String.valueOf(paymentNo))
 					.itemName(name)
 					.itemPrice(total)
 				.build();
