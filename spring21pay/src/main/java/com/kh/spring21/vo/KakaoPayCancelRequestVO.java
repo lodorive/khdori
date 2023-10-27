@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
-public class KakaoPayCancleRequestVO {
+public class KakaoPayCancelRequestVO {
 	private String tid; //결제고유번호
 	private int cancelAmount; //취소금액
 }

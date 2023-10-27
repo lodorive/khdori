@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.kh.spring21.service.KakaoPayService;
-import com.kh.spring21.vo.KakaoPayCancleRequestVO;
-import com.kh.spring21.vo.KakaoPayCancleResponseVO;
+import com.kh.spring21.vo.KakaoPayCancelRequestVO;
+import com.kh.spring21.vo.KakaoPayCancelResponseVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,12 +21,12 @@ public class Test08Cancel {
 	
 	@Test
 	public void test() throws URISyntaxException {
-		KakaoPayCancleRequestVO request = KakaoPayCancleRequestVO.builder()
+		KakaoPayCancelRequestVO request = KakaoPayCancelRequestVO.builder()
 				.tid("T538a03b2b8b1abb1019")
 				.cancelAmount(200000)
 			.build();
 		
-		KakaoPayCancleResponseVO response = kakaoPayService.cancle(request);
+		KakaoPayCancelResponseVO response = kakaoPayService.cancel(request);
 		log.debug("response = {}", response);
 	}
 }

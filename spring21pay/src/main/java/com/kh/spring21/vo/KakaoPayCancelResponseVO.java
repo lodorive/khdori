@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonIgnoreProperties(ignoreUnknown = true) //모르는 항목은 무시하도록 지정
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class KakaoPayCancleResponseVO {
+public class KakaoPayCancelResponseVO {
 
 	private String aid, tid, cid, status; //고유번호/결제고유/가맹점코드/결제상태
 	private String partnerOrderId, partnerUserId; //주문번호/회원ID
