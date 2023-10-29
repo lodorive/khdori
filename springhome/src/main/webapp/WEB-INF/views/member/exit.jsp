@@ -12,7 +12,7 @@
 </c:if>
 
 	<form action="exit" method="post" autocomplete="off">
-		비밀번호 입력 <input type="password" name="memberPw" required placeholder="비밀번호"><br><br>
+		비밀번호 입력 <input type="password" name="memberPw" placeholder="비밀번호" required><br><br>
 		
 		<button>탈퇴하기</button>
 	</form>

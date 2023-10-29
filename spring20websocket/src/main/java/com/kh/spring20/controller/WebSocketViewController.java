@@ -46,6 +46,7 @@ public class WebSocketViewController {
 			if(pwMatch) {
 				session.setAttribute("name", findDto.getMemberId()); //아이디
 				session.setAttribute("level", findDto.getMemberLevel()); //등급
+				session.setAttribute("nickname", findDto.getMemberNickname()); //닉네임
 			}
 		}
 		return "redirect:/";
@@ -55,6 +56,7 @@ public class WebSocketViewController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("name");
 		session.removeAttribute("level");
+		session.removeAttribute("nickname");
 		return "redirect:/";
 	}
 	
@@ -70,6 +72,7 @@ public class WebSocketViewController {
 	
 	@RequestMapping("/sockjs")
 	public String sockjs() {
-		return "sockjs";
+		return "sockjs2";
 	}
+	
 }
