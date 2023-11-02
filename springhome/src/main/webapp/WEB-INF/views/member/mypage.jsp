@@ -55,11 +55,12 @@ $(function(){
 </script>
 
 
-<div class="container w-500">
+<div class="container-fluid w-500">
 	
 	<div class="row">
 		<h3>${memberDto.memberId} 님의 회원 정보</h3>
 	</div>
+	
 	
 	<div class="row mv-30">
 	<c:choose>
@@ -67,8 +68,10 @@ $(function(){
 		<img src="${pageContext.request.contextPath}/images/user.png" width="150" height="150" 
 		class="image image-circle image-border profile-image">
 		</c:when>
+
 		
 		<c:otherwise>
+
 		<img src="${pageContext.request.contextPath}/rest/member/download?attachNo=${profile}" 
 		width="150" height="150" 
 		class="image image-circle image-border profile-image">

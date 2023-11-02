@@ -86,6 +86,7 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 		}
 	}
 	
+	
 	//접속한 사용자에게 메세지 이력을 전송하는 메소드
 	public void sendMessageList(ClientVO client) throws IOException {
 		List<ChatDto> list = chatDao.list();
@@ -110,6 +111,7 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 				client.send(message);
 				
 			}
+			
 			
 			else {//DM이라면
 				if(client.isMember() == false) 
