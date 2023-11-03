@@ -8,4 +8,6 @@ public interface PocketmonDao {
 	List<PocketmonDto> selectList();
 	void insert(PocketmonDto pocketmonDto);
 	boolean delete(int no);
+	PocketmonDto selectOne(int no);
+	boolean edit(int no, PocketmonDto pocketmonDto);
 }

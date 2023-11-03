@@ -7,9 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,4 +59,26 @@ public class PocketmonRestController {
 			return ResponseEntity.status(404).build();
 		}
 	}
+	
+	//상세조회
+	@GetMapping("/{no}")
+	public ResponseEntity<PocketmonDto> find(@PathVariable int no){
+		PocketmonDto pocketmonDto = pocketmonDao.selectOne(no);
+		if(pocketmonDto != null) { //dto가 null이 아닐 때 
+			return ResponseEntity.ok(pocketmonDto); //pocketmonDto를 반환하고
+			
+		}
+		else { //null이라면
+			return ResponseEntity.notFound().build(); //404가 뜨게 해라
+		}
+	}
+		
+	//수정
+	@PutMapping("/{no}")
+	public ResponseEntity<String> edit(@PathVariable int no, 
+												@RequestBody PocketmonDto pocketmonDto){
+		boolean result = pocketmonDao.edit(no, pocketmonDto);
+		return result ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+	}
+	
 }

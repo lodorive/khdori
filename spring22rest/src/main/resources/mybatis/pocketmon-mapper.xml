@@ -18,4 +18,17 @@
  		delete pocketmon where no = #{no}
  	</delete>
  	
+ 	<select id="find" resultType="pocketmonDto">
+ 		select * from pocketmon where no = #{no}
+ 	</select>
+ 	
+ 	<update id="edit">
+ 		update pocketmon set 
+ 		<if test="dto.no > 0"> <!-- 번호가 있으면  -->
+ 		no=#{dto.no}, <!-- 그 번호로 바꾸고  -->
+ 		</if>
+ 		name=#{dto.name}, type=#{dto.type} <!-- 아니라면 현상태를 유지해라  -->
+ 		where no=#{no}
+ 	</update>
+ 	
  </mapper>
