@@ -18,6 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kh.spring22.dao.PocketmonDao;
 import com.kh.spring22.dto.PocketmonDto;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+//문서용 annotation
+@Tag(name = "포켓몬스터 리액트용 백엔드", description = "피카피카")
 
 @CrossOrigin
 //@CrossOrigin(value = {"http://localhost:3000", "http://localhost:5050"})
@@ -35,14 +47,67 @@ public class PocketmonRestController {
 	@Autowired
 	private PocketmonDao pocketmonDao;
 	
+	//목록 매핑에 대한 설명용 annotation
+	@Operation(
+			description = "포켓몬스터 조회",
+			responses = {
+				@ApiResponse(
+					responseCode = "200",
+					description = "조회 성공",
+					content = {
+						@Content(
+							mediaType = "application/json",//사용자가 받게 되는 형태
+							array = @ArraySchema( //배열 안에 객체가 담겨있는 형태
+								schema = @Schema(implementation = PocketmonDto.class)
+							)
+						)
+					}
+				),
+				@ApiResponse(
+					responseCode = "500",
+					description = "서버 오류",
+					content = @Content( 
+						mediaType = "text/plain",
+						schema = @Schema(implementation = String.class),
+						examples = @ExampleObject("server error")
+				)
+			)
+		}
+	)
+	
 	@GetMapping("/")
 	public List<PocketmonDto> list() {
 		return pocketmonDao.selectList();
 	}
 	
+	//등록 매핑에 대한 설명용 annotation
+	@Operation(
+			description = "포켓몬스터 신규 생성",
+			responses = {
+				@ApiResponse(
+					responseCode = "200",
+					description = "포켓몬스터 생성 완료"
+				),
+				@ApiResponse(
+					responseCode = "400",
+					description = "전송한 파라미터가 서버에서 요구하는 값과 다름"
+				),
+				@ApiResponse(
+					responseCode = "500",
+					description = "서버 오류 발생"
+				)
+			}
+	)
+	
 	@PostMapping("/")
 //	public void insert(@ModelAttribute PocketmonDto pocketmonDto) { form-data 수신용
-	public void insert(@RequestBody PocketmonDto pocketmonDto) { //request body 직접 해석
+	public void insert(
+			@Parameter(
+					description = "생성할 몬스터 이름/타입 객체",
+					required = true,
+					schema = @Schema(implementation = PocketmonDto.class)
+				) //설명용 annotation
+			@RequestBody PocketmonDto pocketmonDto) { //request body 직접 해석(ex : JSON)
 		pocketmonDao.insert(pocketmonDto);
 	}
 	
@@ -73,7 +138,7 @@ public class PocketmonRestController {
 			return ResponseEntity.notFound().build(); //404가 뜨게 해라
 		}
 	}
-		
+	
 	//전체수정
 	@PutMapping("/{no}")
 	public ResponseEntity<String> edit(@PathVariable int no, 
