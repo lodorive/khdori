@@ -6,4 +6,6 @@ import com.kh.spring22.dto.PocketmonDto;
 
 public interface PocketmonDao {	
 	List<PocketmonDto> selectList();
+	void insert(PocketmonDto pocketmonDto);
+	boolean delete(int no);
 }

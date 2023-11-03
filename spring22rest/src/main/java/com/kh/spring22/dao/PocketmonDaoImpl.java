@@ -18,5 +18,14 @@ public class PocketmonDaoImpl implements PocketmonDao{
 	public List<PocketmonDto> selectList() {
 		return sqlSession.selectList("pocketmon.list");
 	}
+	
+	@Override
+	public void insert(PocketmonDto pocketmonDto) {
+		sqlSession.insert("pocketmon.save", pocketmonDto);
+	}
 
+	@Override
+	public boolean delete(int no) {
+		return sqlSession.delete("pocketmon.remove", no) > 0;
+	}
 }

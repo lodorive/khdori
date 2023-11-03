@@ -10,4 +10,12 @@
 		select * from pocketmon order by no asc
 	</select>
  	
+ 	<insert id="save">
+ 		insert into pocketmon(no, name, type) values(pocketmon_seq.nextval, #{name}, #{type})
+ 	</insert>
+ 	
+ 	<delete id="remove">
+ 		delete pocketmon where no = #{no}
+ 	</delete>
+ 	
  </mapper>
