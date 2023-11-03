@@ -43,4 +43,12 @@ public class PocketmonDaoImpl implements PocketmonDao{
 		params.put("dto", pocketmonDto);
 		return sqlSession.update("pocketmon.edit", params) > 0;
 	}
+	
+	@Override
+	public boolean editUnit(int no, PocketmonDto pocketmonDto) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("no", no);
+		params.put("dto", pocketmonDto);
+		return sqlSession.update("pocketmon.editUnit", params) > 0;
+	}
 }

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -73,11 +74,23 @@ public class PocketmonRestController {
 		}
 	}
 		
-	//수정
+	//전체수정
 	@PutMapping("/{no}")
 	public ResponseEntity<String> edit(@PathVariable int no, 
 												@RequestBody PocketmonDto pocketmonDto){
 		boolean result = pocketmonDao.edit(no, pocketmonDto);
+		return result ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+	}
+	
+	//개별수정
+	@PatchMapping("/{no}")
+	public ResponseEntity<String> editUnit(@PathVariable int no, 
+												@RequestBody PocketmonDto pocketmonDto){
+		if(pocketmonDto.isEmpty()) { 
+			return ResponseEntity.badRequest().build();
+		}
+		
+		boolean result = pocketmonDao.editUnit(no, pocketmonDto);
 		return result ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
 	}
 	
