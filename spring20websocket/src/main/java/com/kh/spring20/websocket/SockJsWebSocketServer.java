@@ -1,6 +1,7 @@
 package com.kh.spring20.websocket;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +86,7 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 		}
 	}
 	
+	
 	//접속한 사용자에게 메세지 이력을 전송하는 메소드
 	public void sendMessageList(ClientVO client) throws IOException {
 		List<ChatDto> list = chatDao.list();
@@ -95,14 +97,22 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 			//- 시간은 FE 미구현으로 첨부하지 않음
 			
 			if(dto.getChatReceiver() == null) {//전체채팅인 경우 - chatReceiver가 null인 경우
+				LocalDateTime chatTime = LocalDateTime.now(); // 현재 날짜와 시간 가져오기
+				
 				Map<String, Object> map = new HashMap<>();
 				map.put("content", dto.getChatContent());
 				map.put("memberId", dto.getChatSender());
 				map.put("memberLevel", dto.getChatSenderLevel());
+				map.put("chatTime", chatTime.toString()); // LocalDateTime을 문자열로 변환하여 추가
+				map.put("memberNickname", dto.getChatSenderNickname());
+
 				String messageJson = mapper.writeValueAsString(map);
 				TextMessage message = new TextMessage(messageJson);
 				client.send(message);
+				
 			}
+			
+			
 			else {//DM이라면
 				if(client.isMember() == false) 
 					continue;//비회원 컷트
@@ -112,10 +122,15 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 				
 				//접속한 사람이 보낸 메세지라면 5개의 데이터를 전송(dm, memberId, memberLevel, content, target)
 				if(client.getMemberId().equals(dto.getChatSender())) {
+					LocalDateTime chatTime = LocalDateTime.now(); // 현재 날짜와 시간 가져오기
+					
 					Map<String, Object> map = new HashMap<>();
 					map.put("content", dto.getChatContent());
 					map.put("memberId", dto.getChatSender());
 					map.put("memberLevel", dto.getChatSenderLevel());
+					map.put("chatTime", chatTime.toString()); // LocalDateTime을 문자열로 변환하여 추가
+					map.put("memberNickname", dto.getChatSenderNickname());
+					
 					map.put("dm", true);
 					map.put("target", dto.getChatReceiver());
 					String messageJson = mapper.writeValueAsString(map);
@@ -123,16 +138,22 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 					client.send(message);
 				}
 				else {//접속한 사람이 받은 메세지라면 4개의 데이터를 전송
+					LocalDateTime chatTime = LocalDateTime.now(); // 현재 날짜와 시간 가져오기
+					
 					Map<String, Object> map = new HashMap<>();
 					map.put("content", dto.getChatContent());
 					map.put("memberId", dto.getChatSender());
 					map.put("memberLevel", dto.getChatSenderLevel());
+					map.put("chatTime", chatTime.toString()); // LocalDateTime을 문자열로 변환하여 추가
+					map.put("memberNickname", dto.getChatSenderNickname());
+					
 					map.put("dm", true);
 					String messageJson = mapper.writeValueAsString(map);
 					TextMessage message = new TextMessage(messageJson);
 					client.send(message);
 				}
 			}
+			
 				
 		}
 	}
@@ -151,12 +172,18 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 		//DM일 경우와 아닐 경우를 구분하여 처리
 		boolean isDM = params.get("target") != null;
 		if(isDM) {//DM일 경우
+			
+			LocalDateTime chatTime = LocalDateTime.now(); // 현재 날짜와 시간 가져오기
+			
 			//정보를 Map에 담아서 변환 후 전송
 			Map<String, Object> map = new HashMap<>();
 			map.put("dm", true);
 			map.put("memberId", client.getMemberId());
 			map.put("memberLevel", client.getMemberLevel());
 			map.put("content", params.get("content"));
+			map.put("chatTime", chatTime.toString()); // LocalDateTime을 문자열로 변환하여 추가
+			map.put("memberNickname", client.getMemberNickname());
+			
 			
 			//시간 추가 등
 			String messageJson = mapper.writeValueAsString(map);
@@ -180,16 +207,20 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 						.chatContent((String)params.get("content"))
 						.chatSender(client.getMemberId())
 						.chatSenderLevel(client.getMemberLevel())
+						.chatSenderNickname(client.getMemberNickname())
 						.chatReceiver((String)params.get("target"))
 					.build());
 		}
 		else {//전체 채팅일 경우
+			LocalDateTime chatTime = LocalDateTime.now(); // 현재 날짜와 시간 가져오기
+			
 			//정보를 Map에 담아서 변환 후 전송
 			Map<String, Object> map = new HashMap<>();
 			map.put("memberId", client.getMemberId());
 			map.put("memberLevel", client.getMemberLevel());
 			map.put("content", params.get("content"));
-			//시간 추가 등
+			map.put("chatTime", chatTime.toString()); // LocalDateTime을 문자열로 변환하여 추가
+			map.put("memberNickname", client.getMemberNickname());
 			
 			String messageJson = mapper.writeValueAsString(map);
 			TextMessage tm = new TextMessage(messageJson);
@@ -204,10 +235,10 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 						.chatContent((String)params.get("content"))
 						.chatSender(client.getMemberId())
 						.chatSenderLevel(client.getMemberLevel())
+						.chatSenderNickname(client.getMemberNickname())
 					.build());
 		}
-		
-		
+				
 	}
 	
 }

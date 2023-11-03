@@ -7,4 +7,5 @@ import com.kh.spring20.dto.ChatDto;
 public interface ChatDao {
 	void insert(ChatDto dto);
 	List<ChatDto> list();
-}
+
+	}

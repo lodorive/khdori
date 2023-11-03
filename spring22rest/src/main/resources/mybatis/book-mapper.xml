@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+ <mapper namespace="pocketmon">
+
+	<select id="list" resultType="pocketmonDto">
+		select * from pocketmon order by no asc
+	</select>
+ 	
+ 	<insert id="save">
+ 		insert into pocketmon(no, name, type) values(pocketmon_seq.nextval, #{name}, #{type})
+ 	</insert>
+ 	
+ 	<delete id="remove">
+ 		delete pocketmon where no = #{no}
+ 	</delete>
+ 	
+ 	<select id="find" resultType="pocketmonDto">
+ 		select * from pocketmon where no = #{no}
+ 	</select>
+ 	
+ 	<update id="edit">
+ 		update pocketmon set 
+ 		<if test="dto.no > 0"> <!-- 번호가 있으면  -->
+ 		no=#{dto.no}, <!-- 그 번호로 바꾸고  -->
+ 		</if>
+ 		name=#{dto.name}, type=#{dto.type} <!-- 아니라면 현상태를 유지해라  -->
+ 		where no=#{no}
+ 	</update>
+ 	
+ 	<update id="editUnit">
+ 		update pocketmon
+ 		<set> <!-- where랑 똑같음 ↓ 넘어온 정보들-->
+ 			<if test="dto.no > 0">no=#{dto.no},</if>
+ 			<if test="dto.name != null">name=#{dto.name},</if>
+ 			<if test="dto.type != null">type=#{dto.type},</if>
+ 		</set> 
+ 		where no=#{no} <!-- 원래 정보 -->
+ 	</update>
+ </mapper>

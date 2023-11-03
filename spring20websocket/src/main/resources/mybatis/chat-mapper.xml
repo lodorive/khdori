@@ -12,12 +12,14 @@
 		chat_content, 
 		chat_sender, 
 		chat_sender_level, 
+		chat_sender_nickname,
 		chat_receiver)		
 		values(
 		chat_seq.nextval, 
 		#{chatContent}, 
 		#{chatSender}, 
 		#{chatSenderLevel}, 
+		#{chatSenderNickname},
 		#{chatReceiver}
 		)
 	</insert>
@@ -26,4 +28,6 @@
 		select * from chat order by chat_no asc
 	</select>
 
+	
+	
 </mapper>

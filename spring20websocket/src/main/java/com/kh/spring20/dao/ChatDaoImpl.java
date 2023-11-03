@@ -23,4 +23,5 @@ public class ChatDaoImpl implements ChatDao{
 	public List<ChatDto> list() {
 		return sqlSession.selectList("chat.list");
 	}
+	
 }
