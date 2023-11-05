@@ -214,7 +214,7 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 		Integer clubNo = client.getClubNo();
 		
 		 if (clubNo != null) {
-		        Set<ClientVO> clubMembers = clubMembersMap.get(clubNo);
+		        Set<ClientVO> clubMembers = clubMembersMap.get(clubNo); // 클럽 번호에 해당하는 동호회 멤버 명단 가져오기
 
 		        if (clubMembers != null) {
 		            // (+추가) 사용자는 메세지를 JSON 형태로 보내므로 이를 해석해야 한다(ObjectMapper)
