@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="chat">
+	
+	<insert id="add">
+	insert into chat (
+	chat_no, club_no, chat_room_no, chat_sender, chat_receiver,
+	 chat_sender_nickname, chat_sender_level, chat_content
+	 )
+	  values (
+	  chat_seq.nextval, #{clubNo}, #{chatRoomNo}, #{chatSender}, 
+	  #{chatReceiver}, #{chatSenderNickname}, #{chatSenderLevel}, #{chatContent}
+	  )
+	</insert>
+	
+	<select id="allList" resultType="chatDto">
+		select * from chat order by chat_no asc
+	</select>
+	
+	<select id="list" resultType="chatDto">
+		SELECT
+		c.chat_no,
+		cl.club_no,
+		cr.chat_room_no,
+		cl.club_name,
+		cl.club_orner,
+		m1.member_id,
+		m1.member_nickname,
+		m1.member_level,
+		m1.member_id AS sender,
+		m2.member_id AS receiver,
+		c.chat_content,
+		c.chat_time AS chat_time
+		FROM chat c
+		INNER JOIN club cl ON c.club_no = cl.club_no
+		INNER JOIN chat_room cr ON c.chat_room_no = cr.chat_room_no
+		INNER JOIN member m1 ON c.chat_sender = m1.member_id
+		INNER JOIN member m2 ON c.chat_receiver = m2.member_id
+		WHERE m1.member_id = #{chatSender}
+	</select>
+	
+</mapper>
