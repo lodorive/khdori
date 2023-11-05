@@ -10,13 +10,11 @@
 		insert into chat_room(
 		chat_room_no,
 		club_no,
-		chat_room_name,
-		member_id
+		chat_room_name
 		) values(
 		chat_room_seq.nextval,
 		#{clunNo},
 		#{chatRoomName}
-		#{memberId}
 		)
 	</insert>
 	

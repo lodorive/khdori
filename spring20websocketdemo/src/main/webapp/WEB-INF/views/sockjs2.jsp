@@ -192,8 +192,9 @@
 	<script>
 	
 	//연결 생성
-	window.socket = new SockJS("${pageContext.request.contextPath}/ws/sockjs"); //http로 시작하는 주소
 	//연결 후 해야할 일들을 콜백함수로 지정(onopen, onclose, onerror, onmessage)
+	
+	window.socket = new SockJS("${pageContext.request.contextPath}/ws/chat"); //http로 시작하는 주소
 	
 		window.socket.onmessage = function(e){
 		

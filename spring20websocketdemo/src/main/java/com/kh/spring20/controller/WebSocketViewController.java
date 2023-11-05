@@ -1,25 +1,32 @@
 package com.kh.spring20.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.spring20.dao.ChatRoomDao;
 import com.kh.spring20.dto.ChatRoomDto;
 import com.kh.spring20.dto.ClubDto;
 import com.kh.spring20.dto.MemberDto;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class WebSocketViewController {
 	
 	@RequestMapping("/")
@@ -105,10 +112,15 @@ public class WebSocketViewController {
 		return "sockjs2";
 	}
 	
-	@GetMapping("/sockjs/clubNo={clubNo}")
-	public String getSockJSPage(@PathVariable int clubNo, Model model, HttpSession session) {
-	   
-
-	       return "sockjs2"; // 클럽 멤버용 페이지로 이동
+	@Autowired
+	private ChatRoomDao chatRoomDao;
+	
+	@RequestMapping("/list")
+	public String roomList(Model model) {
+		List<ChatRoomDto> list = chatRoomDao.list();
+		model.addAttribute("list", list);
+		return "chatRoom";
 	}
+
+
 }
