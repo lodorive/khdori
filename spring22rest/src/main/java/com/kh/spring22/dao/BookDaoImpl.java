@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.spring22.dto.BookDto;
+import com.kh.spring22.error.NoTargetException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +26,9 @@ public class BookDaoImpl implements BookDao{
 	
 	@Override
 	public BookDto selectOne(int bookId) {
-		return sqlSession.selectOne("book.findByBookId", bookId);
+		BookDto bookDto = sqlSession.selectOne("book.findByBookId", bookId);
+		if(bookDto == null) throw new NoTargetException();
+		return bookDto;
 	}
 	
 	@Override
@@ -41,12 +44,14 @@ public class BookDaoImpl implements BookDao{
 	@Override
 	public void edit(int bookId, BookDto bookDto) {
 		Map<String, Object> param = Map.of("bookId", bookId, "bookDto", bookDto);
-		sqlSession.update("book.change", param);
+		int result = sqlSession.update("book.change", param);
+		if(result == 0) throw new NoTargetException();
 	}
 	
 	@Override
-	public boolean delete(int bookId) {
-		return sqlSession.delete("book.remove", bookId) > 0;
+	public void delete(int bookId) {
+		int result = sqlSession.delete("book.deleteByBookId", bookId);
+		if(result == 0) throw new NoTargetException();
 	}
 	
 }

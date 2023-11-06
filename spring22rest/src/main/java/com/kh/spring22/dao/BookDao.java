@@ -10,5 +10,5 @@ public interface BookDao{
 	List<BookDto> searchList(String bookTitle);
 	void insert(BookDto bookDto);
 	void edit(int bookId, BookDto bookDto);
-	boolean delete(int bookId);
+	void delete(int bookId);
 }

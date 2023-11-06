@@ -3,7 +3,6 @@ package com.kh.spring22.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,24 +29,17 @@ public class BookRestController {
 	private BookDao bookDao;
 	
 	@GetMapping("/")
-	public List<BookDto> list() {
+	public List<BookDto> list(){
 		return bookDao.selectList();
 	}
 	
 	@GetMapping("/bookId/{bookId}")
-	public ResponseEntity<BookDto> find(@PathVariable int bookId){
-		BookDto bookDto = bookDao.selectOne(bookId);
-		if(bookDto != null) { //dto가 null이 아닐 때 
-			return ResponseEntity.ok(bookDto); //bookDto를 반환하고
-			
-		}
-		else { //null이라면
-			return ResponseEntity.notFound().build(); //404가 뜨게 해라
-		}
+	public BookDto find(@PathVariable int bookId) {
+		return bookDao.selectOne(bookId);
 	}
 	
 	@GetMapping("/bookTitle/{bookTitle}")
-	public List<BookDto> search(@PathVariable String bookTitle){
+	public List<BookDto> search(@PathVariable String bookTitle) {
 		return bookDao.searchList(bookTitle);
 	}
 	
@@ -58,25 +50,16 @@ public class BookRestController {
 	
 	@PutMapping("/{bookId}")
 	public void update(@RequestBody BookDto bookDto, @PathVariable int bookId) {
-		//bookDto에 모든 항목이 있는지 검사해야 함
+		//bookDto에 모든 항목이 있는지 검사해야함
 		bookDao.edit(bookId, bookDto);
 	}
-	
 	@PatchMapping("/{bookId}")
 	public void update2(@RequestBody BookDto bookDto, @PathVariable int bookId) {
 		//bookDto에 항목이 하나라도 있는지 검사해야함
 		bookDao.edit(bookId, bookDto);
 	}
-	
 	@DeleteMapping("/{bookId}")
-	public ResponseEntity<String> delete(@PathVariable int bookId){
-		boolean result = bookDao.delete(bookId);
-		if(result) {
-			return ResponseEntity.status(200).build();
-		}
-		else {
-			return ResponseEntity.status(404).build();
-		}
+	public void delete(@PathVariable int bookId) {
+		bookDao.delete(bookId);
 	}
-	
 }
