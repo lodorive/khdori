@@ -6,7 +6,7 @@
     
  <mapper namespace="pocketmon">
 
-	<select id="list" resultType="pocketmonDto">
+	<select id="list" resultType="PocketmonDto">
 		select * from pocketmon order by no asc
 	</select>
  	
@@ -18,7 +18,7 @@
  		delete pocketmon where no = #{no}
  	</delete>
  	
- 	<select id="find" resultType="pocketmonDto">
+ 	<select id="find" resultType="PocketmonDto">
  		select * from pocketmon where no = #{no}
  	</select>
  	

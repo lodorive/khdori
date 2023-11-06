@@ -7,8 +7,17 @@
  <mapper namespace="book">
 
 	<!-- 조회 -->
-	<select id="list" resultType="bookDto">
+	<select id="findAll" resultType="BookDto">
 		select * from book order by book_id asc
+	</select>
+	
+	<select id="findByBookId" resultType="BookDto">
+		select * from book where book_id = #{bookId}
+	</select>
+	
+	<select id="findByBookTitle" resultType="BookDto">
+	<!-- select * from book where book_title like = #{bookTitle} || '%' -->
+	select * from book where instr(book_title, #{bookTitle}) > 0		
 	</select>
 	
 	<insert id="save">
@@ -33,11 +42,40 @@
 	)
 	</insert>
 	
-	<delete id="remove">
+	<delete id="deleteByBookId">
  		delete book where book_id = #{bookId}
  	</delete>
-
-	<select id="find" resultType="bookDto">
-		select * from book where book_id = #{bookId}
-	</select>
+ 	
+ 	<!-- (참고) JAP에서는 등록과 수정 명령이 같다 - 둘다 save 
+ 			- 변경 시 변경할 PK와 변경할 정보(DTO)가 전달
+ 			- PK는 bookId, DTO는 bookDTo
+ 	-->
+	<update id="change">
+		update book
+		<set>
+			<if test="bookDto.bookTitle != null">
+				book_title = #{bookDto.bookTitle}
+			</if>
+			<if test="bookDto.bookAuthor != null">
+				book_author = #{bookDto.bookAuthor}
+			</if>
+			<if test="bookDto.bookPublicationDate != null">
+				book_publication_date = #{bookDto.bookPublicationDate}
+			</if>
+			<if test="bookDto.bookPrice > 0">
+				book_price = #{bookDto.bookPrice}
+			</if>
+			<if test="bookDto.bookPublisher != null">
+				book_title = #{bookDto.bookPublisher}
+			</if>
+			<if test="bookDto.bookPageCount > 0">
+				book_page_count = #{bookDto.bookPageCount}
+			</if>
+			<if test="bookDto.bookGenre != null">
+				book_genre = #{bookDto.bookGenre}
+			</if>
+		</set>
+		where book_id = #{bookId}
+	</update> 	
+ 	
  </mapper>
