@@ -54,28 +54,37 @@
 		update book
 		<set>
 			<if test="bookDto.bookTitle != null">
-				book_title = #{bookDto.bookTitle}
+				book_title = #{bookDto.bookTitle},
 			</if>
 			<if test="bookDto.bookAuthor != null">
-				book_author = #{bookDto.bookAuthor}
+				book_author = #{bookDto.bookAuthor},
 			</if>
 			<if test="bookDto.bookPublicationDate != null">
-				book_publication_date = #{bookDto.bookPublicationDate}
+				book_publication_date = #{bookDto.bookPublicationDate},
 			</if>
 			<if test="bookDto.bookPrice > 0">
-				book_price = #{bookDto.bookPrice}
+				book_price = #{bookDto.bookPrice},
 			</if>
 			<if test="bookDto.bookPublisher != null">
-				book_title = #{bookDto.bookPublisher}
+				book_publisher = #{bookDto.bookPublisher},
 			</if>
 			<if test="bookDto.bookPageCount > 0">
-				book_page_count = #{bookDto.bookPageCount}
+				book_page_count = #{bookDto.bookPageCount},
 			</if>
 			<if test="bookDto.bookGenre != null">
-				book_genre = #{bookDto.bookGenre}
+				book_genre = #{bookDto.bookGenre},
 			</if>
 		</set>
 		where book_id = #{bookId}
-	</update> 	
+	</update> 
+	
+	<!-- 페이징 목록 -->
+	<select id="selectListByPage" resultType="BookDto">
+		select * from (
+			select rownum rn, TMP.* from (
+				select * from book order by book_id asc
+			)TMP
+		) where rn between #{begin} and #{end}
+	</select>
  	
  </mapper>

@@ -11,4 +11,5 @@ public interface BookDao{
 	void insert(BookDto bookDto);
 	void edit(int bookId, BookDto bookDto);
 	void delete(int bookId);
+	List<BookDto> selectListByPage(int page, int size);
 }

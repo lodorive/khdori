@@ -62,4 +62,10 @@ public class BookRestController {
 	public void delete(@PathVariable int bookId) {
 		bookDao.delete(bookId);
 	}
+	
+	//프론트엔드에서 페이지번호, 데이터개수를 보낼 경우의 조회 매핑
+	@GetMapping("/page/{page}/size/{size}")
+	public List<BookDto> listByPage(@PathVariable int page, @PathVariable int size){
+		return bookDao.selectListByPage(page, size);
+	}
 }

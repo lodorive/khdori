@@ -54,4 +54,11 @@ public class BookDaoImpl implements BookDao{
 		if(result == 0) throw new NoTargetException();
 	}
 	
+	@Override
+	public List<BookDto> selectListByPage(int page, int size) {
+		int end = page * size;
+		int begin = end - (size-1);
+		Map params = Map.of("begin", begin, "end", end);
+		return sqlSession.selectList("book.selectListByPage", params);
+	}
 }
