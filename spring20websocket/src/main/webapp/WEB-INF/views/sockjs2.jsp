@@ -196,7 +196,7 @@
 	//연결 후 해야할 일들을 콜백함수로 지정(onopen, onclose, onerror, onmessage)
 		window.socket.onmessage = function(e){
 		var data = JSON.parse(e.data);
-		console.log(data);
+		console.log("memberId"data.memberId);
 		
 		var chatTimeAsString = data.chatTime; // JSON에서 문자열로 가져온 chatTime
 		var chatTime = new Date(chatTimeAsString); // 문자열을 Date 객체로 변환
@@ -268,7 +268,7 @@
 		else if(data.content){ //메세지 처리   
 			
 			var memberId = "${sessionScope.name}";
-			var memberNickname = data.memberNickname;
+			var memberNickname = roomMembers.memberNickname;
 					
 			   var content = $("<div>").text(data.content);
 				var memberLevel = $("<span>").text(data.memberLevel).addClass("badge rounded-pill ms-2");

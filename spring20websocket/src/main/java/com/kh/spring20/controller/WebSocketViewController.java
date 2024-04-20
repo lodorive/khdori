@@ -72,7 +72,7 @@ public class WebSocketViewController {
 	
 	@RequestMapping("/sockjs")
 	public String sockjs() {
-		return "sockjs2";
+		return "sockjs";
 	}
 	
 }
