@@ -39,20 +39,20 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		ClientVO client = new ClientVO(session);
+	    ClientVO client = new ClientVO(session);
 		clients.add(client);
 		
 		if(client.isMember()) {
-			members.add(client);
+			members.remove(client);
 		}
 		
-		log.debug("사용자 접속! 현재 {}명", clients.size());
-		log.debug("접속한 사용자 = {}", client);
+		log.debug("사용자 종료! 현재 {}명", clients.size());
 		
 		//모든 접속자에게 접속자 명단을 전송
 		sendClientList();
-		sendMessageList(client);
+
 	}
+
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
