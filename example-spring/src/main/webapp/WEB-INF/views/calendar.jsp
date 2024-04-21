@@ -64,6 +64,7 @@
         <option>개월</option>
         <option>년</option>
         </select>
+        <div class="eventSelect"></div>
         <br>
         <button id="addEventBtn">일정 추가</button>
     </div>
@@ -101,6 +102,7 @@
 	            },
 	            </c:forEach>
 	        ],
+	        
 	        customButtons: {
 	            addEventButton: {
 	                text: '일정 추가',
@@ -122,169 +124,258 @@
 	                        }
 	                    };
 
-	                    var selectedWeekdays = []; // 선택된 요일을 담을 배열 
-	           
+	                   //선택된 요일 담을 배열
+	                   var selectedWeekdays = [];
 	                   
-	                    var eventRootSelect = document.getElementById('eventRoot');
-	                    eventRootSelect.addEventListener('change', function() {
-	                        var selectedOption = eventRootSelect.value;
-	                        console.log(selectedOption);
-	                        
-	                        if (selectedOption === '주') {
-	                            // 주 옵션을 선택한 경우의 처리
-	                            var additionalContent = 
-	                            	'<br>'+'<br>'+
-	                                                     '<label for="monday">월</label>' +
-	                                                     '<input type="checkbox" id="monday" name="weekday" value="monday">' +
-	                                                     '<label for="tuesday">화</label>' +
-	                                                     '<input type="checkbox" id="tuesday" name="weekday" value="tuesday">' +
-	                                                     '<label for="wednesday">수</label>' +
-	                                                     '<input type="checkbox" id="wednesday" name="weekday" value="wednesday">' +
-	                                                     '<label for="thursday">목</label>' +
-	                                                     '<input type="checkbox" id="thursday" name="weekday" value="thursday">' +
-	                                                     '<label for="friday">금</label>' +
-	                                                     '<input type="checkbox" id="friday" name="weekday" value="friday">' +
-	                                                     '<label for="saturday">토</label>' +
-	                                                     '<input type="checkbox" id="saturday" name="weekday" value="saturday">' +
-	                                                     '<label for="sunday">일</label>' +
-	                                                     '<input type="checkbox" id="sunday" name="weekday" value="sunday">' +
-	                                                     '<br>'+
-	                                                     '<label for="eventEndDate">일정 종료 날짜:</label>' +
-	                                                     '<input type="date" id="eventEndDate" name="eventEndDate" required><br>' +
-	                                                     '<br>';
-	                            modalContent.insertAdjacentHTML('beforeend', additionalContent);
-	                        }
-	                        
-	                        else if(selectedOption === '개월'){
+	                   var eventRootSelect = document.getElementById('eventRoot');
+
+	                   eventRootSelect.addEventListener('change', function() {
+	                       var selectedOption = eventRootSelect.value;
+	                       console.log(selectedOption);
+
+	                       var eventSelectDiv = document.querySelector('.eventSelect');
+	                       
+	                       if (selectedOption === '주') {
+	                           var additionalContent =
+	                               '<br>' + '<br>' +
+	                               '<label for="monday">월</label>' +
+	                               '<input type="checkbox" id="monday" name="weekday" value="monday">' +
+	                               '<label for="tuesday">화</label>' +
+	                               '<input type="checkbox" id="tuesday" name="weekday" value="tuesday">' +
+	                               '<label for="wednesday">수</label>' +
+	                               '<input type="checkbox" id="wednesday" name="weekday" value="wednesday">' +
+	                               '<label for="thursday">목</label>' +
+	                               '<input type="checkbox" id="thursday" name="weekday" value="thursday">' +
+	                               '<label for="friday">금</label>' +
+	                               '<input type="checkbox" id="friday" name="weekday" value="friday">' +
+	                               '<label for="saturday">토</label>' +
+	                               '<input type="checkbox" id="saturday" name="weekday" value="saturday">' +
+	                               '<label for="sunday">일</label>' +
+	                               '<input type="checkbox" id="sunday" name="weekday" value="sunday">' +
+	                               '<br>' +
+	                               '<label for="eventEndDate">일정 종료 날짜:</label>' +
+	                               '<input type="date" id="eventEndDate" name="eventEndDate" required><br>' +
+	                               '<br>';
+	                           eventSelectDiv.innerHTML = additionalContent; // eventSelectDiv에 내용 추가
+	                           
+	                           
+	                       }
+	                       
+	                       else if(selectedOption === '개월'){
 	                        	var eventDate = document.getElementById('eventDate').value;
 	                        	var dayOfMonth = new Date(eventDate).getDate();
 	                        	var monthlyMessage = "매월 " + dayOfMonth +"일";
 	                        	selectedMonthly = eventDate;
 	                        	console.log(selectedMonthly)
- 	                        	//console.log(eventDate)
+	                        	//console.log(eventDate)
 	                        	//console.log(dayOfMonth)
 	                        	//console.log(monthlyMessage) 
-	                        	
+	                    
 	                        
 	                        	var additionalContent = 
 	                        		 '<br>' + '<br>' +
 	                        	        '<label name="monthMsg">' + monthlyMessage + '</label>' +
 	                        	        '<br>'+
-                                        '<label>일정 종료 날짜:</label>' +
-                                        '<input type="date" id="eventEndDate" name="eventEndDate" required><br>' +
-                                        '<br>';
+                                       '<label>일정 종료 날짜:</label>' +
+                                       '<input type="date" id="eventEndDate" name="eventEndDate" required><br>' +
+                                       '<br>';
 	                        	        
-	                        	 modalContent.insertAdjacentHTML('beforeend', additionalContent);
-	                        };
-	                        
+                                       eventSelectDiv.innerHTML = additionalContent; // eventSelectDiv에 내용 추가
+	                       }
+	                       
+	                       else if(selectedOption === '년'){
+	                    	    var eventDate = document.getElementById('eventDate').value;
+	                    	    var dayOfMonth = new Date(eventDate).getDate();
+	                    	    var monthOfYear = new Date(eventDate).getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줌
+	                    	    var yearlyMessage = "매년 " + monthOfYear + "월 " + dayOfMonth + "일";
 
+
+	                    	    var additionalContent = 
+	                    	        '<br>' + '<br>' +
+	                    	        '<label name="yearMsg">' + yearlyMessage + '</label>' +
+	                    	        '<br>' +
+	                    	        '<label>일정 종료 날짜:</label>' +
+	                    	        '<input type="date" id="eventEndDate" name="eventEndDate" required><br>' +
+	                    	        '<br>';
+
+	                    	    eventSelectDiv.innerHTML = additionalContent; // eventSelectDiv에 내용 추가
+	                    	}
+	                   
+	                       //이벤트 리스너
+	                      var weekdays = document.getElementsByName('weekday'); 
+	                       
+	                   		for(var i = 0; i<weekdays.length; i++){
+	                   			weekdays[i].addEventListener('change', function(){
+	                   				if(this.checked){ //요일이 체크가 됐다면
+	                   					selectedWeekdays.push(this.value);	//배열에 추가
+	                   				}
+	                   				else{ //체크 해제 됐으면 배열에서 제거
+	                   					var index = selectedWeekdays.indexOf(this.value);
+	                   					if(index !== -1){
+	                   						selectedWeekdays.splice(index, 1); 
+	                   					}
+	                   				}
+	                   				console.log(selectedWeekdays)
+	                   			});
+	                   		}
+	                       
+	                   
+	                   }); 
+	                    
+		                 // "일정 추가" 버튼 클릭 시 동작
+		                    document.getElementById('addEventBtn').onclick = function() {
+		                        var eventTitle = document.getElementById('eventTitle').value;
+		                        var eventDate = document.getElementById('eventDate').value;
+		                        console.log(eventTitle);
+		                        console.log(eventDate);
+		                        
+		                        var selectedOption = document.getElementById('eventRoot').value;
+		                        console.log(selectedOption);
+
+		                        // 선택된 요일과 종료일자를 이용하여 일정 추가
+		                       // addEvents(eventTitle, eventDate, selectedWeekdays);
+
+							    addEvents(eventTitle, eventDate);
+
+														
+		                    };
+							
+		                    
+		                 // 일정 추가 함수
+		                    function addEvents(eventTitle, eventDate) {
+		                        // 종료일자를 가져옴
+		                        var eventEndDateInput = document.getElementById('eventEndDate');
+		                        var eventEndDate = eventEndDateInput ? eventEndDateInput.value : eventDate; // 종료일자 입력이 없을 경우 시작일과 동일한 날짜로 설정
+
+		                        // 선택된 반복 주기
+		                        var selectedOption = document.getElementById('eventRoot').value;
+		                        console.log(selectedOption)
+
+		                        // 시작일과 종료일을 Date 객체로 변환
+		                        var startDate = new Date(eventDate);
+		                        var endDate = new Date(eventEndDate);
+
+		                        // 입력된 날짜의 요일을 확인
+		                        var inputDate = new Date(eventDate);
+		                        var inputDayOfWeek = inputDate.getDay();
 								
-	                 // 이벤트 리스너 추가
-	                    var weekdays = document.getElementsByName('weekday');
+		                        
+								// 아래 코드 문제점 : 입력날짜에는 무조건 데이터가 들어감(선택한 요일이 아님에도)
+		                        // 반복해서 실행할 함수
+		                          var repeatFunction = function(currentDate) {
+		                            // 입력된 날짜와 현재 처리 중인 날짜가 같지 않다면
+		                            //현재 처리 중인 날짜, 입력된 날짜 
+		                            if (currentDate.toDateString() !== startDate.toDateString()) {
+		                                // 요일에 해당하는 경우에만 일정 추가
+		                                var dayOfWeek = currentDate.getDay();
+		                                var dayOfWeekStr = '';
+		                                if (dayOfWeek === 0) dayOfWeekStr = 'sunday';
+		                                else if (dayOfWeek === 1) dayOfWeekStr = 'monday';
+		                                else if (dayOfWeek === 2) dayOfWeekStr = 'tuesday';
+		                                else if (dayOfWeek === 3) dayOfWeekStr = 'wednesday';
+		                                else if (dayOfWeek === 4) dayOfWeekStr = 'thursday';
+		                                else if (dayOfWeek === 5) dayOfWeekStr = 'friday';
+		                                else if (dayOfWeek === 6) dayOfWeekStr = 'saturday';
 
-	                    for (var i = 0; i < weekdays.length; i++) {
-	                        weekdays[i].addEventListener('change', function() {
-	                            if (this.checked) {
-	                                // 체크된 경우, 배열에 추가
-	                                selectedWeekdays.push(this.value);
-	                            } else {
-	                                // 체크 해제된 경우, 배열에서 제거
-	                                var index = selectedWeekdays.indexOf(this.value);
-	                                if (index !== -1) {
-	                                    selectedWeekdays.splice(index, 1);
-	                                }
-	                            }
-	                            console.log(selectedWeekdays); // 선택된 요일 배열 확인
-	                        });
-	                    }
+		                                // 선택된 요일에 해당하는 경우에만 데이터 추가
+		                                if (selectedWeekdays.includes(dayOfWeekStr)) {
+		                                    addEventData(eventTitle, currentDate);
+		                                }
+		                                
+		                            }
+		                            
+		                             
+/* 		                                // 선택된 요일에 해당하는 경우에만 데이터 추가
+		                                if (selectedWeekdays.includes(dayOfWeekStr) && 
+		                                		!(currentDate.getFullYear() === startDate.getFullYear() &&
+		                                        currentDate.getMonth() === startDate.getMonth() &&
+		                                        currentDate.getDate() === startDate.getDate())) {
 
-	                    }); 
-	                    
-	                 // "일정 추가" 버튼 클릭 시 동작
-	                    document.getElementById('addEventBtn').onclick = function() {
-	                        var eventTitle = document.getElementById('eventTitle').value;
-	                        var eventDate = document.getElementById('eventDate').value;
-	                        console.log(eventTitle);
+		                                        addEventData(eventTitle, currentDate);
+		                                    
+		                                }
+		                                
+ */
+									//선택된 요일에 해당하는 경우에만 데이터 추가
+								/* 	  if (selectedWeekdays.includes(dayOfWeekStr)) {
+									     addEventData(eventTitle, currentDate);
+									 } 
+  */
+								 // 선택된 요일에 해당하는 경우에만 데이터 추가
+								 //이 경우 입력한 날짜, 선택한 날짜에 데이터 하나씩 들어가지만 요일이 달라도 입력날짜에 데이터가 들어감
+/* 								 if (selectedWeekdays.includes(dayOfWeekStr)) {
+								     // 입력된 날짜와 현재 처리 중인 날짜가 같은지 확인하고, 같다면 데이터를 추가하지 않음
+								     if (!(currentDate.getFullYear() === startDate.getFullYear() &&
+								           currentDate.getMonth() === startDate.getMonth() &&
+								           currentDate.getDate() === startDate.getDate())) {
+								         addEventData(eventTitle, currentDate);
+								     }
+								 } */
 
-	                        // 선택된 요일과 종료일자를 이용하여 일정 추가
-	                       // addEvents(eventTitle, eventDate, selectedWeekdays);
-	                        addEvents(eventTitle, eventDate);
-	                    };
-						
-	                    
-	                 // 일정 추가 함수
-	                    function addEvents(eventTitle, eventDate) {
-	                        // 종료일자를 가져옴
-	                        var eventEndDate = document.getElementById('eventEndDate').value;
-	                        console.log(eventEndDate);
+		                             
+		                                // 개월 단위 처리
+		                                if(selectedOption === '개월'){
+				                                var dayOfMonth = startDate.getDate(); // 시작일의 일
+				                                var currentMonth = currentDate.getMonth(); // 현재 날짜의 월
+		
+				                                // 매월 특정 일에 해당하는 경우에만 일정 추가
+				                                if (currentDate.getDate() === dayOfMonth && currentDate.getMonth() === currentMonth) {
+				                                    addEventData(eventTitle, currentDate);		                                
+				                            }
+								}
+		                                
+		                                
+		                             // 년 단위 처리
+		                               if(selectedOption === '년')  {
+		                             var dayOfMonth = startDate.getDate(); // 시작일의 일
+		                                var monthOfYear = new Date(eventDate).getMonth(); // 입력한 날짜의 월
+		                                var currentYear = currentDate.getFullYear(); // 현재 날짜의 연도
 
-	                        // 시작일과 종료일을 Date 객체로 변환
-	                        var startDate = new Date(eventDate);
-	                        var endDate = new Date(eventEndDate);
+		                                // 매년 특정 월과 일에 해당하는 경우에만 일정 추가
+		                                if (currentDate.getDate() === dayOfMonth && currentDate.getMonth() === monthOfYear) {
+		                                    addEventData(eventTitle, currentDate);
+		                                }
+		                 }
 
-	                        // 반복해서 실행할 함수
-	                        var repeatFunction = function(currentDate) {
-	                            // 요일에 해당하는 경우에만 일정 추가
-	                            var dayOfWeek = currentDate.getDay(); 
-	                            var dayOfWeekStr = '';
-	                            if (dayOfWeek === 0) dayOfWeekStr = 'sunday';
-	                            else if (dayOfWeek === 1) dayOfWeekStr = 'monday';
-	                            else if (dayOfWeek === 2) dayOfWeekStr = 'tuesday';
-	                            else if (dayOfWeek === 3) dayOfWeekStr = 'wednesday';
-	                            else if (dayOfWeek === 4) dayOfWeekStr = 'thursday';
-	                            else if (dayOfWeek === 5) dayOfWeekStr = 'friday';
-	                            else if (dayOfWeek === 6) dayOfWeekStr = 'saturday';
-	                            
-	                            // 선택된 요일에 해당하는 경우에만 데이터 추가
-	                            if (selectedWeekdays.includes(dayOfWeekStr)) {
-	                                addEventData(eventTitle, currentDate);
-	                            }
-	                            
-	                            // 개월 단위 처리
-	                            var dayOfMonth = startDate.getDate(); // 시작일의 일
-	                            var currentMonth = currentDate.getMonth(); // 현재 날짜의 월
+		                        };
 
-	                            // 매월 특정 일에 해당하는 경우에만 일정 추가
-	                            if (currentDate.getDate() === dayOfMonth && currentDate.getMonth() === currentMonth) {
-	                                addEventData(eventTitle, currentDate);
-	                            }
-	                        };
+		                        // 시작일부터 종료일까지의 모든 날짜에 대해 처리
+		                        var currentDate = new Date(startDate);
+		                        while (currentDate <= endDate) {
+		                            repeatFunction(currentDate);
+		                            currentDate.setDate(currentDate.getDate() + 1); // 다음 날짜로 이동
+		                        }
+		                    }
 
-	                        // 시작일부터 종료일까지의 모든 날짜에 대해 처리
-	                        var currentDate = new Date(startDate);
-	                        while (currentDate <= endDate) {
-	                            repeatFunction(currentDate);
-	                            currentDate.setDate(currentDate.getDate() + 1); // 다음 날짜로 이동
-	                        }
-	                    }
 
-	                    // 데이터 추가 함수
-	                    function addEventData(eventTitle, currentDate) {
-	                        var url = 'http://localhost:8080/insert';
-	                        var data = {
-	                            id: 'testuser1',
-	                            calendarDate: currentDate.toISOString().slice(0, 10), // ISO 형식의 문자열로 변환하여 전달
-	                            calendarTodo: eventTitle,
-	                        };
+				                 
+		                    // 데이터 추가 함수
+		                    function addEventData(eventTitle, currentDate) {
+		                        var url = 'http://localhost:8080/insert';
+		                        var data = {
+		                            id: 'testuser1',
+		                            calendarDate: currentDate.toISOString().slice(0, 10), // ISO 형식의 문자열로 변환하여 전달
+		                            calendarTodo: eventTitle,
+		                        };
 
-	                        $.ajax({
-	                            url: url,
-	                            method: 'POST',
-	                            data: data,
-	                            success: function(response) {
-	                                console.log('일정 추가 성공');
-	                            },
-	                            error: function(xhr, status, error) {
-	                                console.log('일정 추가 실패');
-	                            },
-	                        });
-	                    }
-	                }
-	            }
-	        }
-	    });
-	    calendar.render();
-	});
+		                        $.ajax({
+		                            url: url,
+		                            method: 'POST',
+		                            data: data,
+		                            success: function(response) {
+		                                console.log('일정 추가 성공');
+		                            },
+		                            error: function(xhr, status, error) {
+		                                console.log('일정 추가 실패');
+		                            },
+		                        });
+		                    }
+		                }
+		            }
+		        }
+		    });
+		    calendar.render();
+		});
  
 </script>
  
